@@ -2,6 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\AdminModel;
+use App\Models\InstrukturModel;
+use App\Models\LeaderModel;
+use App\Models\OperatorModel;
+use App\Models\PesertaModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -65,5 +71,34 @@ class BaseController extends Controller
 		// Get Current Date =============================
 		$dateObj = Time::createFromTimestamp(now());
 		$this->nowDate = $dateObj->toDateString();
+	}
+
+	// Get Id dari Username
+	// Level 0 Peserta, Level 1 Operator, Level 2 Instruktur, Level 3 Leader, Level 99 Admin
+	public function getId($username){
+		$userModel = new UserModel;
+		$idLevel = $userModel->_findById($username)->id_level;
+
+		if($idLevel == 0){
+			$pesertaModel = new PesertaModel;
+			$result = $pesertaModel->_findByUsername($username)[0]->id_peserta;
+			return $result;
+		}else if($idLevel == 1){
+			$operatorModel = new OperatorModel;
+			$result = $operatorModel->_findByUsername($username)[0]->id_operator;
+			return $result;
+		}else if($idLevel == 2){
+			$instrukturModel = new InstrukturModel;
+			$result = $instrukturModel->_findByUsername($username)[0]->id_instruktur;
+			return $result;
+		}else if($idLevel == 3){
+			$leaderModel = new LeaderModel;
+			$result = $leaderModel->_findByUsername($username)[0]->id_leader;
+			return $result;
+		}else if($idLevel == 99){
+			$adminModel = new AdminModel;
+			$result = $adminModel->_findByUsername($username);
+			return $result;
+		}
 	}
 }

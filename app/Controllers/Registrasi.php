@@ -170,52 +170,45 @@ class Registrasi extends BaseController
 			$qrcodePath = FCPATH . 'assets/qrcode/' . $idPeserta . '.png';
 
 			// // Send Email Function =============================
-			// $mail = new PHPMailer(true);
+			$mail = new PHPMailer(true);
 
-			// //Server settings
-			// // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-			// $mail->isSMTP();                                            //Send using SMTP
-			// $mail->Host       = 'ssl://official@jfc-center.id';                     //Set the SMTP server to send through
-			// $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-			// $mail->Username   = 'official@jfc-center.id';                     //SMTP username
-			// $mail->Password   = '9Cahaya9roup';                               //SMTP password
-			// $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-			// $mail->Port       = 465;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+			//Server settings
+			$mail->isSMTP();                                            //Send using SMTP
+			$mail->Host       = 'ssl://mail.jfc-center.id';                     //Set the SMTP server to send through
+			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->Username   = 'official@jfc-center.id';                     //SMTP username
+			$mail->Password   = '9Cahaya9roup';                               //SMTP password
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+			$mail->Port       = 465;                              //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
-			// $mail->ClearAllRecipients();
-			// //Recipients
-			// //Set who the message is to be sent from
-			// // $mail->setFrom('jfcofficial@example.com', 'JFC Official');
+			//Recipients  //Add a recipient
+			$mail->setFrom('official@jfc-center.id', 'JFC Official');
+			$mail->addAddress($email);
 
-			// //Set an alternative reply-to address
-			// // $mail->addReplyTo('jfcofficial@example.com', 'JFC Official');
-			// // $mail->setFrom('mywapblok@gmail.com');
-			// // $mail->addAddress($email);
-
-			// //Attachments
+			//Attachments
 			// $mail->addAttachment($qrcodePath);         //Add attachment
 
-			// //Content
-			// $mail->isHTML(true);                                  //Set email format to HTML
-			// $mail->Subject = 'Email Verification ' . $namaPeserta;
-			// $mail->Body    =
-			// 	'
-			// 	<h2> Hai ' . $namaPeserta . '! <br> </h2>
+			//Content
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->Subject = 'Email Verification ' . $namaPeserta;
+			$mail->Body    =
+				'
+				<h2> Hai ' . $namaPeserta . '! <br> </h2>
 				
-			// 	Buka link di bawah untuk verifikasi email anda <br>
-			// 	<a href="' . base_url() . '/Registrasi/Verification/' . $hash . '">link verifikasi</a>
-			// 	<br> 
-			// 	Simpan QR Code dengan baik. <br>
-			// 	QR Code ini digunakan untuk absensi pada saat workshop. <br>
-			// 	<img src="' . $qrcodePath . '"/>
-			// 	<br>
-			// 	<hr>
-			// 	<h3>Terimakasih, dan selamat bergabung!</h3>
-			// 	';
-			// $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+				Buka link di bawah untuk verifikasi email anda <br>
+				<a href="' . base_url() . '/Registrasi/Verification/' . $hash . '">link verifikasi</a>
+				<br> 
+				Simpan QR Code dengan baik. <br>
+				QR Code ini digunakan untuk absensi pada saat workshop. <br>
+				<img src="' . $qrcodePath . '"/>
+				<br>
+				<hr>
+				<h3>Terimakasih, dan selamat bergabung!</h3>
+				';
+			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-			// //Send Email
-			// $mail->send();
+			//Send Email
+			$mail->send();
 
 			return view('/Registrasi/Success');
 		}

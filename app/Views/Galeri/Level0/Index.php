@@ -293,10 +293,12 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+
+                <!-- Modal Body -->
                 <div class="modal-body">
                     <form action="/Upload/Store" enctype="multipart/form-data" method="post">
                         <div class="form-group">
-                            <div class="mb-2 text-warning"><i class="fa fa-exclamation-triangle"></i> Maksimal sebanyak 3 foto! Max. 300 Kb</div>
+                            <div class="mb-2 text-info"><i class="fa fa-info-circle"></i> Maksimal sebanyak 3 foto! Max. 300 Kb</div>
                         </div>
                         <div class="form-group">
                             <input id="userFile" type="file" name="userFile">
@@ -306,16 +308,20 @@
                             Upload gambar ke album:
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="id_usage" id="">
+                            <select class="form-control" name="id_usage" id="pilihUsage">
                                 <?php foreach ($usageData as $usageItem) : ?>
                                     <option value=<?= $usageItem->id_usage ?>><?= $usageItem->nama_usage ?></option>
                                 <?php endforeach ?>
                             </select>
+                            <div class="text-danger" id="maksimalAlert"></div>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Upload">
+                        <div class="form-group">
+                            <div><input type="submit" class="btn btn-primary" id="submitUploadButton" value="Upload"></div>
+                        </div>
                     </form>
-
                 </div>
+                <!-- End of Modal Body -->
+
             </div>
         </div>
     </div>
@@ -323,6 +329,7 @@
 
     <script>
         $(document).ready(function(e) {
+
             // Grand Juri Photo
             $.ajax({
                 type: 'post',
@@ -339,6 +346,7 @@
                     });
                 }
             })
+
             // Presentasi 1 Photo
             $.ajax({
                 type: 'post',
@@ -355,6 +363,7 @@
                     });
                 }
             })
+
             // Presentasi 2 Photo
             $.ajax({
                 type: 'post',
@@ -372,6 +381,8 @@
                 }
             })
         })
+
+        // Check size image
         $('#userFile').bind('change', function() {
             var size = this.files[0].size / 1024 / 1024
             if (size > 0.5) {
@@ -382,6 +393,28 @@
                 })
             }
         });
+
+        // Get total uploaded photo
+        $('#pilihUsage').change(function(e) {
+            $.ajax({
+                type: 'post',
+                url: 'Upload/GetTotal',
+                data: {
+                    action: 'getTotal',
+                    id_usage: $('#pilihUsage option:selected').val(),
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data >= 3) {
+                        $('#maksimalAlert').html('<div class=" mt-1"><i class ="fa fa-exclamation-triangle"></i> Anda sudah mengupload 3 foto</div>')
+                        $('#submitUploadButton').prop('disabled', true);
+                    }else{
+                        $('#maksimalAlert').html('');
+                        $('#submitUploadButton').prop('disabled', false);
+                    }
+                }
+            })
+        })
     </script>
 
 

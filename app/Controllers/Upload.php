@@ -53,4 +53,17 @@ class Upload extends BaseController
 			return json_encode($photos);
 		}
 	}
+
+	public function GetTotal(){
+		if($this->request->getVar('action') == 'getTotal'){
+			$uploadsModel = new UploadsModel;
+
+			$idUsage = $this->request->getVar('id_usage');
+			$idPeserta = $this->getId($this->session->userData['username']);
+
+			$count = $uploadsModel->_countPhotoByUsage($idUsage, $idPeserta);
+
+			return json_encode($count);
+		}
+	}
 }

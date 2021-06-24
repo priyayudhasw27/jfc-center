@@ -82,20 +82,20 @@
                                 <div id="alamatAlert"></div>
                             </div>
                             <div class="form-group row">
-                                <!-- Provinsi -->
+                                <!-- Kecamatan -->
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
-                                    <div id="alamatAlert"></div>
+                                    <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
+                                    <div id="kecamatanAlert"></div>
                                 </div>
                                 <!-- Kabupaten -->
                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                     <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten">
-                                    <div id="alamatAlert"></div>
+                                    <div id="kabupatenAlert"></div>
                                 </div>
-                                <!-- Kecamatan -->
+                                <!-- Provinsi -->
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
-                                    <div id="alamatAlert"></div>
+                                    <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
+                                    <div id="provinsiAlert"></div>
                                 </div>
                             </div>
                             <br>
@@ -196,6 +196,8 @@
 
     <!-- custom script -->
     <script>
+
+    // Menampilkan pilihan foto profil
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -208,9 +210,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
-
-
 
         // 
         // 

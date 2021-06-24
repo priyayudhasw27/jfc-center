@@ -44,4 +44,11 @@ class UploadsModel extends Model
             ->getResult();
         return $result;
     }
+
+    public function _countPhotoByUsage($idUsage, $idPeserta){
+        $where = "id_peserta = '" . $idPeserta . "' && id_usage = '" . $idUsage . "'";
+        $result = $this->where($where)
+            ->countAllResults();
+        return $result;
+    }
 }
