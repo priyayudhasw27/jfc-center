@@ -62,7 +62,7 @@ class Mail extends BaseController
 
 				//Recipients  //Add a recipient
 				$mail->setFrom('official@jfc-center.id', 'JFC Official');
-				$mail->addAddress('priyayudha.sw27@gmail.com');
+				$mail->addAddress('faiziqbald@gmail.com');
 
 				//Content
 				$mail->isHTML(true);                                  //Set email format to HTML

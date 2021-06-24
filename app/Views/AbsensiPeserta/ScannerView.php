@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Html-Qrcode Demo</title>
+    <title>Absensi - JFC Center</title>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
@@ -121,7 +121,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $userData['username'] ?></span>
-                                <i class="fa fa-user"></i>
+                                <img class="img-profile rounded-circle" style="object-fit: cover;" src="<?= $userData['profilePhoto']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -150,8 +150,8 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item"><a href="/Balita">Workshop</a></li>
-                                <li class="breadcrumb-item active">View</li>
+                                <li class="breadcrumb-item"><a href="/Workshop">Workshop</a></li>
+                                <li class="breadcrumb-item active">Absensi</li>
                             </ol>
                         </nav>
                     </div>
@@ -256,7 +256,7 @@
             });
             Instascan.Camera.getCameras().then(function(cameras) {
                 if (cameras.length > 0) {
-                    scanner.start(cameras[0]);
+                    scanner.start(cameras[1]);
                 } else {
                     console.error('No cameras found.');
                 }
@@ -276,13 +276,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/bootstrap/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/bootstrap/js/demo/chart-area-demo.js"></script>
-    <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

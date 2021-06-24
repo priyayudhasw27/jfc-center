@@ -103,13 +103,17 @@ class Peserta extends BaseController
 			return view('/Peserta/Level3/Index', $data);
 		} else if ($userData['id_level'] == 99) {
 			// page untuk admin
+
+			$kategoriModel = new KategoriModel;
 			// get berdasarkan kategori
 			$idKategori = $this->request->uri->getSegment('3');
+			$kategoriData = $kategoriModel->_findById($idKategori);
 			$peserta = $pesertaModel->_getByKategori($idKategori);
 			$data = [
 				'userData' => $this->session->userData,
 				'peserta' => $peserta,
 				'alert' => $alert,
+				'kategoriData' => $kategoriData,
 			];
 			// print_r($data);
 			return view('/Peserta/Level99/Index', $data);

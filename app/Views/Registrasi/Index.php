@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Registrasi - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -138,7 +138,7 @@
                             <!-- Profil Photos -->
                             <div class="form-group row d-flex">
                                 <div class="col-5 mb-3 mb-sm-3">
-                                    <img id="preview" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%" src="/bootstrap/img/blank-profile.png">
+                                    <img id="preview" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 50%" src="/bootstrap/img/blank-profile.png">
                                 </div>
                                 <div class="col-5 mb-3 mb-sm-3">
                                     <div class="h6 font-weight-bold">Pilih foto profil</div>

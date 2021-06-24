@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Peserta - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -204,7 +204,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $userData['username'] ?></span>
-                                <i class="fa fa-user"></i>
+                                <img class="img-profile rounded-circle" style="object-fit: cover;" src="<?= $userData['profilePhoto']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -233,7 +233,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item"><a href="/Balita">Workshop</a></li>
+                                <li class="breadcrumb-item"><a href="/Peserta">Peserta</a></li>
                                 <li class="breadcrumb-item active">View</li>
                             </ol>
                         </nav>
@@ -275,11 +275,11 @@
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Alamat</div>
                                     <div class="text-gray-800"><?= $pesertaData->alamat ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Kecamatan</div>
-                                    <div class="text-gray-800"><?= $pesertaData->nama_kecamatan ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->kecamatan ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Kabupaten</div>
-                                    <div class="text-gray-800"><?= $pesertaData->nama_kabupaten ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->kabupaten ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Provinsi</div>
-                                    <div class="text-gray-800"><?= $pesertaData->nama_provinsi ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->provinsi ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Asal Sekolah / Instansi</div>
                                     <div class="text-gray-800"><?= $pesertaData->asal ?></div>
                                 </div>
@@ -288,13 +288,41 @@
                         </div>
                     </div>
 
-                    <!-- Peserta -->
+                    <!-- ALBUM Presentasi 1 -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Album Presentasi 1</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row" id="presentasi1Album">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ALBUM Presentasi 2 -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Album Presentasi 2</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row" id="presentasi2Album">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ALBUM Grand Juri -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Album Grand Juri</h6>
                         </div>
                         <div class="card-body">
-                            <div class="mb-2">Silahkan upload foto anda maksimal sebanyak 3 foto! Ukuran maksimal foto yaitu 300 Kb</div>
+
                             <div class="row" id="grandJuriAlbum">
 
                             </div>
@@ -349,17 +377,52 @@
 
     <script>
         $(document).ready(function(e) {
+
+            // Grand Juri Photo
             $.ajax({
                 type: 'post',
                 url: '/Upload/GetPhotos',
                 data: {
                     action: 'GetPhotos',
-                    id_usage: 'usg_0241',
-                    id_peserta: '<?= $pesertaData->id_peserta ?>'
+                    id_usage: 'usg_0241'
                 },
                 dataType: 'json',
                 success: function(data) {
                     var x = $('#grandJuriAlbum')
+                    $.each(data, function(key, value) {
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                    });
+                }
+            })
+
+            // Presentasi 1 Photo
+            $.ajax({
+                type: 'post',
+                url: '/Upload/GetPhotos',
+                data: {
+                    action: 'GetPhotos',
+                    id_usage: 'usg_0111'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var x = $('#presentasi1Album')
+                    $.each(data, function(key, value) {
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                    });
+                }
+            })
+
+            // Presentasi 2 Photo
+            $.ajax({
+                type: 'post',
+                url: '/Upload/GetPhotos',
+                data: {
+                    action: 'GetPhotos',
+                    id_usage: 'usg_0112'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var x = $('#presentasi2Album')
                     $.each(data, function(key, value) {
                         x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
                     });
@@ -378,13 +441,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/bootstrap/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/bootstrap/js/demo/chart-area-demo.js"></script>
-    <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

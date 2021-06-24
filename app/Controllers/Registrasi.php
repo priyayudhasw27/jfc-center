@@ -103,6 +103,7 @@ class Registrasi extends BaseController
 				'username' => $username,
 				'password' => md5($password),
 				'hash' => $hash,
+				'active' => 1,
 				'id_level' => 0
 			];
 
@@ -167,8 +168,8 @@ class Registrasi extends BaseController
 				->build();
 
 			$result->saveToFile(FCPATH . 'assets/qrcode/' . $idPeserta . '.png');
-			$qrcodePath = FCPATH . 'assets/qrcode/' . $idPeserta . '.png';
-
+			$qrcodePath = base_url().'/assets/qrcode/' . $idPeserta . '.png';
+			
 			// // Send Email Function =============================
 			$mail = new PHPMailer(true);
 
@@ -190,16 +191,14 @@ class Registrasi extends BaseController
 
 			//Content
 			$mail->isHTML(true);                                  //Set email format to HTML
-			$mail->Subject = 'Email Verification ' . $namaPeserta;
+			$mail->Subject = 'Your QR-Code ' . $namaPeserta;
 			$mail->Body    =
 				'
 				<h2> Hai ' . $namaPeserta . '! <br> </h2>
-				
-				Buka link di bawah untuk verifikasi email anda <br>
-				<a href="' . base_url() . '/Registrasi/Verification/' . $hash . '">link verifikasi</a>
-				<br> 
-				Simpan QR Code dengan baik. <br>
-				QR Code ini digunakan untuk absensi pada saat workshop. <br>
+
+				<h4>Simpan QR-Code dengan baik</h4> <br>
+				QR-Code ini digunakan sebagai identitas anda. dan digunakan untuk absensi pada saat workshop. <br>
+				<hr>
 				<img src="' . $qrcodePath . '"/>
 				<br>
 				<hr>

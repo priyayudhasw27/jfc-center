@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>JFC Center - Dashboard</title>
+    <title>Dashboard - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -197,7 +197,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $userData['username']; ?></span>
-                                <i class="fa fa-user"></i>
+                                <img class="img-profile rounded-circle" style="object-fit: cover;" src="<?= $userData['profilePhoto']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -519,11 +519,6 @@
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="/bootstrap/vendor/chart.js/Chart.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
