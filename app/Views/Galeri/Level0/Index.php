@@ -308,7 +308,7 @@
                             Upload gambar ke album:
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="id_usage" id="pilihUsage">
+                            <select required class="form-control" name="id_usage" id="pilihUsage" oninvalid="this.setCustomValidity('Filih foto anda')">
                                 <?php foreach ($usageData as $usageItem) : ?>
                                     <option value=<?= $usageItem->id_usage ?>><?= $usageItem->nama_usage ?></option>
                                 <?php endforeach ?>
@@ -383,16 +383,16 @@
         })
 
         // Check size image
-        $('#userFile').bind('change', function() {
-            var size = this.files[0].size / 1024 / 1024
-            if (size > 0.5) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'File gambar harus dibawah 500Kb',
-                })
-            }
-        });
+        // $('#userFile').bind('change', function() {
+        //     var size = this.files[0].size / 1024 / 1024
+        //     if (size > 0.5) {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Oops...',
+        //             text: 'File gambar harus dibawah 500Kb',
+        //         })
+        //     }
+        // });
 
         // Get total uploaded photo
         $('#pilihUsage').change(function(e) {

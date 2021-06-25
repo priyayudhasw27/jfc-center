@@ -39,7 +39,12 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-2">JFC Center</h1>
+                                <!-- <h1 class="h4 text-gray-900 mb-2">JFC Center</h1> -->
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-3">
+                                        <img style="width: 100%;" src="/bootstrap/img/logo-black.png" alt="">
+                                    </div>
+                                </div>
                                 <hr>
                                 <h1 class="h6 font-weight-bold text-gray-600 mb-4">Login</h1>
                             </div>

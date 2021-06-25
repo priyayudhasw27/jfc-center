@@ -34,8 +34,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
-                <div class="sidebar-brand-text mx-3">JFC Center</div>
+            <a class="align-items-center justify-content-center" href="/Dashboard">
+                <div class="row p-2 justify-content-center">
+                    <div class="col-sm-7">
+                        <img style="width: 100%;" src="/bootstrap/img/logo-white.png" alt="">
+                    </div>
+                </div>
             </a>
 
             <!-- Divider -->
@@ -387,7 +391,7 @@
         </div>
     </div>
 
-<!-- Area Chart -->
+    <!-- Area Chart -->
     <script>
         // Set new default font family and font color to mimic Bootstrap's default styling
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -437,7 +441,7 @@
                     pointHoverBorderColor: "#C72855",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: [150, 90, 85, 120,0],
+                    data: [150, 90, 85, 120, 0],
                 }],
             },
             options: {

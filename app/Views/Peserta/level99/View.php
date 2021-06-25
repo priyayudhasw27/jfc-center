@@ -384,7 +384,8 @@
                 url: '/Upload/GetPhotos',
                 data: {
                     action: 'GetPhotos',
-                    id_usage: 'usg_0241'
+                    id_usage: 'usg_0241',
+                    id_peserta: '<?= $pesertaData->id_peserta ?>'
                 },
                 dataType: 'json',
                 success: function(data) {
@@ -401,7 +402,8 @@
                 url: '/Upload/GetPhotos',
                 data: {
                     action: 'GetPhotos',
-                    id_usage: 'usg_0111'
+                    id_usage: 'usg_0111',
+                    id_peserta: '<?= $pesertaData->id_peserta ?>'
                 },
                 dataType: 'json',
                 success: function(data) {
@@ -418,7 +420,8 @@
                 url: '/Upload/GetPhotos',
                 data: {
                     action: 'GetPhotos',
-                    id_usage: 'usg_0112'
+                    id_usage: 'usg_0112',
+                    id_peserta: '<?= $pesertaData->id_peserta ?>'
                 },
                 dataType: 'json',
                 success: function(data) {

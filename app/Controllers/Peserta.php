@@ -107,7 +107,7 @@ class Peserta extends BaseController
 			$kategoriModel = new KategoriModel;
 			// get berdasarkan kategori
 			$idKategori = $this->request->uri->getSegment('3');
-			$kategoriData = $kategoriModel->_findById($idKategori);
+			$kategoriData = $kategoriModel->_findById($idKategori)[0];
 			$peserta = $pesertaModel->_getByKategori($idKategori);
 			$data = [
 				'userData' => $this->session->userData,

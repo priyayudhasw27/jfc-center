@@ -184,14 +184,14 @@ class Registrasi extends BaseController
 
 			//Recipients  //Add a recipient
 			$mail->setFrom('official@jfc-center.id', 'JFC Official');
-			$mail->addAddress($email);
+			$mail->addAddress(strval($email));
 
 			//Attachments
 			// $mail->addAttachment($qrcodePath);         //Add attachment
 
 			//Content
 			$mail->isHTML(true);                                  //Set email format to HTML
-			$mail->Subject = 'Your QR-Code ' . $namaPeserta;
+			$mail->Subject = 'Buka dong, ini QR-Codemu  ' . $namaPeserta;
 			$mail->Body    =
 				'
 				<h2> Hai ' . $namaPeserta . '! <br> </h2>
