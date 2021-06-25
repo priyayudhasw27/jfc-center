@@ -214,6 +214,7 @@ class Workshop extends BaseController
 		];
 
 		if ($userData['id_level'] == 1) {
+			// print_r($data['instrukturData']);
 			return view('/Workshop/Level1/Update', $data);
 		} else if ($userData['id_level'] == 99) {
 			return view('/Workshop/Level99/Update', $data);
@@ -295,24 +296,63 @@ class Workshop extends BaseController
 	public function update()
 	{
 		$userData = $this->session->userData;
+		$jadwalModel = new JadwalModel;
 		$workshopModel = new WorkshopModel;
 		$kehadiranInstrukturModel = new KehadiranInstrukturModel;
-		$venueModel = new VenueModel;
 
-		$id_workshop = $this->request->uri->getSegment('3');
+		$idWorkshop = $this->request->getPost('id_workshop');
+		$namaWorkshop = $this->request->getPost('nama_workshop');
+		$materi = $this->request->getPost('materi');
+		$tanggal = $this->request->getPost('tanggal');
+		$waktuMulai = $this->request->getPost('waktu_mulai');
+		$waktuSelesai = $this->request->getPost('waktu_selesai');
+		$dresscode = $this->request->getPost('dresscode');
+		$idVenue = $this->request->getPost('id_venue');
+		$idInstruktur = $this->request->getPost('id_instruktur');
+		$idJadwal = $this->request->getPost('id_jadwal');
 
-		// page untuk operator
-		// get data workshop, jadwal, venue
-		$workshop = $workshopModel->_getAllInfoById($id_workshop);
-		// get data pengampu
-		$instrukturPengampu = $kehadiranInstrukturModel->_getInstruktur($id_workshop);
-		$data = [
-			'userData' => $userData,
-			'workshop' => $workshop[0],
-			'instrukturPengampu' => $instrukturPengampu,
-			'venueData' => $venueModel->_get(),
+		// UPDATE JADWAL
+		$jadwalData = [
+			'waktu_mulai' => $waktuMulai,
+			'waktu_selesai' => $waktuSelesai,
+			'tanggal' => $tanggal,
 		];
-		return view('/Workshop/Level1/update', $data);
+		$jadwalModel->_update($idJadwal, $jadwalData);
+
+		// UPDATE WORKSHOP
+		$workshopData = [
+			'nama_workshop' => $namaWorkshop,
+			'materi' => $materi,
+			'id_jadwal' => $idJadwal,
+			'id_venue' => $idVenue,
+			'dresscode' => $dresscode,
+		];
+		$workshopModel->_update($idWorkshop, $workshopData);
+
+		// UPDATE KEHADIRAN TUTOR
+		$kehadiranInstrukturModel->_deleteByWorkshop($idWorkshop);
+		foreach ($idInstruktur as $x) {
+			$kehadiranInstrukturData = [
+				'id_kehadiran' => 'kt_' . rand(0123, 9999),
+				'id_instruktur' => $x,
+				'id_workshop' => $idWorkshop,
+				'inclass' => 0,
+			];
+			$kehadiranInstrukturModel->_Insert($kehadiranInstrukturData);
+		}
+
+		$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Workshop berhasil diupdate',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+		return redirect()->to('/Workshop');
 	}
 
 	// DELETE ==============================

@@ -70,7 +70,7 @@ class Instruktur extends BaseController
 
 	// NEW FORM ==============================
 
-	public function newForm()
+	public function NewForm()
 	{
 
 		$userData = $this->session->userData;
@@ -80,6 +80,24 @@ class Instruktur extends BaseController
 		];
 
 		return view('/Instruktur/Level99/Insert', $data);
+	}
+
+	// UPDATE FORM ==============================
+
+	public function UpdateForm()
+	{
+		$instrukturModel = new InstrukturModel;
+
+		$userData = $this->session->userData;
+
+		$idInstruktur = $this->request->uri->getSegment('3');
+
+		$data = [
+			'userData' => $userData,
+			'instrukturData' => $instrukturModel->_findByIdWithUsername($idInstruktur)[0],
+		];
+
+		return view('/Instruktur/Level99/Update', $data);
 	}
 
 
@@ -141,6 +159,67 @@ class Instruktur extends BaseController
 					Swal.fire({
 						title: 'Berhasil!',
 						text: 'Berhasil menambah instruktur',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+			return redirect()->to('/Instruktur');
+		}
+	}
+
+	// UPDATE ==============================
+	public function Update()
+	{
+		$userModel = new UserModel;
+		$instrukturModel = new InstrukturModel;
+
+		if ($this->request->getMethod() === 'post') {
+			// Data Tabel User
+			$username = $this->request->getPost('username');
+			$password = $this->GetMd5($this->request->getPost('password'));
+
+			// Data Tabel Instruktur
+			$idInstruktur = $this->request->getPost('id_instruktur');
+			$namaInstruktur = $this->request->getPost('nama_instruktur');
+			$jenisKelamin = $this->request->getPost('jenis_kelamin');
+			$email = $this->request->getPost('email');
+			$nomorHp = $this->request->getPost('nomor_hp');
+			$alamat = $this->request->getPost('alamat');
+			$asal = $this->request->getPost('asal');
+			$prestasi = $this->request->getPost('prestasi');
+			$kecamatan = $this->request->getPost('kecamatan');
+			$kabupaten = $this->request->getPost('kabupaten');
+			$provinsi = $this->request->getPost('provinsi');
+
+			$userData = [
+				'password' => $password,
+			];
+
+			$instrukturData = [
+				'nama_instruktur' => $namaInstruktur,
+				'jenis_kelamin' => $jenisKelamin,
+				'email' => $email,
+				'nomor_hp' => $nomorHp,
+				'alamat' => $alamat,
+				'asal' => $asal,
+				'username' => $username,
+				'prestasi' => $prestasi,
+				'kecamatan' => $kecamatan,
+				'kabupaten' => $kabupaten,
+				'provinsi' => $provinsi,
+			];
+
+			// Insertion to Database ==========================
+			$userModel->_update($username, $userData);
+			$instrukturModel->_update($idInstruktur, $instrukturData);
+
+			$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil mengupdate instruktur',
 						icon: 'success',
 						confirmButtonText: 'Ok'
 					})

@@ -101,4 +101,12 @@ class BaseController extends Controller
 			return $result;
 		}
 	}
+
+	public function GetMd5($val){
+		if(preg_match('/^[a-f0-9]{32}$/', $val)){
+			return $val;
+		}else{
+			return md5($val);
+		}
+	}
 }

@@ -49,7 +49,7 @@ class Operator extends BaseController
 
 	// NEW FORM ==============================
 
-	public function newForm()
+	public function NewForm()
 	{
 		$direktoratModel = new DirektoratModel;
 
@@ -61,6 +61,27 @@ class Operator extends BaseController
 		];
 
 		return view('/Operator/Level99/Insert', $data);
+	}
+
+	// UPDATE FORM ==============================
+
+	public function UpdateForm()
+	{
+		$operatorModel = new OperatorModel;
+		$direktoratModel = new DirektoratModel;
+
+		$idOperator = $this->request->uri->getSegment('3');
+
+		$userData = $this->session->userData;
+		$operatorData = $operatorModel->_getAllInfoById($idOperator)[0];
+
+		$data = [
+			'operatorData' => $operatorData,
+			'direktoratData' => $direktoratModel->_get(),
+			'userData' => $userData,
+		];
+
+		return view('/Operator/Level99/Update', $data);
 	}
 
 	// VALIDATION ==============================
@@ -136,6 +157,67 @@ class Operator extends BaseController
 					Swal.fire({
 						title: 'Berhasil!',
 						text: 'Berhasil menambah operator',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+			return redirect()->to('/Operator');
+		}
+	}
+
+	// UPDATE ==============================
+	public function Update()
+	{
+		$userModel = new UserModel;
+		$operatorModel = new OperatorModel;
+
+		if ($this->request->getMethod() === 'post') {
+			// Data Tabel User
+			$username = $this->request->getPost('username');
+			$password = $this->GetMd5($this->request->getPost('password'));
+
+			// Data Tabel Operator
+			$idOperator = $this->request->getPost('id_operator');
+			$namaOperator = $this->request->getPost('nama_operator');
+			$jenisKelamin = $this->request->getPost('jenis_kelamin');
+			$email = $this->request->getPost('email');
+			$nomorHp = $this->request->getPost('nomor_hp');
+			$alamat = $this->request->getPost('alamat');
+			$asal = $this->request->getPost('asal');
+			$direktorat = $this->request->getPost('id_direktorat');
+			$kecamatan = $this->request->getPost('kecamatan');
+			$kabupaten = $this->request->getPost('kabupaten');
+			$provinsi = $this->request->getPost('provinsi');
+
+			$userData = [
+				'password' => $password,
+			];
+
+			$operatorData = [
+				'nama_operator' => $namaOperator,
+				'jenis_kelamin' => $jenisKelamin,
+				'email' => $email,
+				'nomor_hp' => $nomorHp,
+				'alamat' => $alamat,
+				'asal' => $asal,
+				'id_direktorat' => $direktorat,
+				'username' => $username,
+				'kecamatan' => $kecamatan,
+				'kabupaten' => $kabupaten,
+				'provinsi' => $provinsi,
+			];
+
+			// Insertion to Database ==========================
+			$userModel->_update($username,$userData);
+			$operatorModel->_update($idOperator, $operatorData);
+
+			$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil mengupdate operator',
 						icon: 'success',
 						confirmButtonText: 'Ok'
 					})

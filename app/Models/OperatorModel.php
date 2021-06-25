@@ -69,6 +69,7 @@ class OperatorModel extends Model
     {
         $result = $this->where('id_operator', $id_operator)
             ->join('direktorat', 'direktorat.id_direktorat = operator.id_direktorat')
+            ->join('user', 'user.username = operator.username')
             ->get()
             ->getResult();
 

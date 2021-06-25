@@ -34,15 +34,22 @@
                 <div class="card-body p-0">
                     <div class="p-5">
 
+                        <!-- Header -->
+                        <div class="text-center">
+                            <div class="row justify-content-center">
+                                <div class="col-sm-3">
+                                    <img style="width: 100%;" src="/bootstrap/img/logo-black.png" alt="">
+                                </div>
+                            </div>
+                            <hr>
+                            <h1 class="h6 font-weight-bold text-gray-500 mb-3">Registrasi</h1>
+                            <h1 class="h6 font-weight-bold text-gray-600 mb-5">Harap isi data sesuai KTP</h1>
+                        </div>
+                        <!-- End Header -->
+
 
                         <!-- FORM -->
                         <form id="registrationForm" enctype="multipart/form-data" class="user" action="/Registrasi/Save" method="post">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Silahkan melakukan registrasi!</h1>
-                                <hr>
-                                <h1 class="h6 text-gray-700 mb-4">Harap diisi dengan identitas asli</h1>
-                            </div>
-
 
                             <!-- BIODATA -->
                             <div class="form-group row">
@@ -163,7 +170,7 @@
                             <div class="form-group row">
                                 <!-- Password -->
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input required type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password"> <br>
+                                    <input required type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password">
                                 </div>
                                 <!-- Confirm Password -->
                                 <div class="col-sm-6">
@@ -196,8 +203,7 @@
 
     <!-- custom script -->
     <script>
-
-    // Menampilkan pilihan foto profil
+        // Menampilkan pilihan foto profil
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

@@ -66,4 +66,13 @@ class InstrukturModel extends Model
         return $result;
     }
 
+    public function _findByIdWithUsername($id_instruktur){
+        $result = $this->where('id_instruktur', $id_instruktur)
+        ->join('user', 'user.username = instruktur.username')
+        ->get()
+        ->getResult();
+
+        return $result;
+    }
+
 }

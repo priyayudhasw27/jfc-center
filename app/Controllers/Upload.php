@@ -54,6 +54,33 @@ class Upload extends BaseController
 		}
 	}
 
+	public function View()
+	{
+		if ($this->request->getVar('action') == 'GetView') {
+			$uploadsModel = new UploadsModel;
+
+			$idUploads = $this->request->getVar('id_uploads');
+			$photo = $uploadsModel->_findById($idUploads);
+
+			return json_encode($photo);
+		}
+	}
+
+	public function Delete()
+	{
+		if ($this->request->getVar('action') == 'Delete') {
+			$uploadsModel = new UploadsModel;
+
+			$idUploads = $this->request->getVar('id_uploads');
+			// $uploadsModel->_delete($idUploads);
+
+			$output = array(
+				'status' => 'ok'
+			);
+			return json_encode($idUploads);
+		}
+	}
+
 	public function GetTotal(){
 		if($this->request->getVar('action') == 'getTotal'){
 			$uploadsModel = new UploadsModel;

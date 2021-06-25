@@ -45,8 +45,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
-                <div class="sidebar-brand-text mx-3">JFC Center</div>
+            <a class="align-items-center justify-content-center" href="/Dashboard">
+                <div class="row p-2 justify-content-center">
+                    <div class="col-sm-7">
+                        <img style="width: 100%;" src="/bootstrap/img/logo-white.png" alt="">
+                    </div>
+                </div>
             </a>
 
             <!-- Divider -->
@@ -296,19 +300,19 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form action="/Upload/Store" enctype="multipart/form-data" method="post">
+                    <form action="/Upload/Store" enctype="multipart/form-data" method="post" id="uploadForm">
                         <div class="form-group">
-                            <div class="mb-2 text-info"><i class="fa fa-info-circle"></i> Maksimal sebanyak 3 foto! Max. 300 Kb</div>
+                            <div class="mb-2 text-info"><i class="fa fa-info-circle"></i> Maksimal sebanyak 3 foto!</div>
                         </div>
                         <div class="form-group">
-                            <input id="userFile" type="file" name="userFile">
+                            <input required id="userFile" type="file" name="userFile" oninvalid="this.setCustomValidity('Filih foto terlebih dahulu')" accept="image/jpg, image/jpeg">
                             <div class="text-danger" id="fileAlert"></div>
                         </div>
                         <div class="form-group">
                             Upload gambar ke album:
                         </div>
                         <div class="form-group">
-                            <select required class="form-control" name="id_usage" id="pilihUsage" oninvalid="this.setCustomValidity('Filih foto anda')">
+                            <select required class="form-control" name="id_usage" id="pilihUsage">
                                 <?php foreach ($usageData as $usageItem) : ?>
                                     <option value=<?= $usageItem->id_usage ?>><?= $usageItem->nama_usage ?></option>
                                 <?php endforeach ?>
@@ -327,8 +331,81 @@
     </div>
 
 
+    <!-- Photo Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageLabel"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div id="image"></div>
+                    <hr>
+                    <div class="row">
+                        <div id="deleteButton" class="btn btn-danger">Hapus</div>
+                    </div>
+                </div>
+                <!-- End of Modal Body -->
+
+            </div>
+        </div>
+    </div>
+
+
     <script>
+
+
+        // ========================== Package PENAMPIL FOTO GALERI
+        // Open preview Modal dan Get Photo by id uploads
+        function openPreviewModal(id_uploads) {
+            $.ajax({
+                type: 'post',
+                url: '/Upload/View',
+                data: {
+                    action: 'GetView',
+                    id_uploads: id_uploads,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#image').html('<img style="width: 100%" src="/assets/uploaded/' + data.filepath + '" alt="">')
+                    $('#imageLabel').text(data.filepath);
+                    $('#previewModal').modal('show');
+                    $('#deleteButton').click(function(e) {
+                        deletePhoto(id_uploads);
+                    });
+                }
+            })
+        }
+
+        function deletePhoto(id_uploads) {
+            $.ajax({
+                type: 'post',
+                url: '/Upload/Delete',
+                data: {
+                    action: 'Delete',
+                    id_uploads: id_uploads,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: 'Berhasil!',
+                    //     text: 'Foto berhasil dihapus',
+                    // })
+                    console.log(data);
+                }
+            })
+        }
+
         $(document).ready(function(e) {
+
 
             // Grand Juri Photo
             $.ajax({
@@ -342,10 +419,11 @@
                 success: function(data) {
                     var x = $('#grandJuriAlbum')
                     $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })
+
 
             // Presentasi 1 Photo
             $.ajax({
@@ -359,7 +437,7 @@
                 success: function(data) {
                     var x = $('#presentasi1Album')
                     $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })
@@ -376,11 +454,13 @@
                 success: function(data) {
                     var x = $('#presentasi2Album')
                     $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })
         })
+
+        // ========================== End Package penampil galeri
 
         // Check size image
         // $('#userFile').bind('change', function() {
@@ -408,7 +488,7 @@
                     if (data >= 3) {
                         $('#maksimalAlert').html('<div class=" mt-1"><i class ="fa fa-exclamation-triangle"></i> Anda sudah mengupload 3 foto</div>')
                         $('#submitUploadButton').prop('disabled', true);
-                    }else{
+                    } else {
                         $('#maksimalAlert').html('');
                         $('#submitUploadButton').prop('disabled', false);
                     }

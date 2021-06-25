@@ -32,8 +32,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
-                <div class="sidebar-brand-text mx-3">JFC Center</div>
+            <a class="align-items-center justify-content-center" href="/Dashboard">
+                <div class="row p-2 justify-content-center">
+                    <div class="col-sm-7">
+                        <img style="width: 100%;" src="/bootstrap/img/logo-white.png" alt="">
+                    </div>
+                </div>
             </a>
 
             <!-- Divider -->
@@ -238,7 +242,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="row justify-content-end">
-                                        
+                                        <a href="/Instruktur/UpdateForm/<?= $instrukturData->id_instruktur ?>" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Update Data</a>
                                     </div>
                                 </div>
                             </div>

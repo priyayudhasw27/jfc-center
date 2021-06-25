@@ -33,8 +33,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
-                <div class="sidebar-brand-text mx-3">JFC Center</div>
+            <a class="align-items-center justify-content-center" href="/Dashboard">
+                <div class="row p-2 justify-content-center">
+                    <div class="col-sm-7">
+                        <img style="width: 100%;" src="/bootstrap/img/logo-white.png" alt="">
+                    </div>
+                </div>
             </a>
 
             <!-- Divider -->
@@ -225,44 +229,50 @@
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                            <form class="user" action="/Workshop/Insert" method="post">
+
+                            <form class="user" action="/Workshop/Update" method="post">
+                                <!-- hidden input -->
+                                <input type="hidden" name="id_workshop" value="<?= $workshop->id_workshop; ?>">
+                                <input type="hidden" name="id_jadwal" value="<?= $workshop->id_jadwal; ?>">
+
+                                <!-- visible input -->
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Nama Workshop</label>
-                                        <input value=<?= $workshop->nama_workshop; ?> class="form-control" type="text" name="nama_workshop" id="nama_workshop" placeholder="Isi nama workshop">
+                                        <input value='<?= $workshop->nama_workshop; ?>' class="form-control" type="text" name="nama_workshop" id="nama_workshop" placeholder="Isi nama workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Materi</label>
-                                        <input value=<?= $workshop->materi; ?> class="form-control" type="text" name="materi" id="materi" placeholder="Isi materi workshop">
+                                        <input value='<?= $workshop->materi; ?>' class="form-control" type="text" name="materi" id="materi" placeholder="Isi materi workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Tanggal</label>
-                                        <input value=<?= $workshop->tanggal; ?> class="form-control" type="date" name="tanggal" id="tanggal">
+                                        <input value='<?= $workshop->tanggal; ?>' class="form-control" type="date" name="tanggal" id="tanggal">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Waktu Mulai</label>
-                                        <input value=<?= $workshop->waktu_mulai; ?> class="form-control" type="time" name="waktu_mulai" id="waktu_mulai">
+                                        <input value='<?= $workshop->waktu_mulai; ?>' class="form-control" type="time" name="waktu_mulai" id="waktu_mulai">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Waktu Selesai</label>
-                                        <input value=<?= $workshop->waktu_selesai; ?> class="form-control" type="time" name="waktu_selesai" id="waktu_selesai">
+                                        <input value='<?= $workshop->waktu_selesai; ?>' class="form-control" type="time" name="waktu_selesai" id="waktu_selesai">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Venue</label>
                                         <select class="form-control" name="id_venue" id="id_venue">
-                                            <option value=<?= $workshop->id_venue ?> selected><?= $workshop->nama_venue ?></option>
+                                            <option value='<?= $workshop->id_venue ?>' selected><?= $workshop->nama_venue ?></option>
                                             <?php foreach ($venueData as $venueItem) : ?>
-                                                <option value=<?= $venueItem->id_venue ?>><?= $venueItem->nama_venue ?></option>
+                                                <option value='<?= $venueItem->id_venue ?>'><?= $venueItem->nama_venue ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
@@ -270,16 +280,16 @@
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Dresscode</label>
-                                        <input value=<?= $workshop->dresscode; ?> class="form-control" type="text" name="dresscode" id="dresscode" placeholder="Isi dresscode yang digunakan saat workshop">
+                                        <input value='<?= $workshop->dresscode; ?>' class="form-control" type="text" name="dresscode" id="dresscode" placeholder="Isi dresscode yang digunakan saat workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Instruktur 1</label>
                                         <select class="form-control" name="id_instruktur[]" id="id_instruktur1">
-                                            <option value=<?= $instrukturPengampu[0]->id_instruktur; ?> selected><?= $instrukturPengampu[0]->nama_instruktur; ?></option>
+                                            <option value='<?= $instrukturPengampu[0]->id_instruktur; ?>' selected><?= $instrukturPengampu[0]->nama_instruktur; ?></option>
                                             <?php foreach ($instrukturData as $instrukturItem) : ?>
-                                                <option value=<?= $instrukturItem->id_instruktur ?>><?= $instrukturItem->nama_instruktur ?></option>
+                                                <option value='<?= $instrukturItem->id_instruktur ?>'><?= $instrukturItem->nama_instruktur ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
@@ -288,9 +298,13 @@
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Instruktur 2</label>
                                         <select class="form-control" name="id_instruktur[]" id="id_instruktur2">
-                                            <option value=<?= $instrukturPengampu[1]->id_instruktur; ?> selected><?= $instrukturPengampu[1]->nama_instruktur; ?></option>
+                                            <?php if (isset($instrukturPengampu[1])) { ?>
+                                                <option value='<?= $instrukturPengampu[1]->id_instruktur; ?>' selected><?= $instrukturPengampu[1]->nama_instruktur; ?></option>
+                                            <?php } else { ?>
+                                                <option value='' disabled selected>-pilih instruktur-</option>
+                                            <?php }; ?>
                                             <?php foreach ($instrukturData as $instrukturItem) : ?>
-                                                <option value=<?= $instrukturItem->id_instruktur ?>><?= $instrukturItem->nama_instruktur ?></option>
+                                                <option value='<?= $instrukturItem->id_instruktur ?>'><?= $instrukturItem->nama_instruktur ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
@@ -299,21 +313,21 @@
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Instruktur 3</label>
                                         <select class="form-control" name="id_instruktur[]" id="id_instruktur3">
-                                            <?php if (array_key_exists(2, $instrukturPengampu)) {
-                                                echo 'asdf';
-                                            } else {
-                                                echo 'asdfadf';
-                                            }; ?>
+                                            <?php if (isset($instrukturPengampu[2])) { ?>
+                                                <option value='<?= $instrukturPengampu[2]->id_instruktur; ?>' selected><?= $instrukturPengampu[2]->nama_instruktur; ?></option>
+                                            <?php } else { ?>
+                                                <option value='' disabled selected>-pilih instruktur-</option>
+                                            <?php }; ?>
                                             <?php foreach ($instrukturData as $instrukturItem) : ?>
-                                                <option value=<?= $instrukturItem->id_instruktur ?>><?= $instrukturItem->nama_instruktur ?></option>
+                                                <option value='<?= $instrukturItem->id_instruktur ?>'><?= $instrukturItem->nama_instruktur ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-5">
-                                        <input class="mt-4 btn btn-success btn-user btn-block" type="submit">
-                                        <a href="javascript:history.back()" class="mt-3 btn btn-danger btn-user btn-block">Batal</a>
+                                        <input class="mt-4 btn btn-primary btn-user btn-block" type="submit">
+                                        <a href="javascript:history.back()" class="mt-3 btn btn-secondary btn-user btn-block">Batal</a>
                                     </div>
                                 </div>
                             </form>

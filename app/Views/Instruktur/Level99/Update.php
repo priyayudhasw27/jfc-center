@@ -9,11 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Leader - JFC Center</title>
+    <title>Instruktur - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -98,7 +97,7 @@
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/Instruktur">
                     <i class="fas fa-fw fa-user-tie"></i>
                     <span>Instruktur</span></a>
@@ -112,7 +111,7 @@
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/Leader">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Leader</span></a>
@@ -223,37 +222,117 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="col">
-                        <h1 class="h3 mb-2 text-gray-800">Leader</h1>
-                        <div class="mb-2">Anda dapat melihat data Leader di halaman ini.</div>
-                        <div class="mb-4">
-                            <a href="/Leader/NewForm" class="d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Leader Baru</a>
+                    <div class="card shadow mb-4 mt-4 border-left-primary">
+                        <div class="card-header py-3">
+                            <div class="text-center text-gray-800 h3">Tambah Instruktur</div>
                         </div>
-                        <hr class="mb-4">
-                    </div>
-                    <?php foreach ($leader as $leaderItem) : ?>
-                        <div class="col-xl-5 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                                <?= $leaderItem->nama_leader ?></div>
-                                            <hr>
-                                            <div class="mb-2 font-weight-bold text-gray-800"><?= $leaderItem->nomor_hp ?></div>
-                                            Tema : <div class="text-primary font-weight-bold"><?= $leaderItem->nama_kategori ?></div>
-                                            Sub Tema : <div class="text-danger font-weight-bold"><?= $leaderItem->nama_sub_kategori ?></div>
-                                            <a href="/leader/View/<?= $leaderItem->id_leader ?>"" class="mt-4 btn btn-primary">Lihat</a>
-                                        </div>
+                        <div class="card-body justify-alignment-left">
+
+                            <form id="updateForm" class="user" action="/Instruktur/Update" method="post">
+
+                                <!-- hidden input -->
+                                <input type="hidden" name="idInstruktur" value="<?= $instrukturData->id_instruktur ?>">
+                                <input type="hidden" name="username"value="<?= $instrukturData->username ?>">
+
+                                <!-- BIODATA -->
+                                <div class="form-group row">
+                                    <!-- Nama lengkap -->
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <!-- <div class="font-weight-bold">Nama Lengkap</div> -->
+                                        <label class="font-weight-bold">Nama Lengkap</label>
+                                        <input type="text" class="form-control" name="nama_instruktur" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap" value="<?= $instrukturData->nama_instruktur ?>">
+                                        <div id="nameAlert"></div>
+                                    </div>
+                                    <!-- Jenis Kelamin -->
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold">Jenis Kelamin</label>
+                                        <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                            <option value="<?= $instrukturData->jenis_kelamin ?>" selected><?= $instrukturData->jenis_kelamin ?></option>
+                                            <option value="Laki - laki">Laki - laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-group row">
+                                    <!-- Email -->
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="font-weight-bold">Email</label>
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email" value="<?= $instrukturData->email ?>">
+                                        <div id="emailAlert"></div>
+                                    </div>
+                                    <!-- Nomor Hp -->
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold">Nomor HP</label>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" value="<?= $instrukturData->nomor_hp ?>"><br>
+                                    </div>
+                                </div>
+                                <!-- Alamat -->
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Alamat</label>
+                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat" value="<?= $instrukturData->alamat ?>">
+                                    <div id="alamatAlert"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <!-- Kecamatan -->
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <label class="font-weight-bold">Kecamatan</label>
+                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan" value="<?= $instrukturData->kecamatan ?>">
+                                        <div id="kecamatanAlert"></div>
+                                    </div>
+                                    <!-- Kabupaten -->
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <label class="font-weight-bold">Kabupaten</label>
+                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten" value="<?= $instrukturData->kabupaten ?>">
+                                        <div id="kabupatenAlert"></div>
+                                    </div>
+                                    <!-- Provinsi -->
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <label class="font-weight-bold">Provinsi</label>
+                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi" value="<?= $instrukturData->provinsi ?>">
+                                        <div id="provinsiAlert"></div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <!-- Asal -->
+                                    <label class="font-weight-bold">Asal</label>
+                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
+                                    <div id="asalAlert"></div>
+                                </div>
+
+                                <!-- Prestasi -->
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Prestasi</label>
+                                    <input type="text" class="form-control" name="prestasi" id="prestasi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Prestasi" value="<?= $instrukturData->prestasi ?>">
+                                    <div id="prestasiAlert"></div>
+                                </div>
+
+
+                                <!-- USER Data -->
+                                <br>
+                                <div class="form-group row">
+                                    <!-- Password -->
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="font-weight-bold">password</label>
+                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password" value="<?= $instrukturData->password ?>">
+                                    </div>
+                                    <!-- Confirm Password -->
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold">Konfirmasi Password</label>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password" value="<?= $instrukturData->password ?>"> <br>
+                                        <div id="passwordAlert"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <input type="submit" class="btn btn-block btn-primary btn-user" value="Simpan">
+                                    <a href="javascript:history.back()" class="btn btn-secondary btn-block btn-user mt-3">Batal</a>
+                                </div>
+
+                            </form>
                         </div>
-                    <?php endforeach ?>
-
-
+                    </div>
+                    <!-- row -->
                 </div>
                 <!-- /.container-fluid -->
 
@@ -300,7 +379,7 @@
         </div>
     </div>
 
-    <?= $alert ?>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

@@ -38,8 +38,9 @@
                     <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
+
+                            <!-- Header -->
                             <div class="text-center">
-                                <!-- <h1 class="h4 text-gray-900 mb-2">JFC Center</h1> -->
                                 <div class="row justify-content-center">
                                     <div class="col-sm-3">
                                         <img style="width: 100%;" src="/bootstrap/img/logo-black.png" alt="">
@@ -48,6 +49,8 @@
                                 <hr>
                                 <h1 class="h6 font-weight-bold text-gray-600 mb-4">Login</h1>
                             </div>
+                            <!-- End Header -->
+                            
                             <div><?= $errorMessage ?></div>
                             <form class="user" action="/Authentication/Login" method="post">
                                 <!-- Username -->

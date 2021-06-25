@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Leader - JFC Center</title>
+    <title>Operator - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -105,14 +105,14 @@
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/Operator">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Operator</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/Leader">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Leader</span></a>
@@ -225,22 +225,30 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4 mt-4 border-left-primary">
                         <div class="card-header py-3">
-                            <div class="text-center text-gray-800 h3">Tambah Leader</div>
+                            <div class="text-center text-gray-800 h3">Update Operator</div>
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                            <form class="user" action="/Leader/Save" method="post">
+                            <form id="updateForm" class="user" action="/Operator/Update" method="post">
+
+                                <!-- hidden input -->
+                                <input type="hidden" name="idoperator" value="<?= $operatorData->id_operator ?>">
+                                <input type="hidden" name="username" value="<?= $operatorData->username ?>">
+
                                 <!-- BIODATA -->
                                 <div class="form-group row">
                                     <!-- Nama lengkap -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="nama_leader" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap">
+                                        <!-- <div class="font-weight-bold">Nama Lengkap</div> -->
+                                        <label class="font-weight-bold">Nama Lengkap</label>
+                                        <input type="text" class="form-control" name="nama_operator" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap" value="<?= $operatorData->nama_operator ?>">
                                         <div id="nameAlert"></div>
                                     </div>
                                     <!-- Jenis Kelamin -->
                                     <div class="col-sm-6">
-                                        <select required class="form-control" name="jenis_kelamin" id="jenis_kelamin">
-                                            <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                        <label class="font-weight-bold">Jenis Kelamin</label>
+                                        <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                            <option value="<?= $operatorData->jenis_kelamin ?>" selected><?= $operatorData->jenis_kelamin ?></option>
                                             <option value="Laki - laki">Laki - laki</option>
                                             <option value="Perempuan">Perempuan</option>
                                         </select>
@@ -249,85 +257,82 @@
                                 <div class="form-group row">
                                     <!-- Email -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email">
+                                        <label class="font-weight-bold">Email</label>
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email" value="<?= $operatorData->email ?>">
                                         <div id="emailAlert"></div>
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
-                                        <input required type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP"><br>
+                                        <label class="font-weight-bold">Nomor HP</label>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" value="<?= $operatorData->nomor_hp ?>"><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->
                                 <div class="form-group">
-                                    <input required type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat">
+                                    <label class="font-weight-bold">Alamat</label>
+                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat" value="<?= $operatorData->alamat ?>">
                                     <div id="alamatAlert"></div>
                                 </div>
                                 <div class="form-group row">
-                                    <!-- Provinsi -->
+                                    <!-- Kecamatan -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
-                                        <div id="alamatAlert"></div>
+                                        <label class="font-weight-bold">Kecamatan</label>
+                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan" value="<?= $operatorData->kecamatan ?>">
+                                        <div id="kecamatanAlert"></div>
                                     </div>
                                     <!-- Kabupaten -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten">
-                                        <div id="alamatAlert"></div>
+                                        <label class="font-weight-bold">Kabupaten</label>
+                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten" value="<?= $operatorData->kabupaten ?>">
+                                        <div id="kabupatenAlert"></div>
                                     </div>
-                                    <!-- Kecamatan -->
+                                    <!-- Provinsi -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
-                                        <div id="alamatAlert"></div>
+                                        <label class="font-weight-bold">Provinsi</label>
+                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi" value="<?= $operatorData->provinsi ?>">
+                                        <div id="provinsiAlert"></div>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <!-- Asal -->
+                                    <label class="font-weight-bold">Asal</label>
                                     <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
                                     <div id="asalAlert"></div>
                                 </div>
 
-                                <!-- Kategori Event -->
+                                <!-- Direktorat -->
                                 <div class="form-group">
-                                    <select required class="form-control" id="kategori" name="id_kategori">
-                                        <option value="">-Pilih Tema Event-</option>
-                                        <?php foreach ($kategori as $kategoriItem) : ?>
-                                            <option value=<?= $kategoriItem->id_kategori ?>><?= $kategoriItem->nama_kategori ?></option>
+                                    <label class="font-weight-bold">Direktorat</label>
+                                    <select class="form-control" name="id_direktorat" id="direktorat">
+                                        <option value="<?= $operatorData->id_direktorat ?>" selected><?= $operatorData->nama_direktorat ?></option>
+                                        <?php foreach($direktoratData as $x) : ?>
+                                        <option value="<?= $x->id_direktorat ?>"><?= $x->nama_direktorat ?></option>
                                         <?php endforeach ?>
                                     </select>
-                                </div>
-
-                                <!-- Sub Kategori -->
-                                <div class="form-group">
-                                    <select class="form-control" id="subKategori" name="id_sub_kategori">
-                                        <option value="">-Pilih Defile-</option>
-                                        <?php foreach ($subKategori as $subKategoriItem) : ?>
-                                            <option value=<?= $subKategoriItem->id_sub_kategori ?>><?= $subKategoriItem->nama_sub_kategori ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                                    <div id="direktoratAlert"></div>
                                 </div>
 
 
                                 <!-- USER Data -->
                                 <br>
-                                <!-- Username -->
-                                <div class="form-group">
-                                    <input required type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Username">
-                                    <div id="usernameAlert"></div>
-                                </div>
                                 <div class="form-group row">
                                     <!-- Password -->
-                                    <div required class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="font-weight-bold">password</label>
+                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password" value="<?= $operatorData->password ?>">
                                     </div>
                                     <!-- Confirm Password -->
-                                    <div required class="col-sm-6">
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password"> <br>
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold">Konfirmasi Password</label>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password" value="<?= $operatorData->password ?>"> <br>
                                         <div id="passwordAlert"></div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-5">
-                                    <input type="submit" class="btn btn-block btn-success btn-user" value="Tambah">
+                                    <input type="submit" class="btn btn-block btn-primary btn-user" value="Simpan">
+                                    <a href="javascript:history.back()" class="btn btn-secondary btn-block btn-user mt-3">Batal</a>
                                 </div>
 
                             </form>
@@ -335,6 +340,7 @@
                     </div>
                     <!-- row -->
                 </div>
+                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -381,13 +387,6 @@
 
     <!-- custom script -->
     <script>
-        // 
-        // 
-        // DOCUMENT READY FUNCTION =====================================
-        $(document).ready(function(e) {
-            $('#keterangan').hide().prop('required', false);
-            $('#subKategori').hide().prop('required', false);
-        })
         // 
         // 
         // 
@@ -464,30 +463,59 @@
             }
         })
 
-        // Penentuan kolom sub kategori ==============================================
-        $('#kategori').change(function(e) {
-            var kategori = $('#kategori option:selected').val();
-            // Menampilkan Sub Kategori Grand Carnival ===========================
-            if (kategori == 'GC') {
-                $('#subKategori').show().prop('required', true);
-            }
-            // Menampilkan Sub Kategori WACI ===========================
-            if (kategori == 'WA') {
-                $('#subKategori').hide().prop('required', false)
-            }
-            // Menampilkan Sub Kategori WKC ===========================
-            if (kategori == 'WK') {
-                $('#subKategori').show().prop('required', true);
-            }
-            // Menampilkan Kolom deskripsi PET =========================
-            if (kategori == 'PE') {
-                $('#subKategori').hide().prop('required', false);
-            }
-            // Menampilkan Kolom deskripsi AW ==========================
-            if (kategori == 'AW') {
-                $('#subKategori').hide().prop('required', false);
-            }
-        })
+        // 
+        // 
+        // 
+        // Get Kecamatan, Kabupaten via Provinsi ================================================
+        var x = $('#pilihKabupaten');
+        var y = $('#pilihKecamatan');
+        // Get Kabupaten ===========================
+        $('#pilihProvinsi').change(function(e) {
+            var a = $('#pilihProvinsi option:selected').val();
+            $.ajax({
+                type: 'POST',
+                url: '/Registrasi/getKabupaten',
+                data: {
+                    action: 'getKabupaten',
+                    idProvinsi: a
+                },
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data.Kabupaten)
+                    x.empty();
+                    y.empty();
+                    x.append($("<option></option>").attr("value", null).text('-pilih kabupaten-'));
+                    y.append($("<option></option>").attr("value", null).text('-pilih kecamatan-'));
+                    // mengisi option dengan kabupaten
+                    $.each(data.kabupaten, function(key, value) {
+                        x.append($("<option></option>")
+                            .attr("value", value.id_kabupaten).text(value.nama_kabupaten));
+                    });
+                },
+            });
+        });
+        // Get Kecamatan ===========================
+        $('#pilihKabupaten').change(function(e) {
+            var b = $('#pilihKabupaten option:selected').val();
+            $.ajax({
+                type: 'POST',
+                url: '/Registrasi/getKecamatan',
+                data: {
+                    action: 'getKecamatan',
+                    idKabupaten: b
+                },
+                dataType: 'json',
+                success: function(data) {
+                    y.empty();
+                    y.append($("<option></option>").attr("value", null).text('-pilih kecamatan-'));
+                    // mengisi option dengan kecamatan
+                    $.each(data.kecamatan, function(key, value) {
+                        y.append($("<option></option>")
+                            .attr("value", value.id_kecamatan).text(value.nama_kecamatan));
+                    });
+                },
+            });
+        });
     </script>
 
     <!-- Bootstrap core JavaScript-->
