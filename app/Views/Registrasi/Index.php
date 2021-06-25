@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/bootstrap/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
 
 
 
@@ -138,7 +138,7 @@
                             <!-- Profil Photos -->
                             <div class="form-group row d-flex">
                                 <div class="col-5 mb-3 mb-sm-3">
-                                    <img id="preview" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 50%" src="/bootstrap/img/blank-profile.png">
+                                    <img id="preview" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 100%" src="/bootstrap/img/blank-profile.png">
                                 </div>
                                 <div class="col-5 mb-3 mb-sm-3">
                                     <div class="h6 font-weight-bold">Pilih foto profil</div>

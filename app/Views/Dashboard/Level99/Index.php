@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
 
 </head>
 
@@ -427,14 +427,14 @@
                 datasets: [{
                     label: "Earnings",
                     lineTension: 0.3,
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
-                    borderColor: "rgba(78, 115, 223, 1)",
+                    backgroundColor: "#FCEEF2",
+                    borderColor: "#DF4E76",
                     pointRadius: 3,
-                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointBackgroundColor: "#DF4E76",
+                    pointBorderColor: "#DF4E76",
                     pointHoverRadius: 3,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBackgroundColor: "#C72855",
+                    pointHoverBorderColor: "#C72855",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
                     data: [150, 90, 85, 120,0],

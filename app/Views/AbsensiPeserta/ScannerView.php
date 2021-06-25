@@ -1,19 +1,27 @@
 <html>
 
 <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>Absensi - JFC Center</title>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-    <script type="text/javascript" src="/public/instascan/instascan.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -173,7 +181,9 @@
                                 <div class="col">
                                     <div class="mb-2">Klik tombol Start Scan untuk mulai melakukan absensi peserta</div>
                                     <div class="mb-4"><button class="btn btn-primary" onclick="startScan()">Start Scan</button></div>
-                                    <video class="col-xl-8 col-lg-7" id="preview"></video>
+                                    <div class="col-xl-8 col-lg-7">
+                                        <video style="width: 100%; aspect-ratio: 1/1;" id="preview"></video>
+                                    </div>
                                     <div class="col text-center">
                                         <div id="nama_peserta" class="h6 text-gray-800 font-weight-bold mt-3 "></div>
                                         <div id="status" class="text-success font-weight-bold mt-1 "></div>
@@ -236,6 +246,7 @@
     <script type="text/javascript">
         function startScan() {
             let scanner = new Instascan.Scanner({
+                mirror: false,
                 video: document.getElementById('preview')
             });
             scanner.addListener('scan', function(content) {
@@ -245,18 +256,24 @@
                     data: {
                         action: 'enroll',
                         id_peserta: content,
-                        id_workshop: <?= $idWorkshop; ?>,
+                        id_workshop: '<?= $idWorkshop; ?>',
                     },
                     dataType: 'json',
                     success: function(data) {
-                        $('#nama_peserta').text(data.result['nama_peserta']);
-                        $('#status').text('Success');
+                        // $('#nama_peserta').text(data.result['nama_peserta']);
+                        // $('#status').text('Success');
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: data.result['nama_peserta'],
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        })
                     }
                 })
             });
             Instascan.Camera.getCameras().then(function(cameras) {
                 if (cameras.length > 0) {
-                    scanner.start(cameras[1]);
+                    scanner.start(cameras[0]);
                 } else {
                     console.error('No cameras found.');
                 }
