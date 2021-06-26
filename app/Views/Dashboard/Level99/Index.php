@@ -63,7 +63,7 @@
             <!-- Approval Request -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-check-double"></i>
                     <span>Approval Request</span>
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -86,7 +86,7 @@
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/WA">WACI </a>
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/AW">ArtWear</a>
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/PE">Pets Carnival</a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKCI</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKC</a>
                     </div>
                 </div>
             </li>
@@ -522,6 +522,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/bootstrap/vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 
 </body>

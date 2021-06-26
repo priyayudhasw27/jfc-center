@@ -61,7 +61,7 @@
             <!-- Approval Request -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-check-double"></i>
                     <span>Approval Request</span>
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -84,7 +84,7 @@
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/WA">WACI </a>
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/AW">ArtWear</a>
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/PE">Pets Carnival</a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKCI</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKC</a>
                     </div>
                 </div>
             </li>
@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="row justify-content-end">
-                                        
+                                        <a href="/Leader/UpdateForm/<?= $leaderData->id_leader ?>" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Update Data</a>
                                     </div>
                                 </div>
                             </div>

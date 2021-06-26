@@ -70,7 +70,7 @@
             <!-- Approval Request -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-check-double"></i>
                     <span>Approval Request</span>
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -93,7 +93,7 @@
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/WA">WACI </a>
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/AW">ArtWear</a>
                         <a class="collapse-item" href="/Peserta/DaftarPeserta/PE">Pets Carnival</a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKCI</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKC</a>
                     </div>
                 </div>
             </li>
@@ -379,7 +379,83 @@
         </div>
     </div>
 
+
+
+    <!-- Photo Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageLabel"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div id="image"></div>
+                    <hr>
+                    <div class="row">
+                        <!-- <div id="deleteButton" class="btn btn-danger">Hapus</div> -->
+                    </div>
+                </div>
+                <!-- End of Modal Body -->
+
+            </div>
+        </div>
+    </div>
+
+
     <script>
+
+
+        // ========================== Package PENAMPIL FOTO GALERI
+        // Open preview Modal dan Get Photo by id uploads
+        function openPreviewModal(id_uploads) {
+            // console.log(id_uploads);
+            $.ajax({
+                type: 'post',
+                url: '/Upload/View',
+                data: {
+                    action: 'GetView',
+                    id_uploads: id_uploads,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#image').html('<img style="width: 100%" src="/assets/uploaded/' + data.filepath + '" alt="">')
+                    $('#imageLabel').text(data.filepath);
+                    $('#previewModal').modal('show');
+                    $('#deleteButton').click(function(e) {
+                        deletePhoto(id_uploads);
+                    });
+                }
+            })
+        }
+
+        function deletePhoto(id_uploads) {
+            $.ajax({
+                type: 'post',
+                url: '/Upload/Delete',
+                data: {
+                    action: 'Delete',
+                    id_uploads: id_uploads,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: 'Berhasil!',
+                    //     text: 'Foto berhasil dihapus',
+                    // })
+                    console.log(data);
+                }
+            })
+        }
+
+
         $(document).ready(function(e) {
 
             // Grand Juri Photo
@@ -395,7 +471,7 @@
                 success: function(data) {
                     var x = $('#grandJuriAlbum')
                     $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })
@@ -413,7 +489,7 @@
                 success: function(data) {
                     var x = $('#presentasi1Album')
                     $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })
@@ -431,7 +507,7 @@
                 success: function(data) {
                     var x = $('#presentasi2Album')
                     $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt=""></div>')
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })

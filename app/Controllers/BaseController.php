@@ -71,6 +71,7 @@ class BaseController extends Controller
 		// Get Current Date =============================
 		$dateObj = Time::createFromTimestamp(now());
 		$this->nowDate = $dateObj->toDateString();
+		$this->nowTime = $dateObj->toTimeString();
 	}
 
 	// Get Id dari Username

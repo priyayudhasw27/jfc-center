@@ -117,6 +117,22 @@ class Peserta extends BaseController
 			];
 			// print_r($data);
 			return view('/Peserta/Level99/Index', $data);
+		} else if ($userData['id_level'] == 100) {
+			// page untuk admin
+
+			$kategoriModel = new KategoriModel;
+			// get berdasarkan kategori
+			$idKategori = $this->request->uri->getSegment('3');
+			$kategoriData = $kategoriModel->_findById($idKategori)[0];
+			$peserta = $pesertaModel->_getByKategori($idKategori);
+			$data = [
+				'userData' => $this->session->userData,
+				'peserta' => $peserta,
+				'alert' => $alert,
+				'kategoriData' => $kategoriData,
+			];
+			// print_r($data);
+			return view('/Peserta/Level100/Index', $data);
 		}
 	}
 
@@ -142,6 +158,8 @@ class Peserta extends BaseController
 			echo view('/Peserta/Level99/View', $data);
 		}else if($userData['id_level']=='3'){
 			echo view('/Peserta/Level3/View', $data);
+		}else if($userData['id_level']=='100'){
+			echo view('/Peserta/Level100/View', $data);
 		}
 	}
 

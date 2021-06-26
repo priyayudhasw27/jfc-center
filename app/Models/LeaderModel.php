@@ -72,6 +72,7 @@ class LeaderModel extends Model
             ->where('id_leader', $idleader)
             ->join('kategori', 'kategori.id_kategori = leader.id_kategori')
             ->join('sub_kategori', 'sub_kategori.id_sub_kategori = leader.id_sub_kategori')
+            ->join('user', 'user.username = leader.username')
             ->get()
             ->getResult();
         return $result;

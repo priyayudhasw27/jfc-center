@@ -33,7 +33,11 @@ class Leader extends BaseController
 			'alert' => $alert,
 		];
 
-		echo view('/Leader/Level99/Index', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Leader/Level99/Index', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Leader/Level100/Index', $data);
+		}
 	}
 
 	// VIEW ==============================
@@ -84,6 +88,29 @@ class Leader extends BaseController
 		];
 
 		return view('/Leader/Level99/Insert', $data);
+	}
+
+	// UPDATE FORM ==============================
+
+	public function UpdateForm()
+	{
+		$kategoriModel = new KategoriModel;
+		$subKategoriModel = new SubKategoriModel;
+		$leaderModel = new LeaderModel;
+
+		$userData = $this->session->userData;
+		$idLeader = $this->request->uri->getSegment('3');
+
+		$leaderData = $leaderModel->_getAllInfoById($idLeader)[0];
+
+		$data = [
+			'leaderData' => $leaderData,
+			'kategoriData' => $kategoriModel->_get(),
+			'subKategoriData' => $subKategoriModel->_get(),
+			'userData' => $userData,
+		];
+
+		return view('/Leader/Level99/Update', $data);
 	}
 
 
@@ -154,6 +181,68 @@ class Leader extends BaseController
 					Swal.fire({
 						title: 'Berhasil!',
 						text: 'Berhasil menambah Leader',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+			return redirect()->to('/Leader');
+		}
+	}
+
+	// UPDATE ==============================
+	public function Update()
+	{
+		$userModel = new UserModel;
+		$leaderModel = new LeaderModel;
+
+		if ($this->request->getMethod() === 'post') {
+			// Data Tabel User
+			$username = $this->request->getPost('username');
+			$password = $this->GetMd5($this->request->getPost('password'));
+
+			// Data Tabel Leader
+			$idLeader = $this->request->getPost('id_leader');
+			$namaLeader = $this->request->getPost('nama_leader');
+			$jenisKelamin = $this->request->getPost('jenis_kelamin');
+			$email = $this->request->getPost('email');
+			$nomorHp = $this->request->getPost('nomor_hp');
+			$alamat = $this->request->getPost('alamat');
+			$asal = $this->request->getPost('asal');
+			$kecamatan = $this->request->getPost('kecamatan');
+			$kabupaten = $this->request->getPost('kabupaten');
+			$provinsi = $this->request->getPost('provinsi');
+
+			
+
+			$userData = [
+				'password' => $password,
+			];
+
+			$instrukturData = [
+				'nama_leader' => $namaLeader,
+				'jenis_kelamin' => $jenisKelamin,
+				'email' => $email,
+				'nomor_hp' => $nomorHp,
+				'alamat' => $alamat,
+				'kecamatan' => $kecamatan,
+				'kabupaten' => $kabupaten,
+				'provinsi' => $provinsi,
+				'asal' => $asal,
+				'username' => $username,
+			];
+
+
+			// Insertion to Database ==========================
+			$userModel->_Update($username, $userData);
+			$leaderModel->_Update($idLeader, $instrukturData);
+
+			$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil mengupdate Leader',
 						icon: 'success',
 						confirmButtonText: 'Ok'
 					})

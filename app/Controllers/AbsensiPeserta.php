@@ -21,6 +21,8 @@ class AbsensiPeserta extends BaseController
 	// SCANNER ==============================
 	public function Scanner()
 	{
+		
+        // print_r($this->nowTime);
 		$kehadiranInstrukturModel = new KehadiranInstrukturModel;
 		$instrukturModel = new InstrukturModel;
 

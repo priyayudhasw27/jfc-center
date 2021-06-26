@@ -55,5 +55,14 @@ class AdminModel extends Model
         $this->delete($id);
     }
 
+    public function _findByIdWithUsername($id_admin){
+        $result = $this->where('id_admin', $id_admin)
+        ->join('user', 'user.username = admin.username')
+        ->get()
+        ->getResult();
+
+        return $result;
+    }
+
 
 }

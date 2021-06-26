@@ -9,7 +9,7 @@ class KehadiranPesertaModel extends Model
     protected $table = 'kehadiran_peserta';
     protected $primaryKey = 'id_kehadiran';
     protected $returnType = 'object';
-    protected $allowedFields = ['id_kehadiran', 'id_peserta', 'id_workshop', 'inclass',];
+    protected $allowedFields = ['id_kehadiran', 'id_peserta', 'id_workshop', 'inclass', 'keterlambatan'];
 
     public function _get()
     {

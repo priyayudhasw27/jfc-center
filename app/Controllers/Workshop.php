@@ -116,6 +116,31 @@ class Workshop extends BaseController
 				'alert' => $alert,
 			];
 			return view('/Workshop/Level99/Index', $data);
+		} else if ($userData['id_level'] == 100) {
+
+			// page untuk operator
+			$kehadiranPesertaModel = new KehadiranPesertaModel;
+
+			$workshop = $workshopModel->_getAllInfo();
+			$pesertaHadir = [];
+			$pesertaTidakHadir = [];
+
+			if ($workshop != '') {
+				// get total peserta hadir dan tidak hadir
+				foreach ($workshop as $x) {
+					$pesertaHadir[$x->id_workshop] = $kehadiranPesertaModel->_countHadirByWorkshop($x->id_workshop);
+					$pesertaTidakHadir[$x->id_workshop] = $kehadiranPesertaModel->_countTidakHadirByWorkshop($x->id_workshop);
+				}
+			}
+
+			$data = [
+				'userData' => $this->session->userData,
+				'workshop' => $workshop,
+				'pesertaHadir' => $pesertaHadir,
+				'pesertaTidakHadir' => $pesertaTidakHadir,
+				'alert' => $alert,
+			];
+			return view('/Workshop/Level100/Index', $data);
 		}
 	}
 

@@ -85,6 +85,8 @@ class Authentication extends BaseController
                         return redirect()->to('/Peserta/DaftarPeserta');
                     } else if($level == 99){
                         return redirect()->to('/Dashboard');
+                    } else if($level == 100){
+                        return redirect()->to('/Dashboard');
                     }
                 }
             } else {

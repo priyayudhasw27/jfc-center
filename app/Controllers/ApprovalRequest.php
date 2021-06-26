@@ -61,7 +61,11 @@ class ApprovalRequest extends BaseController
 			'alert' => $alert,
 		];
 
-		echo view('/ApprovalRequest/Level99/MovingPesertaView', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/ApprovalRequest/Level99/MovingPesertaView', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/ApprovalRequest/Level100/MovingPesertaView', $data);
+		}
 	}
 
 	// APPROVE MOVING PESERTA ==============================

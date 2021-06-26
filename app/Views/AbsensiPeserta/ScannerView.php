@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <title>Absensi - JFC Center</title>
     <!-- JQuery -->
@@ -15,6 +16,8 @@
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <!-- Sweet Alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Web RTC -->
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
     <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -185,9 +188,10 @@
                                 <div class="col">
                                     <div class="mb-2">Klik tombol Start Scan untuk mulai melakukan absensi peserta</div>
                                     <div class="mb-4"><button class="btn btn-primary" onclick="startScan()">Start Scan</button></div>
-                                    <div class="col-xl-8 col-lg-7">
-                                        <video style="width: 100%; aspect-ratio: 1/1;" id="preview"></video>
-                                    </div>
+                                    <!-- <div class="col-xl-8 col-lg-7">
+                                        <video class="video-back" playsinline style="width: 100%;" id="preview"></video>
+                                    </div> -->
+                                    <video class="video-back" playsinline style="width: 100%;" id="preview"></video>
                                     <div class="col text-center">
                                         <div id="nama_peserta" class="h6 text-gray-800 font-weight-bold mt-3 "></div>
                                         <div id="status" class="text-success font-weight-bold mt-1 "></div>
@@ -276,8 +280,11 @@
                 })
             });
             Instascan.Camera.getCameras().then(function(cameras) {
-                if (cameras.length > 0) {
+                // console.log(cameras);
+                if (cameras.length < 1) {
                     scanner.start(cameras[0]);
+                } else if (cameras.length > 1) {
+                    scanner.start(cameras[1]);
                 } else {
                     console.error('No cameras found.');
                 }

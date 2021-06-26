@@ -30,7 +30,11 @@ class Instruktur extends BaseController
 			'alert' => $alert,
 		];
 
-		echo view('/Instruktur/Level99/Index', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Instruktur/Level99/Index', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Instruktur/Level100/Index', $data);
+		}
 	}
 
 	// VIEW ==============================

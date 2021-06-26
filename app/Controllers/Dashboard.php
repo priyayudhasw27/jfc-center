@@ -70,6 +70,13 @@ class Dashboard extends BaseController
                 'userData' => $userData,
             ];
             echo view('/Dashboard/Level99/Index', $data);
+        } else if ($userData['id_level'] == 100) {
+
+            // dashboard Admin
+            $data = [
+                'userData' => $userData,
+            ];
+            echo view('/Dashboard/Level100/Index', $data);
         }
     }
 }

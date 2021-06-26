@@ -27,7 +27,12 @@ class Operator extends BaseController
 			'userData' => $userData,
 			'alert' => $alert,
 		];
-		return view('/Operator/Level99/Index', $data);
+		
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Operator/Level99/Index', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Operator/Level100/Index', $data);
+		}
 	}
 
 	// VIEW ==============================
