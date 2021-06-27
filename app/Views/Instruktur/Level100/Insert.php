@@ -236,7 +236,7 @@
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                            <form class="user" action="/Instruktur/Save" method="post">
+                        <form id="form" class="user" action="/Instruktur/Save" method="post">
                                 <!-- BIODATA -->
                                 <div class="form-group row">
                                     <!-- Nama lengkap -->
@@ -270,9 +270,9 @@
                                     <div id="alamatAlert"></div>
                                 </div>
                                 <div class="form-group row">
-                                    <!-- Provinsi -->
+                                    <!-- Kecamatan -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
+                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
                                         <div id="alamatAlert"></div>
                                     </div>
                                     <!-- Kabupaten -->
@@ -280,9 +280,9 @@
                                         <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten">
                                         <div id="alamatAlert"></div>
                                     </div>
-                                    <!-- Kecamatan -->
+                                    <!-- Provinsi -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
+                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
                                         <div id="alamatAlert"></div>
                                     </div>
                                 </div>
@@ -295,8 +295,7 @@
 
                                 <!-- Prestasi -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="prestasi" id="prestasi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Prestasi">
-                                    <div id="prestasiAlert"></div>
+                                    <textarea required class="form-control" name="prestasi" id="prestasi" form="form" cols="30" rows="10" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
                                 </div>
 
 
@@ -320,7 +319,8 @@
                                 </div>
 
                                 <div class="form-group col-md-5">
-                                    <input type="submit" class="btn btn-block btn-success btn-user" value="Tambah">
+                                    <input type="submit" class="btn btn-block btn-primary btn-user" value="Tambah">
+                                    <a href="javascript:history.back()" class="mt-3 btn btn-block btn-secondary btn-user">Batal</a>
                                 </div>
 
                             </form>

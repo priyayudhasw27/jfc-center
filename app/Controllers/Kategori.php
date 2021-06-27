@@ -15,13 +15,9 @@ class Kategori extends BaseController
 	// INDEX ==============================
 	public function Index()
 	{
-		$provinsiModel = new ProvinsiModel;
 
-		$data = [
-			'provinsi' => $provinsiModel->_get(),
-		];
 
-		return view('/Instruktur/Index', $data);
+		return view('/Instruktur/Index');
 	}
 
 	// VALIDATION ==============================

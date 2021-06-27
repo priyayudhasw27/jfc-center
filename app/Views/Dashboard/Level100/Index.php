@@ -530,6 +530,10 @@
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.js"></script>
 
+    <!-- Page level plugins -->
+    <script src="/bootstrap/vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

@@ -142,16 +142,6 @@
                                 <textarea required class="form-control" name="prestasi" id="prestasi" form="registrationForm" cols="30" rows="10" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
                             </div>
                             <hr class="mt-4 mb-4">
-                            <!-- Profil Photos -->
-                            <div class="form-group row d-flex">
-                                <div class="col-5 mb-3 mb-sm-3">
-                                    <img id="preview" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 100%" src="/bootstrap/img/blank-profile.png">
-                                </div>
-                                <div class="col-5 mb-3 mb-sm-3">
-                                    <div class="h6 font-weight-bold">Pilih foto profil</div>
-                                    <input  onchange="readURL(this);" type="file" name="profilePhoto" id="profilePhoto" accept="image/jpg, image/jpeg">
-                                </div>
-                            </div>
 
 
 
@@ -203,19 +193,7 @@
 
     <!-- custom script -->
     <script>
-        // Menampilkan pilihan foto profil
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    $('#preview')
-                        .attr('src', e.target.result)
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+       
 
         // 
         // 

@@ -54,7 +54,12 @@ class Instruktur extends BaseController
 			'alert' => $alert,
 		];
 
-		echo view('/Instruktur/Level99/View', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Instruktur/Level99/View', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Instruktur/Level100/View', $data);
+		}
+		
 	}
 
 	// VALIDATION ==============================
@@ -83,7 +88,11 @@ class Instruktur extends BaseController
 			'userData' => $userData,
 		];
 
-		return view('/Instruktur/Level99/Insert', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Instruktur/Level99/Insert', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Instruktur/Level100/Insert', $data);
+		}
 	}
 
 	// UPDATE FORM ==============================
@@ -101,7 +110,11 @@ class Instruktur extends BaseController
 			'instrukturData' => $instrukturModel->_findByIdWithUsername($idInstruktur)[0],
 		];
 
-		return view('/Instruktur/Level99/Update', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Instruktur/Level99/Update', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Instruktur/Level100/Update', $data);
+		}
 	}
 
 

@@ -206,11 +206,11 @@
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Alamat</div>
                                     <div class="text-gray-800"><?= $pesertaData->alamat ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Kecamatan</div>
-                                    <div class="text-gray-800"><?= $pesertaData->nama_kecamatan ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->kecamatan ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Kabupaten</div>
-                                    <div class="text-gray-800"><?= $pesertaData->nama_kabupaten ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->kabupaten ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Provinsi</div>
-                                    <div class="text-gray-800"><?= $pesertaData->nama_provinsi ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->provinsi ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Asal Sekolah / Instansi</div>
                                     <div class="text-gray-800"><?= $pesertaData->asal ?></div>
                                 </div>
@@ -219,16 +219,7 @@
                         </div>
                     </div>
 
-                    <!-- Peserta -->
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Overview Peserta</h6>
-                        </div>
-                        <div class="card-body">
-                            COMING SOON
-                        </div>
-                    </div>
+                    
                     <!-- row -->
                 </div>
                 <!-- /.container-fluid -->

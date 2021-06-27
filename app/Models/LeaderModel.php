@@ -20,7 +20,7 @@ class LeaderModel extends Model
         'username',
         'id_kategori',
         'id_sub_kategori',
-        'kecamatan', 
+        'kecamatan',
         'kabupaten',
         'provinsi',
     ];
@@ -32,7 +32,11 @@ class LeaderModel extends Model
 
     public function _findById($id)
     {
-        return $this->find($id);
+        return $this->where('id_leader', $id)
+            ->join('kategori', 'kategori.id_kategori = leader.id_kategori')
+            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = leader.id_sub_kategori', 'left')
+            ->get()
+            ->getResult();
     }
 
     public function _insert($data)

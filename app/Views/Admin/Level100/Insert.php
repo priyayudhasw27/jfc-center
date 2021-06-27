@@ -314,7 +314,8 @@
                                 </div>
 
                                 <div class="form-group col-md-5">
-                                    <input type="submit" class="btn btn-block btn-success btn-user" value="Tambah">
+                                    <input type="submit" class="btn btn-block btn-primary btn-user" value="Tambah">
+                                    <a href="javascript:history.back()" class="mt-3 btn btn-block btn-secondary btn-user">Batal</a>
                                 </div>
 
                             </form>

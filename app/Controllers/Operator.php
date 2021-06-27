@@ -49,7 +49,12 @@ class Operator extends BaseController
 			'operatorData' => $operatorData,
 			'userData' => $userData,
 		];
-		return view('/Operator/Level99/View', $data);
+		
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Operator/Level99/View', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Operator/Level100/View', $data);
+		}
 	}
 
 	// NEW FORM ==============================
@@ -65,7 +70,11 @@ class Operator extends BaseController
 			'userData' => $userData,
 		];
 
-		return view('/Operator/Level99/Insert', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Operator/Level99/Insert', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Operator/Level100/Insert', $data);
+		}
 	}
 
 	// UPDATE FORM ==============================
@@ -86,7 +95,13 @@ class Operator extends BaseController
 			'userData' => $userData,
 		];
 
-		return view('/Operator/Level99/Update', $data);
+		// print_r($idOperator);
+
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Operator/Level99/Update', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Operator/Level100/Update', $data);
+		}
 	}
 
 	// VALIDATION ==============================
@@ -212,6 +227,7 @@ class Operator extends BaseController
 				'kabupaten' => $kabupaten,
 				'provinsi' => $provinsi,
 			];
+
 
 			// Insertion to Database ==========================
 			$userModel->_update($username,$userData);

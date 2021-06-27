@@ -232,7 +232,7 @@
                             <form id="updateForm" class="user" action="/Operator/Update" method="post">
 
                                 <!-- hidden input -->
-                                <input type="hidden" name="idoperator" value="<?= $operatorData->id_operator ?>">
+                                <input type="hidden" name="id_operator" value="<?= $operatorData->id_operator ?>">
                                 <input type="hidden" name="username" value="<?= $operatorData->username ?>">
 
                                 <!-- BIODATA -->

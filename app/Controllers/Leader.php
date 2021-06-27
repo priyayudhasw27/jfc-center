@@ -54,7 +54,11 @@ class Leader extends BaseController
 			'userData' => $userData,
 		];
 
-		echo view('/Leader/Level99/View', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Leader/Level99/View', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Leader/Level100/View', $data);
+		}
 	}
 
 	// VALIDATION ==============================
@@ -87,7 +91,11 @@ class Leader extends BaseController
 			'userData' => $userData,
 		];
 
-		return view('/Leader/Level99/Insert', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Leader/Level99/Insert', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Leader/Level100/Insert', $data);
+		}
 	}
 
 	// UPDATE FORM ==============================
@@ -110,7 +118,11 @@ class Leader extends BaseController
 			'userData' => $userData,
 		];
 
-		return view('/Leader/Level99/Update', $data);
+		if($this->session->userData['id_level'] == 99){
+			echo view('/Leader/Level100/Update', $data);
+		}else if($this->session->userData['id_level'] == 100){
+			echo view('/Leader/Level100/Update', $data);
+		}
 	}
 
 

@@ -235,11 +235,11 @@
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                            <form id="updateForm" class="user" action="/Instruktur/Update" method="post">
+                            <form id="form" class="user" action="/Instruktur/Update" method="post">
 
                                 <!-- hidden input -->
-                                <input type="hidden" name="idInstruktur" value="<?= $instrukturData->id_instruktur ?>">
-                                <input type="hidden" name="username"value="<?= $instrukturData->username ?>">
+                                <input type="hidden" name="id_instruktur" value="<?= $instrukturData->id_instruktur ?>">
+                                <input type="hidden" name="username" value="<?= $instrukturData->username ?>">
 
                                 <!-- BIODATA -->
                                 <div class="form-group row">
@@ -309,9 +309,7 @@
 
                                 <!-- Prestasi -->
                                 <div class="form-group">
-                                    <label class="font-weight-bold">Prestasi</label>
-                                    <input type="text" class="form-control" name="prestasi" id="prestasi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Prestasi" value="<?= $instrukturData->prestasi ?>">
-                                    <div id="prestasiAlert"></div>
+                                    <textarea required class="form-control" name="prestasi" id="prestasi" form="form" cols="30" rows="10" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
                                 </div>
 
 

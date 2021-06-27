@@ -231,14 +231,14 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4 mt-4 border-left-primary">
                         <div class="card-header py-3">
-                            <div class="text-center text-gray-800 h3">Tambah Instruktur</div>
+                            <div class="text-center text-gray-800 h3">Update Data Admin</div>
                         </div>
                         <div class="card-body justify-alignment-left">
 
                             <form id="updateForm" class="user" action="/Admin/Update" method="post">
 
                                 <!-- hidden input -->
-                                <input type="hidden" name="idAdmin" value="<?= $adminData->id_admin ?>">
+                                <input type="hidden" name="id_admin" value="<?= $adminData->id_admin ?>">
                                 <input type="hidden" name="username"value="<?= $adminData->username ?>">
 
                                 <!-- BIODATA -->

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Operator - JFC Center</title>
+    <title>Peserta - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -20,6 +20,15 @@
 
     <!-- Custom styles for this template-->
     <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
+
+    <style>
+        .thumbnail {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 150px;
+        }
+    </style>
 
 </head>
 
@@ -48,80 +57,6 @@
                 <a class="nav-link" href="/Dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Menu
-            </div>
-
-            <!-- Approval Request -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-check-double"></i>
-                    <span>Approval Request</span>
-                </a>
-                <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/ApprovalRequest/MovingPeserta">Moving Peserta</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Peserta -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pesertaCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Peserta</span>
-                </a>
-                <div id="pesertaCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kategori Event</h6>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/GC">Grand Carnival</a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WA">WACI </a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/AW">ArtWear</a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/PE">Pets Carnival</a>
-                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKC</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Admin">
-                    <i class="fas fa-fw fa-male"></i>
-                    <span>Admin</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Instruktur">
-                    <i class="fas fa-fw fa-user-tie"></i>
-                    <span>Instruktur</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/Operator">
-                    <i class="fas fa-fw fa-user-cog"></i>
-                    <span>Operator</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Leader">
-                    <i class="fas fa-fw fa-user-graduate"></i>
-                    <span>Leader</span></a>
             </li>
 
             <!-- Divider -->
@@ -235,7 +170,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item"><a href="/Operator">Operator</a></li>
+                                <li class="breadcrumb-item"><a href="/Peserta">Peserta</a></li>
                                 <li class="breadcrumb-item active">View</li>
                             </ol>
                         </nav>
@@ -247,46 +182,85 @@
                                 <div class="col">
                                     <a href="javascript:history.back()" class="text-gray-600 h5" onclick="goBack()"><i class="fa fa-arrow-left"></i> Kembali</a>
                                 </div>
-                                <div class="col">
-                                    <div class="row justify-content-end">
-                                        <a href="/Operator/UpdateForm/<?= $operatorData->id_operator ?>" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Update Data</a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Nama Operator</div>
-                                    <div class="text-gray-800"><?= $operatorData->nama_operator ?></div>
+                                    <div class="text-gray-800 font-weight-bold mt-2 ">Nama Peserta</div>
+                                    <div class="text-gray-800"><?= $pesertaData->nama_peserta ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Jenis Kelamin</div>
-                                    <div class="text-gray-800"><?= $operatorData->jenis_kelamin ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->jenis_kelamin ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Email</div>
-                                    <div class="text-gray-800"><?= $operatorData->email ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->email ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Nomor HP</div>
-                                    <div class="text-gray-800"><?= $operatorData->nomor_hp ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Asal Sekolah / Instansi</div>
-                                    <div class="text-gray-800"><?= $operatorData->asal ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->nomor_hp ?></div>
+                                    <div class="text-gray-800 font-weight-bold mt-2 ">Kategori Event</div>
+                                    <div class="text-gray-800"><?= $pesertaData->nama_kategori ?></div>
+                                    <div class="text-gray-800 font-weight-bold mt-2 ">Keterangan</div>
+                                    <div class="text-gray-800"><?= $pesertaData->keterangan ?></div>
+                                    <div class="text-gray-800 font-weight-bold mt-2 ">Defile</div>
+                                    <div class="text-gray-800"><?= $pesertaData->nama_sub_kategori ?></div>
 
                                 </div>
                                 <div class="col">
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Alamat</div>
-                                    <div class="text-gray-800"><?= $operatorData->alamat ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->alamat ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Kecamatan</div>
-                                    <div class="text-gray-800"><?= $operatorData->kecamatan ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->kecamatan ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Kabupaten</div>
-                                    <div class="text-gray-800"><?= $operatorData->kabupaten ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->kabupaten ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Provinsi</div>
-                                    <div class="text-gray-800"><?= $operatorData->provinsi ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Direktorat</div>
-                                    <div class="text-gray-800"><?= $operatorData->nama_direktorat ?></div>
+                                    <div class="text-gray-800"><?= $pesertaData->provinsi ?></div>
+                                    <div class="text-gray-800 font-weight-bold mt-2 ">Asal Sekolah / Instansi</div>
+                                    <div class="text-gray-800"><?= $pesertaData->asal ?></div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
 
-                    
+                    <!-- ALBUM Presentasi 1 -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Album Presentasi 1</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row" id="presentasi1Album">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ALBUM Presentasi 2 -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Album Presentasi 2</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row" id="presentasi2Album">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ALBUM Grand Juri -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Album Grand Juri</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row" id="grandJuriAlbum">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
                 </div>
                 <!-- /.container-fluid -->
 
@@ -334,6 +308,141 @@
     </div>
 
 
+
+    <!-- Photo Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageLabel"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div id="image"></div>
+                    <hr>
+                    <div class="row">
+                        <!-- <div id="deleteButton" class="btn btn-danger">Hapus</div> -->
+                    </div>
+                </div>
+                <!-- End of Modal Body -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        // ========================== Package PENAMPIL FOTO GALERI
+        // Open preview Modal dan Get Photo by id uploads
+        function openPreviewModal(id_uploads) {
+            // console.log(id_uploads);
+            $.ajax({
+                type: 'post',
+                url: '/Upload/View',
+                data: {
+                    action: 'GetView',
+                    id_uploads: id_uploads,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#image').html('<img style="width: 100%" src="/assets/uploaded/' + data.filepath + '" alt="">')
+                    $('#imageLabel').text(data.filepath);
+                    $('#previewModal').modal('show');
+                    $('#deleteButton').click(function(e) {
+                        deletePhoto(id_uploads);
+                    });
+                }
+            })
+        }
+
+        function deletePhoto(id_uploads) {
+            $.ajax({
+                type: 'post',
+                url: '/Upload/Delete',
+                data: {
+                    action: 'Delete',
+                    id_uploads: id_uploads,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: 'Berhasil!',
+                    //     text: 'Foto berhasil dihapus',
+                    // })
+                    console.log(data);
+                }
+            })
+        }
+
+
+        $(document).ready(function(e) {
+
+            // Grand Juri Photo
+            $.ajax({
+                type: 'post',
+                url: '/Upload/GetPhotos',
+                data: {
+                    action: 'GetPhotos',
+                    id_usage: 'usg_0241',
+                    id_peserta: '<?= $pesertaData->id_peserta ?>'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var x = $('#grandJuriAlbum')
+                    $.each(data, function(key, value) {
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
+                    });
+                }
+            })
+
+            // Presentasi 1 Photo
+            $.ajax({
+                type: 'post',
+                url: '/Upload/GetPhotos',
+                data: {
+                    action: 'GetPhotos',
+                    id_usage: 'usg_0111',
+                    id_peserta: '<?= $pesertaData->id_peserta ?>'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var x = $('#presentasi1Album')
+                    $.each(data, function(key, value) {
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
+                    });
+                }
+            })
+
+            // Presentasi 2 Photo
+            $.ajax({
+                type: 'post',
+                url: '/Upload/GetPhotos',
+                data: {
+                    action: 'GetPhotos',
+                    id_usage: 'usg_0112',
+                    id_peserta: '<?= $pesertaData->id_peserta ?>'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var x = $('#presentasi2Album')
+                    $.each(data, function(key, value) {
+                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
+                    });
+                }
+            })
+        })
+    </script>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
     <script src="/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -343,7 +452,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
-
 
 </body>
 

@@ -256,11 +256,6 @@
                                 <div class="col">
                                     <a href="javascript:history.back()" class="text-gray-600 h5" onclick="goBack()"><i class="fa fa-arrow-left"></i> Kembali</a>
                                 </div>
-                                <div class="col">
-                                    <div class="row justify-content-end">
-                                        <a href="/Peserta/Delete/<?= $userData['username'] ?>" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Hapus Peserta</a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="card-body">

@@ -7,6 +7,7 @@ use App\Models\KabupatenModel;
 use App\Models\KategoriModel;
 use App\Models\KecamatanModel;
 use App\Models\KehadiranPesertaModel;
+use App\Models\KeikutsertaanModel;
 use App\Models\PesertaModel;
 use App\Models\ProvinsiModel;
 use App\Models\SubKategoriModel;
@@ -65,6 +66,7 @@ class Registrasi extends BaseController
 		$kehadiranPesertaModel = new KehadiranPesertaModel;
 		$jadwalModel = new JadwalModel;
 		$uploadsModel = new UploadsModel;
+		$keikutsertaanModel = new KeikutsertaanModel;
 
 		if ($this->request->getMethod() === 'post') {
 			// Data Tabel User
@@ -89,8 +91,9 @@ class Registrasi extends BaseController
 			$hash = md5(uniqid(rand(), true));
 
 			// get File
-			$file = $this->request->getFile('profilePhoto');
-			$fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
+			// $file = $this->request->getFile('profilePhoto');
+			// $fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
+			// $file->move('assets/profile-photos/', $fileName);
 
 			// cek apakah subkategori ada atau tidak
 			if ($this->request->getPost('id_sub_kategori') == '') {
@@ -120,25 +123,31 @@ class Registrasi extends BaseController
 				'kecamatan' => $kecamatan,
 				'asal' => $asal,
 				'username' => $username,
+				'created_at' => $createdAt,
+			];
+
+			$keikutsertaanData = [
+				'id_keikutsertaan' => 'ke_' . rand(0123, 9999),
+				'id_peserta' => $idPeserta,
 				'id_kategori' => $idKategori,
 				'id_sub_kategori' => $idSubKategori,
 				'keterangan' => $keterangan,
-				'created_at' => $createdAt,
 			];
 
 			// id for profile photos is usg_0211
 			$data = [
-				'id_uploads' => 'up'.rand(0123,9999),
-				'filepath' => $fileName,
+				'id_uploads' => 'up' . rand(0123, 9999),
+				// 'filepath' => $fileName,
 				'id_peserta' => $idPeserta,
 				'id_usage' => 'usg_0211',
 			];
 
 			// Insertion to Database ==========================
-			$file->move('assets/profile-photos/', $fileName);
-			$uploadsModel->_Insert($data);
+
+			// $uploadsModel->_Insert($data);
 			$userModel->_Insert($userData);
 			$pesertaModel->_Insert($pesertaData);
+			$keikutsertaanModel->_Insert($keikutsertaanData);
 
 			// Get Workshop setelah tanggal daftar peserta
 			$workshopData = $jadwalModel->_getWorkshopAfterCurrentDate();
@@ -168,47 +177,50 @@ class Registrasi extends BaseController
 				->build();
 
 			$result->saveToFile(FCPATH . 'assets/qrcode/' . $idPeserta . '.png');
-			$qrcodePath = base_url().'/assets/qrcode/' . $idPeserta . '.png';
-			
+			$qrcodePath = FCPATH . 'assets/qrcode/' . $idPeserta . '.png';
+
 			// // Send Email Function =============================
-			$mail = new PHPMailer(true);
+			// $mail = new PHPMailer(true);
 
-			//Server settings
-			$mail->isSMTP();                                            //Send using SMTP
-			$mail->Host       = 'ssl://mail.jfc-center.id';                     //Set the SMTP server to send through
-			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-			$mail->Username   = 'official@jfc-center.id';                     //SMTP username
-			$mail->Password   = '9Cahaya9roup';                               //SMTP password
-			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-			$mail->Port       = 465;                              //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+			// try {
+			// //Server settings
+			// $mail->isSMTP();                                            //Send using SMTP
+			// $mail->Host       = 'ssl://mail.jfc-center.id';                     //Set the SMTP server to send through
+			// $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			// $mail->Username   = 'admin@jfc-center.id';                     //SMTP username
+			// $mail->Password   = '9Cahaya9roup';                               //SMTP password
+			// $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+			// $mail->Port       = 465;                              //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
-			//Recipients  //Add a recipient
-			$mail->setFrom('official@jfc-center.id', 'JFC Official');
-			$mail->addAddress(strval($email));
+			// //Recipients  //Add a recipient
+			// $mail->setFrom('admin@jfc-center.id', 'JFC-Center Official');
+			// $mail->addAddress(strval($email));
 
-			//Attachments
-			// $mail->addAttachment($qrcodePath);         //Add attachment
+			// 	//Attachments
+			// 	$mail->addAttachment($qrcodePath);         //Add attachment
 
-			//Content
-			$mail->isHTML(true);                                  //Set email format to HTML
-			$mail->Subject = 'Buka dong, ini QR-Codemu  ' . $namaPeserta;
-			$mail->Body    =
-				'
-				<h2> Hai ' . $namaPeserta . '! <br> </h2>
+			// 	//Content
+			// 	$mail->isHTML(true);                                  //Set email format to HTML
+			// 	$mail->Subject = 'Buka dong, ini QR-Codemu  ' . $namaPeserta;
+			// 	$mail->Body    =
+			// 		'
+			// 	<h2> Hai ' . $namaPeserta . '! <br> </h2>
 
-				<h4>Simpan QR-Code dengan baik</h4> <br>
-				QR-Code ini digunakan sebagai identitas anda. dan digunakan untuk absensi pada saat workshop. <br>
-				<hr>
-				<img src="' . $qrcodePath . '"/>
-				<br>
-				<hr>
-				<h3>Terimakasih, dan selamat bergabung!</h3>
-				';
-			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			// 	<h4>Simpan QR-Code dengan baik</h4> <br>
+			// 	QR-Code ini digunakan sebagai identitas anda. dan digunakan untuk absensi pada saat workshop. <br>
+			// 	<hr>
+			// 	<br>
+			// 	<hr>
+			// 	<h3>Terimakasih, dan selamat bergabung!</h3>
+			// 	';
+			// 	$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-			//Send Email
-			$mail->send();
-
+			// 	//Send Email
+			// 	$mail->send();
+			// 	echo 'Message has been sent';
+			// } catch (Exception $e) {
+			// 	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			// }
 			return view('/Registrasi/Success');
 		}
 	}

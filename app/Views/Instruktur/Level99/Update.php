@@ -224,14 +224,14 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4 mt-4 border-left-primary">
                         <div class="card-header py-3">
-                            <div class="text-center text-gray-800 h3">Tambah Instruktur</div>
+                            <div class="text-center text-gray-800 h3">Update Data Instruktur</div>
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                            <form id="updateForm" class="user" action="/Instruktur/Update" method="post">
+                            <form id="form" class="user" action="/Instruktur/Update" method="post">
 
                                 <!-- hidden input -->
-                                <input type="hidden" name="idInstruktur" value="<?= $instrukturData->id_instruktur ?>">
+                                <input type="hidden" name="id_instruktur" value="<?= $instrukturData->id_instruktur ?>">
                                 <input type="hidden" name="username"value="<?= $instrukturData->username ?>">
 
                                 <!-- BIODATA -->
@@ -302,9 +302,7 @@
 
                                 <!-- Prestasi -->
                                 <div class="form-group">
-                                    <label class="font-weight-bold">Prestasi</label>
-                                    <input type="text" class="form-control" name="prestasi" id="prestasi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Prestasi" value="<?= $instrukturData->prestasi ?>">
-                                    <div id="prestasiAlert"></div>
+                                    <textarea required class="form-control" name="prestasi" id="prestasi" form="form" cols="30" rows="10" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
                                 </div>
 
 

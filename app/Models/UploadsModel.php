@@ -9,7 +9,7 @@ class UploadsModel extends Model
     protected $table = 'uploads';
     protected $primaryKey = 'id_uploads';
     protected $returnType = 'object';
-    protected $allowedFields = ['id_uploads', 'filepath', 'id_peserta', 'id_usage', 'uploaded_at'];
+    protected $allowedFields = ['id_uploads', 'filepath', 'username', 'id_usage', 'uploaded_at'];
 
     public function _get()
     {
@@ -34,6 +34,14 @@ class UploadsModel extends Model
     public function _delete($id)
     {
         $this->delete($id);
+    }
+
+    public function _getProfilePhoto($username){
+        $result = $this->where('username', $username)
+            ->where('uploads.id_usage', 'usg_0211')
+            ->get()
+            ->getResult();
+        return $result;
     }
 
     public function _getByIdUsage($idPeserta, $idUsage)

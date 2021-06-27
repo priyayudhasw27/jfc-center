@@ -12,32 +12,29 @@ class PesertaModel extends Model
     protected $allowedFields = [
         'id_peserta',
         'nama_peserta',
-        'jenis_kelamin', 
-        'tanggal_lahir', 
-        'email', 
-        'nomor_hp', 
-        'alamat',  
-        'asal', 
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'email',
+        'nomor_hp',
+        'alamat',
+        'asal',
         'username',
-        'id_kategori', 
-        'keterangan',
-        'id_sub_kategori', 
         'created_at',
-        'kecamatan', 
+        'kecamatan',
         'kabupaten',
         'provinsi',
         'prestasi',
     ];
 
-    public function _get()
-    {
-        return $this->findAll();
-    }
+    // public function _get()
+    // {
+    //     return $this->findAll();
+    // }
 
-    public function _findById($id)
-    {
-        return $this->find($id);
-    }
+    // public function _findById($id)
+    // {
+    //     return $this->find($id);
+    // }
 
     public function _insert($data)
     {
@@ -54,61 +51,46 @@ class PesertaModel extends Model
         $this->delete($id);
     }
 
-    public function _getOnlyId()
+    public function _get()
     {
-        return $this->select('id_peserta')
-            ->get()
-            ->getResult();
-    }
-
-    public function _getWithKategori()
-    {
-        $result = $this->select('*')
-            ->join('kategori', 'kategori.id_kategori, peserta.id_kategori')
-            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = peserta.id_sub_kategori')
+        $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+            ->join('kategori', 'kategori.id_kategori = keikutsertaan.id_kategori')
+            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = keikutsertaan.id_sub_kategori', 'left')
+            ->orderBy('nama_peserta', 'ASC')
             ->get()
             ->getResult();
         return $result;
     }
 
-    public function _getByKategori($id_kategori)
+    public function _findById($id_peserta)
     {
-        $result = $this->where('peserta.id_kategori', $id_kategori)
-            ->join('kategori', 'kategori.id_kategori = peserta.id_kategori')
+        $result = $this->where('peserta.id_peserta', $id_peserta)
+            ->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+            ->join('kategori', 'kategori.id_kategori = keikutsertaan.id_kategori')
+            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = keikutsertaan.id_sub_kategori', 'left')
+            ->orderBy('nama_peserta', 'ASC')
             ->get()
             ->getResult();
         return $result;
     }
 
-    public function _getBySubKategori($id_sub_kategori)
+    public function _findByKategori($id_kategori)
     {
-        $result = $this->where('peserta.id_sub_kategori', $id_sub_kategori)
-            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = peserta.id_sub_kategori')
+        $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+            ->join('kategori', 'kategori.id_kategori = keikutsertaan.id_kategori')
+            ->where('kategori.id_kategori', $id_kategori)
+            ->orderBy('nama_peserta', 'ASC')
             ->get()
             ->getResult();
         return $result;
     }
 
-    public function _getHollowPeserta($idKategori = '', $idSubKategori = '')
+    public function _findBySubKategori($id_sub_kategori)
     {
-        if (($idKategori != null) && ($idSubKategori != null)) {
-            $where = "id_kategori = '" . $idKategori . "' && id_sub_kategori IS NULL";
-        } else if ($idKategori != null) {
-            $where = "id_kategori IS NULL";
-        }
-        $result = $this->select('*')
-            ->where($where)
-            ->get()
-            ->getResult();
-
-        return $result;
-    }
-
-    public function _getAllInfoById($id_peserta)
-    {
-        $result = $this->where('id_peserta', $id_peserta)
-            ->join('kategori', 'kategori.id_kategori = peserta.id_kategori')
-            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = peserta.id_sub_kategori', 'left')
+        $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = keikutsertaan.id_sub_kategori')
+            ->where('sub_kategori.id_sub_kategori', $id_sub_kategori)
+            ->orderBy('nama_peserta', 'ASC')
             ->get()
             ->getResult();
         return $result;
@@ -116,11 +98,13 @@ class PesertaModel extends Model
 
     public function _getJumlahPeserta($id_kategori = '', $id_sub_kategori = '')
     {
-        if ($id_kategori != '') {
-            $result = $this->where('id_kategori', $id_kategori)
+        if ($id_kategori != '' && $id_sub_kategori == '') {
+            $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+                ->where('id_kategori', $id_kategori)
                 ->countAllResults();
         } else if ($id_sub_kategori != '') {
-            $result = $this->where('id_kategori', $id_kategori)
+            $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+                ->where('id_sub_kategori', $id_sub_kategori)
                 ->countAllResults();
         }
 
@@ -130,18 +114,23 @@ class PesertaModel extends Model
     public function _findByUsername($username)
     {
         $result = $this->where('username', $username)
+            ->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
+            ->join('kategori', 'kategori.id_kategori = keikutsertaan.id_kategori')
+            ->join('sub_kategori', 'sub_kategori.id_sub_kategori = keikutsertaan.id_sub_kategori', 'left')
+            ->orderBy('nama_peserta', 'ASC')
             ->get()
             ->getResult();
         return $result;
     }
 
-    public function _getProfilePhotosByUsername($username){
+    public function _findProfilePhotosByUsername($username)
+    {
         $result = $this->select('uploads.filepath')
-        ->join('uploads', 'uploads.id_peserta = peserta.id_peserta')
-        ->where('username', $username)
-        ->where('uploads.id_usage', 'usg_0211')
-        ->get()
-        ->getResult();
+            ->join('uploads', 'uploads.id_peserta = peserta.id_peserta')
+            ->where('username', $username)
+            ->where('uploads.id_usage', 'usg_0211')
+            ->get()
+            ->getResult();
 
         return $result;
     }

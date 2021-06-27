@@ -239,7 +239,7 @@
                             <form id="updateForm" class="user" action="/Leader/Update" method="post">
 
                                 <!-- hidden input -->
-                                <input type="hidden" name="idleader" value="<?= $leaderData->id_leader ?>">
+                                <input type="hidden" name="id_leader" value="<?= $leaderData->id_leader ?>">
                                 <input type="hidden" name="username" value="<?= $leaderData->username ?>">
 
                                 <!-- BIODATA -->
