@@ -187,7 +187,7 @@
                                         <tr>
                                             <th>Nama Lengkap</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Alamat</th>
+                                            <th>No. Hp</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -196,7 +196,7 @@
                                             <tr>
                                                 <td><?= $pesertaItem->nama_peserta ?></td>
                                                 <td><?= $pesertaItem->jenis_kelamin ?></td>
-                                                <td><?= $pesertaItem->alamat ?></td>
+                                                <td><?= $pesertaItem->nomor_hp ?></td>
                                                 <td><a href="/Peserta/View/<?= $pesertaItem->id_peserta ?>" class=" btn btn-block btn-info">Lihat</a></td>
                                             </tr>
                                         <?php endforeach ?>

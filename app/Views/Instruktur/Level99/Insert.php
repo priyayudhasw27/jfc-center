@@ -234,7 +234,7 @@
                                 <div class="form-group row">
                                     <!-- Nama lengkap -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control" name="nama_instruktur" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap">
+                                        <input type="text" class="form-control" name="nama_instruktur" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap">
                                         <div id="nameAlert"></div>
                                     </div>
                                     <!-- Jenis Kelamin -->
@@ -249,40 +249,40 @@
                                 <div class="form-group row">
                                     <!-- Email -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email">
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email">
                                         <div id="emailAlert"></div>
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP"><br>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP"oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" ><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat">
+                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Alamat">
                                     <div id="alamatAlert"></div>
                                 </div>
                                 <div class="form-group row">
                                     <!-- Kecamatan -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
+                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kecamatan">
                                         <div id="alamatAlert"></div>
                                     </div>
                                     <!-- Kabupaten -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten">
+                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kabupaten">
                                         <div id="alamatAlert"></div>
                                     </div>
                                     <!-- Provinsi -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
+                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Provinsi">
                                         <div id="alamatAlert"></div>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <!-- Asal -->
-                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
+                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Asal Sekolah/Instansi">
                                     <div id="asalAlert"></div>
                                 </div>
 
@@ -296,17 +296,17 @@
                                 <br>
                                 <!-- Username -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Username">
+                                    <input type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Username">
                                     <div id="usernameAlert"></div>
                                 </div>
                                 <div class="form-group row">
                                     <!-- Password -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password">
+                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Password">
                                     </div>
                                     <!-- Confirm Password -->
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password"> <br>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Konfirmasi Password"> <br>
                                         <div id="passwordAlert"></div>
                                     </div>
                                 </div>

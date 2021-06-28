@@ -91,93 +91,93 @@ class Registrasi extends BaseController
 			$hash = md5(uniqid(rand(), true));
 
 			// get File
-			// $file = $this->request->getFile('profilePhoto');
-			// $fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
-			// $file->move('assets/profile-photos/', $fileName);
+			$file = $this->request->getFile('profilePhoto');
+			$fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
+			$file->move('assets/profile-photos/', $fileName);
 
-			// cek apakah subkategori ada atau tidak
-			if ($this->request->getPost('id_sub_kategori') == '') {
-				$idSubKategori = NULL;
-			} else {
-				$idSubKategori = $this->request->getPost('id_sub_kategori');
-			}
+			// // cek apakah subkategori ada atau tidak
+			// if ($this->request->getPost('id_sub_kategori') == '') {
+			// 	$idSubKategori = NULL;
+			// } else {
+			// 	$idSubKategori = $this->request->getPost('id_sub_kategori');
+			// }
 
-			$userData = [
-				'username' => $username,
-				'password' => md5($password),
-				'hash' => $hash,
-				'active' => 1,
-				'id_level' => 0
-			];
+			// $userData = [
+			// 	'username' => $username,
+			// 	'password' => md5($password),
+			// 	'hash' => $hash,
+			// 	'active' => 1,
+			// 	'id_level' => 0
+			// ];
 
-			$pesertaData = [
-				'id_peserta' => $idPeserta,
-				'nama_peserta' => $namaPeserta,
-				'jenis_kelamin' => $jenisKelamin,
-				'tanggal_lahir' => $tanggalLahir,
-				'email' => $email,
-				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'provinsi' => $provinsi,
-				'kabupaten' => $kabupaten,
-				'kecamatan' => $kecamatan,
-				'asal' => $asal,
-				'username' => $username,
-				'created_at' => $createdAt,
-			];
+			// $pesertaData = [
+			// 	'id_peserta' => $idPeserta,
+			// 	'nama_peserta' => $namaPeserta,
+			// 	'jenis_kelamin' => $jenisKelamin,
+			// 	'tanggal_lahir' => $tanggalLahir,
+			// 	'email' => $email,
+			// 	'nomor_hp' => $nomorHp,
+			// 	'alamat' => $alamat,
+			// 	'provinsi' => $provinsi,
+			// 	'kabupaten' => $kabupaten,
+			// 	'kecamatan' => $kecamatan,
+			// 	'asal' => $asal,
+			// 	'username' => $username,
+			// 	'created_at' => $createdAt,
+			// ];
 
-			$keikutsertaanData = [
-				'id_keikutsertaan' => 'ke_' . rand(0123, 9999),
-				'id_peserta' => $idPeserta,
-				'id_kategori' => $idKategori,
-				'id_sub_kategori' => $idSubKategori,
-				'keterangan' => $keterangan,
-			];
+			// $keikutsertaanData = [
+			// 	'id_keikutsertaan' => 'ke_' . rand(0123, 9999),
+			// 	'id_peserta' => $idPeserta,
+			// 	'id_kategori' => $idKategori,
+			// 	'id_sub_kategori' => $idSubKategori,
+			// 	'keterangan' => $keterangan,
+			// ];
 
-			// id for profile photos is usg_0211
-			$data = [
-				'id_uploads' => 'up' . rand(0123, 9999),
-				// 'filepath' => $fileName,
-				'id_peserta' => $idPeserta,
-				'id_usage' => 'usg_0211',
-			];
+			// // id for profile photos is usg_0211
+			// $data = [
+			// 	'id_uploads' => 'up' . rand(0123, 9999),
+			// 	// 'filepath' => $fileName,
+			// 	'id_peserta' => $idPeserta,
+			// 	'id_usage' => 'usg_0211',
+			// ];
 
 			// Insertion to Database ==========================
 
 			// $uploadsModel->_Insert($data);
-			$userModel->_Insert($userData);
-			$pesertaModel->_Insert($pesertaData);
-			$keikutsertaanModel->_Insert($keikutsertaanData);
+			// $userModel->_Insert($userData);
+			// $pesertaModel->_Insert($pesertaData);
+			// $keikutsertaanModel->_Insert($keikutsertaanData);
 
-			// Get Workshop setelah tanggal daftar peserta
-			$workshopData = $jadwalModel->_getWorkshopAfterCurrentDate();
+			// // Get Workshop setelah tanggal daftar peserta
+			// $workshopData = $jadwalModel->_getWorkshopAfterCurrentDate();
 
-			// INSERT KEHADIRAN PESERTA
-			// atau mendaftarkan peserta ke workshop
-			foreach ($workshopData as $x) {
-				$kehadiranPesertaData = [
-					'id_kehadiran' => 'kp_' . rand(0123, 9999),
-					'id_peserta' => $idPeserta,
-					'id_workshop' => $x->id_workshop,
-					'inclass' => 0,
-				];
-				$kehadiranPesertaModel->_Insert($kehadiranPesertaData);
-			}
+			// // INSERT KEHADIRAN PESERTA
+			// // atau mendaftarkan peserta ke workshop
+			// foreach ($workshopData as $x) {
+			// 	$kehadiranPesertaData = [
+			// 		'id_kehadiran' => 'kp_' . rand(0123, 9999),
+			// 		'id_peserta' => $idPeserta,
+			// 		'id_workshop' => $x->id_workshop,
+			// 		'inclass' => 0,
+			// 	];
+			// 	$kehadiranPesertaModel->_Insert($kehadiranPesertaData);
+			// }
 
-			// QR Code generation =============================
-			$result = Builder::create()
-				->writer(new PngWriter)
-				->writerOptions([])
-				->data($idPeserta)
-				->encoding(new Encoding('UTF-8'))
-				->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-				->size(300)
-				->margin(10)
-				->roundBlockSizeMode(new RoundBlockSizeModeMargin())
-				->build();
+			// // QR Code generation =============================
+			// $result = Builder::create()
+			// 	->writer(new PngWriter)
+			// 	->writerOptions([])
+			// 	->data($idPeserta)
+			// 	->encoding(new Encoding('UTF-8'))
+			// 	->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+			// 	->size(300)
+			// 	->margin(10)
+			// 	->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+			// 	->build();
 
-			$result->saveToFile(FCPATH . 'assets/qrcode/' . $idPeserta . '.png');
-			$qrcodePath = FCPATH . 'assets/qrcode/' . $idPeserta . '.png';
+			// $result->saveToFile(FCPATH . 'assets/qrcode/' . $idPeserta . '.png');
+			// $qrcodePath = FCPATH . 'assets/qrcode/' . $idPeserta . '.png';
 
 			// // Send Email Function =============================
 			// $mail = new PHPMailer(true);

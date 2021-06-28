@@ -241,7 +241,7 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <!-- <div class="font-weight-bold">Nama Lengkap</div> -->
                                         <label class="font-weight-bold">Nama Lengkap</label>
-                                        <input type="text" class="form-control" name="nama_operator" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap" value="<?= $operatorData->nama_operator ?>">
+                                        <input type="text" class="form-control" name="nama_operator" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap" value="<?= $operatorData->nama_operator ?>">
                                         <div id="nameAlert"></div>
                                     </div>
                                     <!-- Jenis Kelamin -->
@@ -258,38 +258,38 @@
                                     <!-- Email -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Email</label>
-                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email" value="<?= $operatorData->email ?>">
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email" value="<?= $operatorData->email ?>">
                                         <div id="emailAlert"></div>
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
                                         <label class="font-weight-bold">Nomor HP</label>
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" value="<?= $operatorData->nomor_hp ?>"><br>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $operatorData->nomor_hp ?>"><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->
                                 <div class="form-group">
                                     <label class="font-weight-bold">Alamat</label>
-                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat" value="<?= $operatorData->alamat ?>">
+                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Alamat" value="<?= $operatorData->alamat ?>">
                                     <div id="alamatAlert"></div>
                                 </div>
                                 <div class="form-group row">
                                     <!-- Kecamatan -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Kecamatan</label>
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan" value="<?= $operatorData->kecamatan ?>">
+                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kecamatan" value="<?= $operatorData->kecamatan ?>">
                                         <div id="kecamatanAlert"></div>
                                     </div>
                                     <!-- Kabupaten -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Kabupaten</label>
-                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten" value="<?= $operatorData->kabupaten ?>">
+                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kabupaten" value="<?= $operatorData->kabupaten ?>">
                                         <div id="kabupatenAlert"></div>
                                     </div>
                                     <!-- Provinsi -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Provinsi</label>
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi" value="<?= $operatorData->provinsi ?>">
+                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Provinsi" value="<?= $operatorData->provinsi ?>">
                                         <div id="provinsiAlert"></div>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@
                                 <div class="form-group">
                                     <!-- Asal -->
                                     <label class="font-weight-bold">Asal</label>
-                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
+                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Asal Sekolah/Instansi">
                                     <div id="asalAlert"></div>
                                 </div>
 
@@ -320,12 +320,12 @@
                                     <!-- Password -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">password</label>
-                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password" value="<?= $operatorData->password ?>">
+                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Password" value="<?= $operatorData->password ?>">
                                     </div>
                                     <!-- Confirm Password -->
                                     <div class="col-sm-6">
                                         <label class="font-weight-bold">Konfirmasi Password</label>
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password" value="<?= $operatorData->password ?>"> <br>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Konfirmasi Password" value="<?= $operatorData->password ?>"> <br>
                                         <div id="passwordAlert"></div>
                                     </div>
                                 </div>

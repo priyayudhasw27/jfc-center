@@ -241,7 +241,7 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <!-- <div class="font-weight-bold">Nama Lengkap</div> -->
                                         <label class="font-weight-bold">Nama Lengkap</label>
-                                        <input type="text" class="form-control" name="nama_leader" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap" value="<?= $leaderData->nama_leader ?>">
+                                        <input type="text" class="form-control" name="nama_leader" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap" value="<?= $leaderData->nama_leader ?>">
                                         <div id="nameAlert"></div>
                                     </div>
                                     <!-- Jenis Kelamin -->
@@ -258,38 +258,38 @@
                                     <!-- Email -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Email</label>
-                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email" value="<?= $leaderData->email ?>">
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email" value="<?= $leaderData->email ?>">
                                         <div id="emailAlert"></div>
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
                                         <label class="font-weight-bold">Nomor HP</label>
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" value="<?= $leaderData->nomor_hp ?>"><br>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" oninvalid="this.setCustomValidity('Wajib diisi')" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $leaderData->nomor_hp ?>"><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->
                                 <div class="form-group">
                                     <label class="font-weight-bold">Alamat</label>
-                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat" value="<?= $leaderData->alamat ?>">
+                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Alamat" value="<?= $leaderData->alamat ?>">
                                     <div id="alamatAlert"></div>
                                 </div>
                                 <div class="form-group row">
                                     <!-- Kecamatan -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Kecamatan</label>
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan" value="<?= $leaderData->kecamatan ?>">
+                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kecamatan" value="<?= $leaderData->kecamatan ?>">
                                         <div id="kecamatanAlert"></div>
                                     </div>
                                     <!-- Kabupaten -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Kabupaten</label>
-                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten" value="<?= $leaderData->kabupaten ?>">
+                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kabupaten" value="<?= $leaderData->kabupaten ?>">
                                         <div id="kabupatenAlert"></div>
                                     </div>
                                     <!-- Provinsi -->
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Provinsi</label>
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi" value="<?= $leaderData->provinsi ?>">
+                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Provinsi" value="<?= $leaderData->provinsi ?>">
                                         <div id="provinsiAlert"></div>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@
                                 <div class="form-group">
                                     <!-- Asal -->
                                     <label class="font-weight-bold">Asal</label>
-                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
+                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Asal Sekolah/Instansi">
                                     <div id="asalAlert"></div>
                                 </div>
 
@@ -308,12 +308,12 @@
                                     <!-- Password -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">password</label>
-                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password" value="<?= $leaderData->password ?>">
+                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Password" value="<?= $leaderData->password ?>">
                                     </div>
                                     <!-- Confirm Password -->
                                     <div class="col-sm-6">
                                         <label class="font-weight-bold">Konfirmasi Password</label>
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password" value="<?= $leaderData->password ?>"> <br>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Konfirmasi Password" value="<?= $leaderData->password ?>"> <br>
                                         <div id="passwordAlert"></div>
                                     </div>
                                 </div>

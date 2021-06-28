@@ -55,7 +55,7 @@
                             <div class="form-group row">
                                 <!-- Nama lengkap -->
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="nama_peserta" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap">
+                                    <input required type="text" class="form-control" name="nama_peserta" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap">
                                     <div id="nameAlert"></div>
                                 </div>
                                 <!-- Jenis Kelamin -->
@@ -71,44 +71,44 @@
                                 Tanggal Lahir
                             </div>
                             <div class="form-group">
-                                <input required type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Tanggal Lahir">
+                                <input required type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Tanggal Lahir">
                             </div>
                             <!-- Nomor Hp -->
                             <br>
                             <div class="form-group">
-                                <input required type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP">
+                                <input required type="number" class="form-control" name="nomor_hp" id="nomor_hp" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nomor HP">
                             </div>
                             <!-- Email -->
                             <div class="form-group">
-                                <input required type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email">
+                                <input required type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email">
                                 <div id="emailAlert"></div>
                             </div>
                             <!-- Alamat -->
                             <div class="form-group">
-                                <input required type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat">
+                                <input required type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Alamat">
                                 <div id="alamatAlert"></div>
                             </div>
                             <div class="form-group row">
                                 <!-- Kecamatan -->
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
+                                    <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kecamatan">
                                     <div id="kecamatanAlert"></div>
                                 </div>
                                 <!-- Kabupaten -->
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten">
+                                    <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kabupaten">
                                     <div id="kabupatenAlert"></div>
                                 </div>
                                 <!-- Provinsi -->
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
+                                    <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Provinsi">
                                     <div id="provinsiAlert"></div>
                                 </div>
                             </div>
                             <br>
                             <div class="form-group">
                                 <!-- Asal -->
-                                <input required type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
+                                <input required type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Asal Sekolah/Instansi">
                                 <div id="asalAlert"></div>
                             </div>
 
@@ -134,22 +134,22 @@
                             </div>
                             <!-- Keterangan -->
                             <div class="form-group">
-                                <input required type="text" class="form-control" name="keterangan" id="keterangan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Keterangan (Optional)">
+                                <input required type="text" class="form-control" name="keterangan" id="keterangan" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Keterangan (Optional)">
                             </div>
                             <br>
                             <!-- Prestasi -->
                             <div class="form-group">
-                                <textarea required class="form-control" name="prestasi" id="prestasi" form="registrationForm" cols="30" rows="10" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
+                                <textarea required class="form-control" name="prestasi" id="prestasi" form="registrationForm" cols="30" rows="10" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
                             </div>
                             <hr class="mt-4 mb-4">
                             <!-- Profil Photos -->
-                            <div class="form-group row d-flex">
+                            <div class="form-group">
                                 <div class="col-5 mb-3 mb-sm-3">
                                     <img id="preview" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 100%" src="/bootstrap/img/blank-profile.png">
                                 </div>
                                 <div class="col-5 mb-3 mb-sm-3">
                                     <div class="h6 font-weight-bold">Pilih foto profil</div>
-                                    <input  onchange="readURL(this);" type="file" name="profilePhoto" id="profilePhoto" accept="image/jpg, image/jpeg">
+                                    <input required onchange="readURL(this);" type="file" name="profilePhoto" id="profilePhoto" accept="image/jpg, image/jpeg" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
 
@@ -164,17 +164,17 @@
                             </div>
                             <!-- Username -->
                             <div class="form-group">
-                                <input required type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Username">
+                                <input required type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Username">
                                 <div id="usernameAlert"></div>
                             </div>
                             <div class="form-group row">
                                 <!-- Password -->
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input required type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password">
+                                    <input required type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Password">
                                 </div>
                                 <!-- Confirm Password -->
                                 <div class="col-sm-6">
-                                    <input required type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password"> <br>
+                                    <input required type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Konfirmasi Password"> <br>
                                     <div id="passwordAlert"></div>
                                 </div>
                             </div>

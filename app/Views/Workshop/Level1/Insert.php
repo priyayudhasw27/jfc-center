@@ -173,32 +173,32 @@
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Nama Workshop</label>
-                                        <input class="form-control" type="text" name="nama_workshop" id="nama_workshop" placeholder="Isi nama workshop">
+                                        <input class="form-control" type="text" name="nama_workshop" id="nama_workshop" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi nama workshop">
                                     </div>
 
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Materi</label>
-                                        <input class="form-control" type="text" name="materi" id="materi" placeholder="Isi materi workshop">
+                                        <input class="form-control" type="text" name="materi" id="materi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi materi workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Tanggal</label>
-                                        <input class="form-control" type="date" name="tanggal" id="tanggal">
+                                        <input class="form-control" type="date" name="tanggal" id="tanggal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Waktu Mulai</label>
-                                        <input class="form-control" type="time" name="waktu_mulai" id="waktu_mulai">
+                                        <input class="form-control" type="time" name="waktu_mulai" id="waktu_mulai" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Waktu Selesai</label>
-                                        <input class="form-control" type="time" name="waktu_selesai" id="waktu_selesai">
+                                        <input class="form-control" type="time" name="waktu_selesai" id="waktu_selesai" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" >
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -215,7 +215,7 @@
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Dresscode</label>
-                                        <input class="form-control" type="text" name="dresscode" id="dresscode" placeholder="Isi dresscode yang digunakan saat workshop">
+                                        <input class="form-control" type="text" name="dresscode" id="dresscode" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi dresscode yang digunakan saat workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">

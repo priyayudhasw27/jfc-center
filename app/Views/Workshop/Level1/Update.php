@@ -179,31 +179,31 @@
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Nama Workshop</label>
-                                        <input value='<?= $workshop->nama_workshop; ?>' class="form-control" type="text" name="nama_workshop" id="nama_workshop" placeholder="Isi nama workshop">
+                                        <input value='<?= $workshop->nama_workshop; ?>' class="form-control" type="text" name="nama_workshop" id="nama_workshop" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi nama workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Materi</label>
-                                        <input value='<?= $workshop->materi; ?>' class="form-control" type="text" name="materi" id="materi" placeholder="Isi materi workshop">
+                                        <input value='<?= $workshop->materi; ?>' class="form-control" type="text" name="materi" id="materi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi materi workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Tanggal</label>
-                                        <input value='<?= $workshop->tanggal; ?>' class="form-control" type="date" name="tanggal" id="tanggal">
+                                        <input value='<?= $workshop->tanggal; ?>' class="form-control" type="date" name="tanggal" id="tanggal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Waktu Mulai</label>
-                                        <input value='<?= $workshop->waktu_mulai; ?>' class="form-control" type="time" name="waktu_mulai" id="waktu_mulai">
+                                        <input value='<?= $workshop->waktu_mulai; ?>' class="form-control" type="time" name="waktu_mulai" id="waktu_mulai" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Waktu Selesai</label>
-                                        <input value='<?= $workshop->waktu_selesai; ?>' class="form-control" type="time" name="waktu_selesai" id="waktu_selesai">
+                                        <input value='<?= $workshop->waktu_selesai; ?>' class="form-control" type="time" name="waktu_selesai" id="waktu_selesai" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -220,7 +220,7 @@
                                 <div class="form-group">
                                     <div class="col-lg-8">
                                         <label for="nik" class="font-weight-bold">Dresscode</label>
-                                        <input value='<?= $workshop->dresscode; ?>' class="form-control" type="text" name="dresscode" id="dresscode" placeholder="Isi dresscode yang digunakan saat workshop">
+                                        <input value='<?= $workshop->dresscode; ?>' class="form-control" type="text" name="dresscode" id="dresscode" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi dresscode yang digunakan saat workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
