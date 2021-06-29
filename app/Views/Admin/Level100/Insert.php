@@ -241,11 +241,13 @@
                                 <div class="form-group row">
                                     <!-- Nama lengkap -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control" name="nama_admin" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Nama Lengkap">
+                                        <label class="font-weight-bold">Nama Lengkap</label>
+                                        <input type="text" class="form-control" name="nama_admin" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap">
                                         <div id="nameAlert"></div>
                                     </div>
                                     <!-- Jenis Kelamin -->
                                     <div class="col-sm-6">
+                                        <label class="font-weight-bold">Jenis Kelamin</label>
                                         <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                             <option value="" disabled selected>Pilih Jenis Kelamin</option>
                                             <option value="Laki - laki">Laki - laki</option>
@@ -256,59 +258,41 @@
                                 <div class="form-group row">
                                     <!-- Email -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Email">
+                                        <label class="font-weight-bold">Email</label>
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email">
                                         <div id="emailAlert"></div>
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP"><br>
+                                        <label class="font-weight-bold">Nomor HP</label>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nomor HP"><br>
                                     </div>
                                 </div>
-                                <!-- Alamat -->
+                                <!-- Jabatan JFC -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat">
-                                    <div id="alamatAlert"></div>
+                                    <label class="font-weight-bold">Jabatan JFC</label>
+                                    <input type="text" class="form-control" name="jabatan_jfc" id="jabatan_jfc" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Jabatan JFC">
+                                    <div id="jabatanAlert"></div>
                                 </div>
-                                <div class="form-group row">
-                                    <!-- Provinsi -->
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Provinsi">
-                                        <div id="alamatAlert"></div>
-                                    </div>
-                                    <!-- Kabupaten -->
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kabupaten">
-                                        <div id="alamatAlert"></div>
-                                    </div>
-                                    <!-- Kecamatan -->
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Kecamatan">
-                                        <div id="alamatAlert"></div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <!-- Asal -->
-                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Asal Sekolah/Instansi">
-                                    <div id="asalAlert"></div>
-                                </div>
-
 
                                 <!-- USER Data -->
                                 <br>
                                 <!-- Username -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Username">
+                                    <label class="font-weight-bold">Username</label>
+                                    <input type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Username">
                                     <div id="usernameAlert"></div>
                                 </div>
                                 <div class="form-group row">
                                     <!-- Password -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Password">
+                                        <label class="font-weight-bold">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Password">
                                     </div>
                                     <!-- Confirm Password -->
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Konfirmasi Password"> <br>
+                                        <label class="font-weight-bold">Konfirmasi Password</label>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Konfirmasi Password"> <br>
                                         <div id="passwordAlert"></div>
                                     </div>
                                 </div>
@@ -392,26 +376,6 @@
                 document.getElementById('emailAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Format email tidak benar</div>';
             } else {
                 document.getElementById('emailAlert').innerHTML = "";
-            }
-        })
-        // Validasi Alamat ===========================
-        $('#alamat').change(function(e) {
-            var rule = /^[a-zA-Z0-9.-/ ]+$/;
-            var value = document.getElementById('alamat').value;
-            if (!value.match(rule)) {
-                document.getElementById('alamatAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Alamat tidak valid</div>';
-            } else {
-                document.getElementById('alamatAlert').innerHTML = "";
-            }
-        })
-        // Validasi Asal ===========================
-        $('#asal').change(function(e) {
-            var rule = /^[a-zA-Z.0-9/ ]{3,50}$/;
-            var value = document.getElementById('asal').value;
-            if (!value.match(rule)) {
-                document.getElementById('asalAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Input melebihi 50 karakter</div>';
-            } else {
-                document.getElementById('asalAlert').innerHTML = "";
             }
         })
         // Validasi username ===========================

@@ -15,12 +15,8 @@ class AdminModel extends Model
         'jenis_kelamin',
         'email',
         'nomor_hp',
-        'alamat',
-        'asal',
+        'jabatan_jfc',
         'username',
-        'kecamatan',
-        'kabupaten',
-        'provinsi',
     ];
 
     public function _get()

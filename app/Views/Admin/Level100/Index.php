@@ -250,8 +250,8 @@
                                                 <?= $adminItem->nama_admin ?></div>
                                             <hr>
                                             <div class="mb-2 font-weight-bold text-gray-800"><?= $adminItem->nomor_hp ?></div>
-                                            Alamat Email : <div class="font-weight-bold"><?= $adminItem->email ?></div>
-                                            Alamat Rumah : <div class="font-weight-bold"><?= $adminItem->alamat ?></div>
+                                            Nomor Hp : <div class="font-weight-bold"><?= $adminItem->nomor_hp ?></div>
+                                            Jabatan JFC : <div class="font-weight-bold"><?= $adminItem->jabatan_jfc ?></div>
                                             <a href="/Admin/View/<?= $adminItem->id_admin ?>"" class="mt-4 btn btn-primary">Lihat</a>
                                         </div>
                                     </div>

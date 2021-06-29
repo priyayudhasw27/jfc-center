@@ -198,7 +198,7 @@
                                                     Jam : <div class="text-success font-weight-bold"><?= $workshopItem->waktu_mulai ?></div>
                                                 </div>
                                                 <div class="col">
-                                                    Venue : <div class="text-danger font-weight-bold"><?= $workshopItem->nama_venue ?></div>
+                                                    Venue : <div class="text-danger font-weight-bold"><?= $workshopItem->venue ?></div>
                                                 </div>
                                             </div>
                                             <a href="/Workshop/View/<?= $workshopItem->id_workshop ?>"" class=" btn btn-primary">Lihat</a>

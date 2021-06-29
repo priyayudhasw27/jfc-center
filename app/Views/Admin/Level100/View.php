@@ -265,19 +265,9 @@
                                     <div class="text-gray-800"><?= $adminData->email ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Nomor HP</div>
                                     <div class="text-gray-800"><?= $adminData->nomor_hp ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Asal Sekolah / Instansi</div>
-                                    <div class="text-gray-800"><?= $adminData->asal ?></div>
+                                    <div class="text-gray-800 font-weight-bold mt-2 ">Jabatan JFC</div>
+                                    <div class="text-gray-800"><?= $adminData->jabatan_jfc ?></div>
 
-                                </div>
-                                <div class="col">
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Alamat</div>
-                                    <div class="text-gray-800"><?= $adminData->alamat ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Kecamatan</div>
-                                    <div class="text-gray-800"><?= $adminData->kecamatan ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Kabupaten</div>
-                                    <div class="text-gray-800"><?= $adminData->kabupaten ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Provinsi</div>
-                                    <div class="text-gray-800"><?= $adminData->provinsi ?></div>
                                 </div>
                             </div>
 

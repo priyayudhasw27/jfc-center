@@ -197,13 +197,11 @@ class Workshop extends BaseController
 	public function newForm()
 	{
 		$instrukturModel = new InstrukturModel;
-		$venueModel = new VenueModel;
 
 		$userData = $this->session->userData;
 
 		$data = [
 			'instrukturData' => $instrukturModel->_get(),
-			'venueData' => $venueModel->_get(),
 			'userData' => $userData,
 		];
 
@@ -211,6 +209,8 @@ class Workshop extends BaseController
 			return view('/Workshop/Level1/Insert', $data);
 		} else if ($userData['id_level'] == 99) {
 			return view('/Workshop/Level99/Insert', $data);
+		} else if ($userData['id_level'] == 100) {
+			return view('/Workshop/Level100/Insert', $data);
 		}
 	}
 
@@ -219,7 +219,6 @@ class Workshop extends BaseController
 	public function UpdateForm()
 	{
 		$instrukturModel = new InstrukturModel;
-		$venueModel = new VenueModel;
 		$workshopModel = new WorkshopModel;
 		$kehadiranInstrukturModel = new KehadiranInstrukturModel;
 
@@ -232,7 +231,6 @@ class Workshop extends BaseController
 
 		$data = [
 			'instrukturData' => $instrukturModel->_get(),
-			'venueData' => $venueModel->_get(),
 			'userData' => $userData,
 			'workshop' => $workshopData,
 			'instrukturPengampu' => $instrukturPengampuData,
@@ -243,6 +241,8 @@ class Workshop extends BaseController
 			return view('/Workshop/Level1/Update', $data);
 		} else if ($userData['id_level'] == 99) {
 			return view('/Workshop/Level99/Update', $data);
+		} else if ($userData['id_level'] == 100) {
+			return view('/Workshop/Level100/Update', $data);
 		}
 	}
 
@@ -264,7 +264,7 @@ class Workshop extends BaseController
 			$waktuMulai = $this->request->getPost('waktu_mulai');
 			$waktuSelesai = $this->request->getPost('waktu_selesai');
 			$dresscode = $this->request->getPost('dresscode');
-			$idVenue = $this->request->getPost('id_venue');
+			$venue = $this->request->getPost('venue');
 			$idInstruktur = $this->request->getPost('id_instruktur');
 			$idJadwal = 'j' . rand(0312, 9999);
 			$idWorkshop = 'ws' . rand(0123, 9999);
@@ -284,7 +284,7 @@ class Workshop extends BaseController
 				'nama_workshop' => $namaWorkshop,
 				'materi' => $materi,
 				'id_jadwal' => $idJadwal,
-				'id_venue' => $idVenue,
+				'venue' => $venue,
 				'dresscode' => $dresscode,
 			];
 			$workshopModel->_Insert($workshopData);
@@ -332,7 +332,7 @@ class Workshop extends BaseController
 		$waktuMulai = $this->request->getPost('waktu_mulai');
 		$waktuSelesai = $this->request->getPost('waktu_selesai');
 		$dresscode = $this->request->getPost('dresscode');
-		$idVenue = $this->request->getPost('id_venue');
+		$venue = $this->request->getPost('venue');
 		$idInstruktur = $this->request->getPost('id_instruktur');
 		$idJadwal = $this->request->getPost('id_jadwal');
 
@@ -349,7 +349,7 @@ class Workshop extends BaseController
 			'nama_workshop' => $namaWorkshop,
 			'materi' => $materi,
 			'id_jadwal' => $idJadwal,
-			'id_venue' => $idVenue,
+			'venue' => $venue,
 			'dresscode' => $dresscode,
 		];
 		$workshopModel->_update($idWorkshop, $workshopData);

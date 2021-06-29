@@ -6,7 +6,7 @@ class WorkshopModel extends Model{
     protected $table = 'workshop';
     protected $primaryKey = 'id_workshop';
     protected $returnType = 'object';
-    protected $allowedFields = ['id_workshop', 'nama_workshop', 'id_instruktur', 'materi', 'id_jadwal', 'id_venue', 'dresscode'];
+    protected $allowedFields = ['id_workshop', 'nama_workshop', 'id_instruktur', 'materi', 'id_jadwal', 'venue', 'dresscode'];
 
     public function _get(){
         return $this->findAll();
@@ -31,7 +31,6 @@ class WorkshopModel extends Model{
     public function _getAllInfo(){
         $result = $this->select('*')
         ->join('jadwal', 'jadwal.id_jadwal = workshop.id_jadwal')
-        ->join('venue', 'venue.id_venue = workshop.id_venue')
         ->orderBy('tanggal', 'ASC')
         ->get()
         ->getResult();
@@ -44,7 +43,6 @@ class WorkshopModel extends Model{
 
         $result = $this->select('*')
         ->join('jadwal', 'jadwal.id_jadwal = workshop.id_jadwal')
-        ->join('venue', 'venue.id_venue = workshop.id_venue')
         ->where($where)
         ->get()
         ->getResult();
@@ -55,7 +53,6 @@ class WorkshopModel extends Model{
     public function _getAllInfoById($id_workshop){
         $result = $this->select('*')
         ->join('jadwal', 'jadwal.id_jadwal = workshop.id_jadwal')
-        ->join('venue', 'venue.id_venue = workshop.id_venue')
         ->where('id_workshop', $id_workshop)
         ->get()
         ->getResult();

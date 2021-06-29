@@ -128,11 +128,7 @@ class Admin extends BaseController
 			$jenisKelamin = $this->request->getPost('jenis_kelamin');
 			$email = $this->request->getPost('email');
 			$nomorHp = $this->request->getPost('nomor_hp');
-			$alamat = $this->request->getPost('alamat');
-			$asal = $this->request->getPost('asal');
-			$kecamatan = $this->request->getPost('kecamatan');
-			$kabupaten = $this->request->getPost('kabupaten');
-			$provinsi = $this->request->getPost('provinsi');
+			$jabatanJfc = $this->request->getPost('jabatan_jfc');
 			$hash = md5(uniqid(rand(), true));
 
 			$userData = [
@@ -149,12 +145,8 @@ class Admin extends BaseController
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'asal' => $asal,
+				'jabatan_jfc' => $jabatanJfc,
 				'username' => $username,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
 			];
 
 			// Insertion to Database ==========================
@@ -193,11 +185,7 @@ class Admin extends BaseController
 			$jenisKelamin = $this->request->getPost('jenis_kelamin');
 			$email = $this->request->getPost('email');
 			$nomorHp = $this->request->getPost('nomor_hp');
-			$alamat = $this->request->getPost('alamat');
-			$asal = $this->request->getPost('asal');
-			$kecamatan = $this->request->getPost('kecamatan');
-			$kabupaten = $this->request->getPost('kabupaten');
-			$provinsi = $this->request->getPost('provinsi');
+			$jabatanJfc = $this->request->getPost('jabatan_jfc');
 
 			$userData = [
 				'password' => $password,
@@ -208,12 +196,8 @@ class Admin extends BaseController
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'asal' => $asal,
+				'jabatan_jfc' => $jabatanJfc,
 				'username' => $username,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
 			];
 
 			// Insertion to Database ==========================

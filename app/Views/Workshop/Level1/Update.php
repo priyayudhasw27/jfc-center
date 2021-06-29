@@ -208,13 +208,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Venue</label>
-                                        <select class="form-control" name="id_venue" id="id_venue">
-                                            <option value='<?= $workshop->id_venue ?>' selected><?= $workshop->nama_venue ?></option>
-                                            <?php foreach ($venueData as $venueItem) : ?>
-                                                <option value='<?= $venueItem->id_venue ?>'><?= $venueItem->nama_venue ?></option>
-                                            <?php endforeach ?>
-                                        </select>
+                                    <label for="nik" class="font-weight-bold">Venue Workshop</label>
+                                        <input class="form-control" type="text" name="venue" id="venue" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $workshop->venue ?>" placeholder="Isi venue workshop">
                                     </div>
                                 </div>
                                 <div class="form-group">
