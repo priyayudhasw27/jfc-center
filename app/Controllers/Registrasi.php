@@ -91,9 +91,9 @@ class Registrasi extends BaseController
 			$hash = md5(uniqid(rand(), true));
 
 			// get File
-			$file = $this->request->getFile('profilePhoto');
-			$fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
-			$file->move('assets/profile-photos/', $fileName);
+			// $file = $this->request->getFile('profilePhoto');
+			// $fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
+			// $file->move('assets/profile-photos/', $fileName);
 
 			// cek apakah subkategori ada atau tidak
 			if ($this->request->getPost('id_sub_kategori') == '') {
@@ -112,15 +112,15 @@ class Registrasi extends BaseController
 
 			$pesertaData = [
 				'id_peserta' => $idPeserta,
-				'nama_peserta' => $namaPeserta,
+				'nama_peserta' => ucwords($namaPeserta),
 				'jenis_kelamin' => $jenisKelamin,
 				'tanggal_lahir' => $tanggalLahir,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
 				'alamat' => $alamat,
-				'provinsi' => $provinsi,
-				'kabupaten' => $kabupaten,
-				'kecamatan' => $kecamatan,
+				'provinsi' => ucwords($provinsi),
+				'kabupaten' => ucwords($kabupaten),
+				'kecamatan' => ucwords($kecamatan),
 				'asal' => $asal,
 				'username' => $username,
 				'created_at' => $createdAt,
@@ -135,7 +135,7 @@ class Registrasi extends BaseController
 			];
 
 			// id for profile photos is usg_0211
-			$data = [
+			$uploadsData = [
 				'id_uploads' => 'up' . rand(0123, 9999),
 				// 'filepath' => $fileName,
 				'id_peserta' => $idPeserta,
@@ -144,7 +144,7 @@ class Registrasi extends BaseController
 
 			// Insertion to Database ==========================
 
-			$uploadsModel->_Insert($data);
+			// $uploadsModel->_Insert($uploadsData);
 			$userModel->_Insert($userData);
 			$pesertaModel->_Insert($pesertaData);
 			$keikutsertaanModel->_Insert($keikutsertaanData);
@@ -210,18 +210,21 @@ class Registrasi extends BaseController
 				QR-Code ini digunakan sebagai identitas anda. dan digunakan untuk absensi pada saat workshop. <br>
 				<hr>
 				<br>
-				<hr>
 				<h3>Terimakasih, dan selamat bergabung!</h3>
 				';
 				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 				//Send Email
-				$mail->send();
-				echo 'Message has been sent';
+				// $mail->send();
+				// echo 'Message has been sent';
 			} catch (Exception $e) {
 				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 			}
-			return view('/Registrasi/Success');
+
+			$output = [
+				'namaLengkap' => $namaPeserta,
+			];
+			return view('/Registrasi/Success', $output);
 		}
 	}
 

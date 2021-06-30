@@ -44,17 +44,17 @@ class UploadsModel extends Model
         return $result;
     }
 
-    public function _getByIdUsage($idPeserta, $idUsage)
+    public function _getByIdUsage($username, $idUsage)
     {
-        $where = "id_peserta = '" . $idPeserta . "' && id_usage = '" . $idUsage . "'";
+        $where = "username = '" . $username . "' && id_usage = '" . $idUsage . "'";
         $result = $this->where($where)
             ->get()
             ->getResult();
         return $result;
     }
 
-    public function _countPhotoByUsage($idUsage, $idPeserta){
-        $where = "id_peserta = '" . $idPeserta . "' && id_usage = '" . $idUsage . "'";
+    public function _countPhotoByUsage($idUsage, $username){
+        $where = "username = '" . $username . "' && id_usage = '" . $idUsage . "'";
         $result = $this->where($where)
             ->countAllResults();
         return $result;

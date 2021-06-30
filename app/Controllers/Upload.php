@@ -2,30 +2,27 @@
 
 namespace App\Controllers;
 
-use App\Models\PesertaModel;
 use App\Models\UploadsModel;
-use App\Models\UploadsUsageModel;
 
 class Upload extends BaseController
 {
 	public function Store()
 	{
 		if ($this->request->getMethod() == 'post') {
-			$pesertaModel = new PesertaModel;
 			$uploadsModel = new UploadsModel;
 
 			// get ID peserta dan Usage
 			$idUsage = $this->request->getPost('id_usage');
-			$idPeserta = $pesertaModel->_findByUsername($this->userData['username'])[0]->id_peserta;
+			$username = $this->userData['username'];
 			// get File
 			$file = $this->request->getFile('userFile');
-			$fileName = $idPeserta . '-' . rand(0123, 9999) . '.jpg';
+			$fileName = $username . '-' . rand(0123, 9999) . '.jpg';
 			$file->move('assets/uploaded/', $fileName);
 
 			$data = [
 				'id_uploads' => 'up'.rand(0123,9999),
 				'filepath' => $fileName,
-				'id_peserta' => $idPeserta,
+				'username' => $username,
 				'id_usage' => $idUsage,
 			];
 
@@ -39,16 +36,15 @@ class Upload extends BaseController
 	{
 		if ($this->request->getVar('action') == 'GetPhotos') {
 			$uploadsModel = new UploadsModel;
-			$pesertaModel = new PesertaModel;
 
-			if($this->request->getVar('id_peserta') != null){
-				$idPeserta = $this->request->getVar('id_peserta');
+			if($this->request->getVar('username') != null){
+				$username = $this->request->getVar('username');
 			}else{
-				$idPeserta = $pesertaModel->_findByUsername($this->session->userData['username'])[0]->id_peserta;
+				$username = $this->session->userData['username'];
 			}
 			$idUsage = $this->request->getVar('id_usage');
 
-			$photos = $uploadsModel->_getByIdUsage($idPeserta, $idUsage);
+			$photos = $uploadsModel->_getByIdUsage($username, $idUsage);
 
 			return json_encode($photos);
 		}
@@ -86,9 +82,9 @@ class Upload extends BaseController
 			$uploadsModel = new UploadsModel;
 
 			$idUsage = $this->request->getVar('id_usage');
-			$idPeserta = $this->getId($this->session->userData['username']);
+			$username = $this->getId($this->session->userData['username']);
 
-			$count = $uploadsModel->_countPhotoByUsage($idUsage, $idPeserta);
+			$count = $uploadsModel->_countPhotoByUsage($idUsage, $username);
 
 			return json_encode($count);
 		}

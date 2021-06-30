@@ -98,32 +98,21 @@
                     <span>Workshop</span></a>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Users -->
             <li class="nav-item">
-                <a class="nav-link" href="/Admin">
-                    <i class="fas fa-fw fa-male"></i>
-                    <span>Admin</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Instruktur">
-                    <i class="fas fa-fw fa-user-tie"></i>
-                    <span>Instruktur</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Operator">
-                    <i class="fas fa-fw fa-user-cog"></i>
-                    <span>Operator</span></a>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Leader">
-                    <i class="fas fa-fw fa-user-graduate"></i>
-                    <span>Leader</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <div id="usersCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Pengguna Sistem</h6>
+                        <a class="collapse-item" href="/Admin">Admin</a>
+                        <a class="collapse-item" href="/Operator">Operator</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Leader">Leader</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -343,15 +332,8 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
-
-
                     </div>
-
-
                 </div>
                 <!-- /.container-fluid -->
 

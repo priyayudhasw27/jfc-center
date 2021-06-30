@@ -36,9 +36,7 @@
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h1 text-gray-900 mb-4">Selamat Datang!</h1>
-                                <h1 class="h6 text-gray-900 mb-4">Selamat anda telah terdaftar menjadi peserta JFC. Anda akan mendapatkan email konfirmasi dari JFC-Center Official.</h1>
-                                <h1 class="h6 font-weight-bold text-gray-900 mb-4">Simpan QR-Code yang tertera.</h1>
-                                <h1 class="h6 font-weight-bold text-info mb-4"><i class="fa fa-exclamation-triangle"></i> QR Code digunakan untuk absensi workshop</h1>
+                                <h1 class="h6 text-gray-900 mb-4"><?= $namaLengkap ?>, telah terdaftar menjadi peserta JFC. Silahkan Login ke akun anda.</h1>
                                 <a href="/" class="btn btn-primary btn-user btn-block">Login</a>
                             </div>
                         </div>
