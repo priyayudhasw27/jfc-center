@@ -75,10 +75,10 @@
                 <div id="galeriCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Galeri Foto</h6>
-                        <a class="collapse-item" href="/Presentasi1">Presentasi 1</a>
-                        <a class="collapse-item" href="/Presentasi2">Presentasi 2</a>
-                        <a class="collapse-item" href="/GrandJuri">Grand Juri</a>
-                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi1">Presentasi 1</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi2">Presentasi 2</a>
+                        <a class="collapse-item" href="/Galeri/GrandJuri">Grand Juri</a>
+                        <a class="collapse-item" href="/Galeri/Roadshow">Roadshow</a>
                     </div>
                 </div>
             </li>
@@ -202,10 +202,10 @@
                                             <div class="font-weight-bold text-primary text-uppercase mb-1">
                                                 <?= $workshopItem->nama_workshop ?></div>
                                             <hr>
-                                            <div class="mb-0 font-weight-bold text-gray-800"><?= $workshopItem->tanggal ?></div>
+                                            <div class="mb-0 font-weight-bold text-gray-800"><?= date('d-m-Y', strtotime($workshopItem->tanggal)) ?></div>
                                             <div class="row mb-3">
                                                 <div class="col">
-                                                    Jam : <div class="text-success font-weight-bold"><?= $workshopItem->waktu_mulai ?></div>
+                                                    Jam : <div class="text-success font-weight-bold"><?= date('h:i', strtotime($workshopItem->waktu_mulai)); ?></div>
                                                 </div>
                                                 <div class="col">
                                                     Venue : <div class="text-danger font-weight-bold"><?= $workshopItem->venue ?></div>

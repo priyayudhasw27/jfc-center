@@ -193,9 +193,9 @@
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Nama Workshop</div>
                                     <div class="text-gray-800"><?= $workshop->nama_workshop ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Tanggal Workshop</div>
-                                    <div class="text-gray-800"><?= $workshop->tanggal ?></div>
+                                    <div class="text-gray-800"><?= date('d-m-Y', strtotime($workshop->tanggal)) ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Waktu</div>
-                                    <div class="text-gray-800"><?= $workshop->waktu_mulai ?> - <?= $workshop->waktu_selesai ?></div>
+                                    <div class="text-gray-800"><?= date('h:i', strtotime( $workshop->waktu_mulai)); ?> - <?= date('h:i', strtotime($workshop->waktu_selesai)); ?></div>
 
                                 </div>
                                 <div class="col">

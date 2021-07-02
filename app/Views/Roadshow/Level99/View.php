@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Instruktur - JFC Center</title>
+    <title>Roadshow - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -114,7 +114,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Pengguna Sistem</h6>
                         <a class="collapse-item" href="/Operator">Operator</a>
-                        <a class="collapse-item active" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
                         <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
@@ -231,7 +231,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item"><a href="/Instruktur">Instruktur</a></li>
+                                <li class="breadcrumb-item"><a href="/Roadshow">Roadshow</a></li>
                                 <li class="breadcrumb-item active">View</li>
                             </ol>
                         </nav>
@@ -245,44 +245,53 @@
                                 </div>
                                 <div class="col">
                                     <div class="row justify-content-end">
-                                        <a href="/Instruktur/UpdateForm/<?= $instrukturData->id_instruktur ?>" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Update Data</a>
+                                        <a href="/Roadshow/UpdateForm/<?= $roadshowData->id_roadshow ?>" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Update Data</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Nama Instruktur</div>
-                                    <div class="text-gray-800"><?= $instrukturData->nama_instruktur ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Jenis Kelamin</div>
-                                    <div class="text-gray-800"><?= $instrukturData->jenis_kelamin ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Email</div>
-                                    <div class="text-gray-800"><?= $instrukturData->email ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Nomor HP</div>
-                                    <div class="text-gray-800"><?= $instrukturData->nomor_hp ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Asal Sekolah / Instansi</div>
-                                    <div class="text-gray-800"><?= $instrukturData->asal ?></div>
-
-                                </div>
-                                <div class="col">
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Alamat</div>
-                                    <div class="text-gray-800"><?= $instrukturData->alamat ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Kecamatan</div>
-                                    <div class="text-gray-800"><?= $instrukturData->kecamatan ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Kabupaten</div>
-                                    <div class="text-gray-800"><?= $instrukturData->kabupaten ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Provinsi</div>
-                                    <div class="text-gray-800"><?= $instrukturData->provinsi ?></div>
-                                    <div class="text-gray-800 font-weight-bold mt-2 ">Prestasi</div>
-                                    <div class="text-gray-800"><?= $instrukturData->prestasi ?></div>
-                                </div>
+                            <div class="col">
+                                <div class="text-gray-800 font-weight-bold mt-2 ">Lokasi Roadshow</div>
+                                <div class="text-gray-800"><?= $roadshowData->lokasi ?></div>
+                                <div class="text-gray-800 font-weight-bold mt-2 ">Tanggal</div>
+                                <div class="text-gray-800"><?= date('d-M-Y', strtotime($roadshowData->tanggal)) ?></div>
+                                <div class="text-gray-800 font-weight-bold mt-2 ">Jumlah Peserta</div>
+                                <div class="text-gray-800"><?= $totalPesertaData ?> Peserta</div>
                             </div>
-
                         </div>
                     </div>
 
-                    
+                    <!-- Peserta -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Peserta Roadshow <?= $roadshowData->lokasi ?></h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Lengkap</th>
+                                            <th>Nomor HP</th>
+                                            <th>Foto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($pesertaData as $pesertaItem) : ?>
+                                            <tr>
+                                                <td><?= $pesertaItem->nama_peserta ?></td>
+                                                <td><?= $pesertaItem->nomor_hp ?></td>
+                                                <td><a href="/Roadshow/ViewPhoto/<?= $roadshowData->id_usage?>/<?= $pesertaItem->id_peserta ?>" class="btn btn-primary">Lihat</a></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <!-- /.container-fluid -->
 

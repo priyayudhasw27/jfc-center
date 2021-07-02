@@ -9,12 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Aproval Request - JFC Center</title>
+    <title>Roadshow- JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Sweet Alert -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,6 +43,13 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/Dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -53,23 +58,64 @@
                 Menu
             </div>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
-            </li>
-
             <!-- Approval Request -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-check-double"></i>
                     <span>Approval Request</span>
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/ApprovalRequest/AbsensiInstruktur">Absensi Instruktur</a>
                         <a class="collapse-item" href="/ApprovalRequest/MovingPeserta">Moving Peserta</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Peserta -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pesertaCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Peserta</span>
+                </a>
+                <div id="pesertaCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kategori Event</h6>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/GC">Grand Carnival</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WA">WACI </a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/AW">ArtWear</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/PE">Pets Carnival</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKC</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Event -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item active" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Users -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <div id="usersCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Pengguna Sistem</h6>
+                        <a class="collapse-item" href="/Operator">Operator</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
             </li>
@@ -82,7 +128,6 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
         </ul>
-
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -180,51 +225,39 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Workshop</h1>
+                    <div class="d-sm-flex align-items-center justify-content-end mb-4">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/Instruktur">Instruktur</a></li>
+                                <li class="breadcrumb-item active">View</li>
+                            </ol>
+                        </nav>
+                    </div>
 
-                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <div class="row justify-content-between">
+                            <div class="row">
                                 <div class="col">
-                                    <h6 class="m-0 font-weight-bold text-primary">Peserta Workshop</h6>
-                                </div>
-                                <div class="col">
-                                    <div class="row justify-content-end">
-
-                                    </div>
+                                    <a href="javascript:history.back()" class="text-gray-600 h5" onclick="goBack()"><i class="fa fa-arrow-left"></i> Kembali</a>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Instruktur</th>
-                                            <th>Nama Workshop</th>
-                                            <th>Tanggal</th>
-                                            <th>Waktu Mulai</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($proposalData as $proposalItem) : ?>
-                                            <tr>
-                                                <td><?= $proposalItem->nama_instruktur ?></td>
-                                                <td><?= $proposalItem->nama_workshop ?></td>
-                                                <td><?= date('d-m-Y', strtotime($proposalItem->tanggal)) ?></td>
-                                                <td><?= $proposalItem->waktu_mulai ?></td>
-                                                <td><a href="" id="approve"" class=" btn btn-primary">Approve</a></td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
+                            <div class="col-auto">
+                                <?php foreach ($photoData as $x => $y) : ?>
+                                    <div>
+                                        <label class="mt-4 mb-2 font-weight-bold">Foto <?= $x+1 ?></label>
+                                        <img style="width: 100%;" src="/assets/uploaded/<?= $y->filepath ?>" alt="">
+                                    </div>
+                                <?php endforeach ?>
                             </div>
                         </div>
                     </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -272,26 +305,6 @@
         </div>
     </div>
 
-
-    <?php if (isset($proposalData[0])) { ?>
-        <script>
-            $('#approve').click(function(e) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/AbsensiPeserta/ApprovalInstruktur',
-                    data: {
-                        action: 'approve',
-                        id_kehadiran: '<?= $proposalData[0]->id_kehadiran ?>',
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        location.reload();
-                        alert('<?= $proposalData[0]->nama_instruktur ?> berhasil di Approve');
-                    }
-                })
-            })
-        </script>
-    <?php } ?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

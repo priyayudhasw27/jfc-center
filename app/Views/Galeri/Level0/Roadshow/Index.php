@@ -218,8 +218,12 @@
                                 <div class="row" id="thumbnails<?= $x ?>"></div>
 
                             </div>
+
+                            <!-- Button Buka Modal Upload -->
                             <div class="card-footer">
-                                <div class="mb-4 btn btn-primary" onclick="openUploadModal('<?= $roadshowItem->id_usage ?>', '<?= $roadshowItem->lokasi ?>')" id="uploadModalButton">Upload Foto</div>
+                                <div class="row ml-2">
+                                    <div class="btn btn-primary" onclick="openUploadModal('<?= $roadshowItem->id_usage ?>', '<?= $roadshowItem->lokasi ?>')" id="uploadModalButton<?= $x ?>">Upload Foto</div>
+                                </div>
                             </div>
                         </div>
 
@@ -240,6 +244,32 @@
                                     });
                                 }
                             })
+
+                            // Get total uploaded photo
+                            $.ajax({
+                                type: 'post',
+                                url: '/Upload/GetTotal',
+                                data: {
+                                    action: 'getTotal',
+                                    id_usage: '<?= $roadshowItem->id_usage ?>',
+                                },
+                                dataType: 'json',
+                                success: function(data) {
+                                    if (data >= 3) {
+                                        $('#uploadModalButton<?= $x ?>').attr('onclick', 'maxAlert()').toggleClass('btn-primary btn-secondary');
+                                    }
+                                }
+                            })
+
+                            // Swal untuk sudah mencapai batas maksimal upload foto
+                            function maxAlert() {
+                                Swal.fire({
+                                    title: 'Kesalahan',
+                                    text: 'Anda sudah mengupload 3 foto',
+                                    icon: 'error',
+                                    confirmButtonText: 'Ok'
+                                })
+                            }
                         </script>
 
                     <?php endforeach ?>
@@ -406,30 +436,6 @@
                 }
             })
         }
-
-        $(document).ready(function(e) {
-
-
-            // Get total uploaded photo
-            $.ajax({
-                type: 'post',
-                url: '/Upload/GetTotal',
-                data: {
-                    action: 'getTotal',
-                    id_usage: '',
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data >= 3) {
-                        $('#maksimalAlert').html('<div class=" mt-1"><i class ="fa fa-exclamation-triangle"></i> Anda sudah mengupload 3 foto</div>')
-                        $('#submitUploadButton').prop('disabled', true);
-                    } else {
-                        $('#maksimalAlert').html('');
-                        $('#submitUploadButton').prop('disabled', false);
-                    }
-                }
-            })
-        })
 
 
 

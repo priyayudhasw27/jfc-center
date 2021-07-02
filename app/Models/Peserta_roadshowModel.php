@@ -50,10 +50,18 @@ class Peserta_roadshowModel extends Model
     }
 
     public function _findByIdRoadshow($id_roadshow){
-        $result = $this->where('id_roadshow', $id_roadshow)
+        $result = $this->where('peserta_roadshow.id_roadshow', $id_roadshow)
         ->join('roadshow', 'roadshow.id_roadshow = peserta_roadshow.id_roadshow')
+        ->join('peserta', 'peserta.id_peserta = peserta_roadshow.id_peserta')
         ->get()
         ->getResult();
+
+        return $result;
+    }
+
+    public function _countByIdRoadshow($id_roadshow){
+        $result = $this->where('id_roadshow', $id_roadshow)
+        ->countAllResults();
 
         return $result;
     }

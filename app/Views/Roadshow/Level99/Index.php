@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Instruktur - JFC Center</title>
+    <title>Roadshow - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -115,7 +115,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Pengguna Sistem</h6>
                         <a class="collapse-item" href="/Operator">Operator</a>
-                        <a class="collapse-item active" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
                         <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
@@ -236,6 +236,7 @@
                         </div>
                         <hr class="mb-4">
                     </div>
+
                     <?php foreach ($roadshowData as $roadshowItem) : ?>
                         <div class="col-xl-5 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -245,8 +246,7 @@
                                             <div class="font-weight-bold text-primary text-uppercase mb-1">
                                                 Roadshow <?= $roadshowItem->lokasi ?></div>
                                             <hr>
-                                            <div class="mb-2 font-weight-bold text-gray-800"><?= $roadshowItem->tanggal ?></div>
-                                            Jumlah Peserta : <div class="font-weight-bold">99</div>
+                                            <div class="mb-2 font-weight-bold text-gray-800">Tanggal : <?= date('d-M-Y', strtotime($roadshowItem->tanggal)) ?></div>
                                             <a href="/Roadshow/View/<?= $roadshowItem->id_roadshow ?>"" class="mt-4 btn btn-primary">Lihat</a>
                                         </div>
                                     </div>

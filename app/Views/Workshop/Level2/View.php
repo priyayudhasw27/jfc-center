@@ -185,9 +185,9 @@
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Nama Workshop</div>
                                     <div class="text-gray-800"><?= $workshop->nama_workshop ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Tanggal Workshop</div>
-                                    <div class="text-gray-800"><?= $workshop->tanggal ?></div>
+                                    <div class="text-gray-800"><?= date('d-m-Y', strtotime($workshop->tanggal)) ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Waktu</div>
-                                    <div class="text-gray-800"><?= $workshop->waktu_mulai ?> - <?= $workshop->waktu_selesai ?></div>
+                                    <div class="text-gray-800"><?= date('h:i', strtotime( $workshop->waktu_mulai)); ?> - <?= date('h:i', strtotime($workshop->waktu_selesai)); ?></div>
 
                                 </div>
                                 <div class="col">
@@ -207,7 +207,6 @@
                     </div>
 
                     <!-- Peserta -->
-                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Peserta Workshop</h6>

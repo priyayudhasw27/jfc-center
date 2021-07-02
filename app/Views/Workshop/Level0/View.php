@@ -74,10 +74,10 @@
                 <div id="galeriCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Galeri Foto</h6>
-                        <a class="collapse-item" href="/Presentasi1">Presentasi 1</a>
-                        <a class="collapse-item" href="/Presentasi2">Presentasi 2</a>
-                        <a class="collapse-item" href="/GrandJuri">Grand Juri</a>
-                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi1">Presentasi 1</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi2">Presentasi 2</a>
+                        <a class="collapse-item" href="/Galeri/GrandJuri">Grand Juri</a>
+                        <a class="collapse-item" href="/Galeri/Roadshow">Roadshow</a>
                     </div>
                 </div>
             </li>
@@ -216,9 +216,9 @@
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Nama Workshop</div>
                                     <div class="text-gray-800"><?= $workshop->nama_workshop ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Tanggal Workshop</div>
-                                    <div class="text-gray-800"><?= $workshop->tanggal ?></div>
+                                    <div class="text-gray-800"><?=  date('d-m-Y', strtotime($workshop->tanggal)) ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Waktu</div>
-                                    <div class="text-gray-800"><?= $workshop->waktu_mulai ?> - <?= $workshop->waktu_selesai ?></div>
+                                    <div class="text-gray-800"><?= date('h:i', strtotime( $workshop->waktu_mulai)); ?> - <?= date('h:i', strtotime($workshop->waktu_selesai)); ?></div>
 
                                 </div>
                                 <div class="col">

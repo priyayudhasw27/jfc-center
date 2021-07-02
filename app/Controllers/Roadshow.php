@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Peserta_roadshowModel;
 use App\Models\PesertaModel;
 use App\Models\RoadshowModel;
+use App\Models\UploadsModel;
 use App\Models\UploadsUsageModel;
 
 class Roadshow extends BaseController
@@ -39,11 +40,13 @@ class Roadshow extends BaseController
         $userData = $this->session->userData;
         $roadshowData = $roadshowModel->_findById($idRoadshow);
         $pesertaData = $peserta_roadshowModel->_findByIdRoadshow($idRoadshow);
+        $totalPesertaData = $peserta_roadshowModel->_countByIdRoadshow($idRoadshow);
 
         $data = [
             'userData' => $userData,
             'roadshowData' => $roadshowData,
             'pesertaData' => $pesertaData,
+            'totalPesertaData' => $totalPesertaData,
         ];
 
         $level = $userData['id_level'];
@@ -124,5 +127,29 @@ class Roadshow extends BaseController
 				)
 			</script>");
 			return redirect()->to('/Roadshow');
+    }
+
+    public function ViewPhoto(){
+        
+        $uploadsModel = new UploadsModel;
+        $pesertaModel = new PesertaModel;
+
+
+        $idUsage = $this->request->uri->getSegment('3');
+        $idPeserta = $this->request->uri->getSegment('4');
+        $username = $pesertaModel->_findById($idPeserta)[0]->username;
+
+
+        $userData = $this->session->userData;
+        $photoData = $uploadsModel->_getByIdUsage($username, $idUsage);
+
+        $data = [
+            'userData' => $userData,
+            'photoData' => $photoData,
+        ];
+
+        // print_r($data);
+
+        echo view('/Roadshow/Level99/ViewPhoto', $data);
     }
 }

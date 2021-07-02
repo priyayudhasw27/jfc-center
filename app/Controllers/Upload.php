@@ -27,11 +27,9 @@ class Upload extends BaseController
 			];
 
 			// print_r($data);
+			$uploadsModel->_Insert($data);
 
 			$redirectPage = $this->request->getPost('redirectPage');
-
-			// $uploadsModel->_Insert($data);
-
 			return redirect()->to('/Galeri/'.$redirectPage);
 		}
 	}
@@ -86,7 +84,7 @@ class Upload extends BaseController
 			$uploadsModel = new UploadsModel;
 
 			$idUsage = $this->request->getVar('id_usage');
-			$username = $this->getId($this->session->userData['username']);
+			$username = $this->session->userData['username'];
 
 			$count = $uploadsModel->_countPhotoByUsage($idUsage, $username);
 
