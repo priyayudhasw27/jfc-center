@@ -25,6 +25,9 @@
     <!-- Custom styles for this template-->
     <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -169,7 +172,7 @@
                             <div class="row justify-content-between">
                                 <div class="col">
                                     <h6 class="m-0 font-weight-bold text-primary">Daftar Peserta <?php if ($leaderData->nama_sub_kategori != null) {
-                                                                                                        echo 'Defile '.$leaderData->nama_sub_kategori;
+                                                                                                        echo 'Defile ' . $leaderData->nama_sub_kategori;
                                                                                                     } else {
                                                                                                         echo $leaderData->nama_kategori;
                                                                                                     } ?></h6>
@@ -318,6 +321,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/bootstrap/js/demo/datatables-demo.js"></script>
 
 
 </body>

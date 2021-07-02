@@ -9,10 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Workshop - JFC Center</title>
+    <title>Roadshow- JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Sweet Alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom fonts for this template-->
@@ -44,6 +45,13 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/Dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -51,13 +59,6 @@
             <div class="sidebar-heading">
                 Menu
             </div>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
-            </li>
 
             <!-- Approval Request -->
             <li class="nav-item">
@@ -67,7 +68,57 @@
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/ApprovalRequest/AbsensiInstruktur">Absensi Instruktur</a>
+                        <a class="collapse-item" href="/ApprovalRequest/MovingPeserta">Moving Peserta</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Peserta -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pesertaCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Peserta</span>
+                </a>
+                <div id="pesertaCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kategori Event</h6>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/GC">Grand Carnival</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WA">WACI </a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/AW">ArtWear</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/PE">Pets Carnival</a>
+                        <a class="collapse-item" href="/Peserta/DaftarPeserta/WK">WKC</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Event -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item active" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Users -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <div id="usersCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Pengguna Sistem</h6>
+                        <a class="collapse-item" href="/Admin">Admin</a>
+                        <a class="collapse-item" href="/Operator">Operator</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
             </li>
@@ -80,6 +131,7 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
         </ul>
+        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -176,113 +228,47 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <div class="card shadow mb-4 mt-4 border-left-primary">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-end mb-4">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/Instruktur">Instruktur</a></li>
+                                <li class="breadcrumb-item active">View</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                    <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <div class="text-center text-gray-800 h3">Tambah Workshop</div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="javascript:history.back()" class="text-gray-600 h5" onclick="goBack()"><i class="fa fa-arrow-left"></i> Kembali</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body justify-alignment-left">
 
-
-                            <form class="user" action="/Workshop/Update" method="post">
-                                <!-- hidden input -->
-                                <input type="hidden" name="id_workshop" value="<?= $workshop->id_workshop; ?>">
-                                <input type="hidden" name="id_jadwal" value="<?= $workshop->id_jadwal; ?>">
-
-                                <!-- visible input -->
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Nama Workshop</label>
-                                        <input value='<?= $workshop->nama_workshop; ?>' class="form-control" type="text" name="nama_workshop" id="nama_workshop" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi nama workshop">
+                        <div class="card-body">
+                            <div class="col-auto">
+                                <?php foreach ($photoData as $x => $y) : ?>
+                                    <div>
+                                        <div class="row justify-content-between ml-2 mt-4 mb-2 ">
+                                            <label class="font-weight-bold">Foto <?= $x + 1 ?></label>
+                                            <div class="btn btn-primary" onclick="deletePhoto('<?= $y->id_uploads ?>', '<?= $y->filepath ?>')">Hapus Foto</div>
+                                        </div>
+                                        <hr>
+                                        <img style="width: 100%;" src="/assets/uploaded/<?= $y->filepath ?>" alt="">
+                                        <hr>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Materi</label>
-                                        <input value='<?= $workshop->materi; ?>' class="form-control" type="text" name="materi" id="materi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi materi workshop">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Tanggal</label>
-                                        <input value='<?= $workshop->tanggal; ?>' class="form-control" type="date" name="tanggal" id="tanggal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Waktu Mulai</label>
-                                        <input value='<?= $workshop->waktu_mulai; ?>' class="form-control" type="time" name="waktu_mulai" id="waktu_mulai" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Waktu Selesai</label>
-                                        <input value='<?= $workshop->waktu_selesai; ?>' class="form-control" type="time" name="waktu_selesai" id="waktu_selesai" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                    <label for="nik" class="font-weight-bold">Venue Workshop</label>
-                                        <input class="form-control" type="text" name="venue" id="venue" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $workshop->venue ?>" placeholder="Isi venue workshop">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Dresscode</label>
-                                        <input value='<?= $workshop->dresscode; ?>' class="form-control" type="text" name="dresscode" id="dresscode" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Isi dresscode yang digunakan saat workshop">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Instruktur 1</label>
-                                        <select class="form-control" name="id_instruktur[]" id="id_instruktur1">
-                                            <option value='<?= $instrukturPengampu[0]->id_instruktur; ?>' selected><?= $instrukturPengampu[0]->nama_instruktur; ?></option>
-                                            <?php foreach ($instrukturData as $instrukturItem) : ?>
-                                                <option value='<?= $instrukturItem->id_instruktur ?>'><?= $instrukturItem->nama_instruktur ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Instruktur 2</label>
-                                        <select class="form-control" name="id_instruktur[]" id="id_instruktur2">
-                                            <?php if (isset($instrukturPengampu[1])) { ?>
-                                                <option value='<?= $instrukturPengampu[1]->id_instruktur; ?>' selected><?= $instrukturPengampu[1]->nama_instruktur; ?></option>
-                                            <?php } else { ?>
-                                                <option value='' disabled selected>-pilih instruktur-</option>
-                                            <?php }; ?>
-                                            <?php foreach ($instrukturData as $instrukturItem) : ?>
-                                                <option value='<?= $instrukturItem->id_instruktur ?>'><?= $instrukturItem->nama_instruktur ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-8">
-                                        <label for="nik" class="font-weight-bold">Instruktur 3</label>
-                                        <select class="form-control" name="id_instruktur[]" id="id_instruktur3">
-                                            <?php if (isset($instrukturPengampu[2])) { ?>
-                                                <option value='<?= $instrukturPengampu[2]->id_instruktur; ?>' selected><?= $instrukturPengampu[2]->nama_instruktur; ?></option>
-                                            <?php } else { ?>
-                                                <option value='' disabled selected>-pilih instruktur-</option>
-                                            <?php }; ?>
-                                            <?php foreach ($instrukturData as $instrukturItem) : ?>
-                                                <option value='<?= $instrukturItem->id_instruktur ?>'><?= $instrukturItem->nama_instruktur ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-5">
-                                        <input class="mt-4 btn btn-primary btn-user btn-block" type="submit">
-                                        <a href="javascript:history.back()" class="mt-3 btn btn-secondary btn-user btn-block">Batal</a>
-                                    </div>
-                                </div>
-                            </form>
+                                <?php endforeach ?>
+                            </div>
                         </div>
                     </div>
-                    <!-- row -->
+
+
                 </div>
+                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -328,6 +314,34 @@
     </div>
 
 
+    <script>
+        // JQuery for delete photo
+        function deletePhoto(id_uploads, filepath) {
+            $.ajax({
+                type: 'POST',
+                url: '/Upload/Delete',
+                data: {
+                    id_uploads: id_uploads,
+                    filepath: filepath,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Berhasil menghapus',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+            })
+        }
+    </script>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
@@ -338,6 +352,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
+
 
 </body>
 

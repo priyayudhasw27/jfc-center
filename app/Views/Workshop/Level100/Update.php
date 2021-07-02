@@ -90,11 +90,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Event -->
             <li class="nav-item active">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item active" href="/Workshop">Workshop</a>
+                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
@@ -264,7 +272,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-8">
-                                    <label for="nik" class="font-weight-bold">Venue Workshop</label>
+                                        <label for="nik" class="font-weight-bold">Venue Workshop</label>
                                         <input class="form-control" type="text" name="venue" id="venue" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $workshop->venue ?>" placeholder="Isi venue workshop">
                                     </div>
                                 </div>

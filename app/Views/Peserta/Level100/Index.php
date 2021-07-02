@@ -22,6 +22,9 @@
     <!-- Custom styles for this template-->
     <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -90,11 +93,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Event -->
             <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
@@ -319,6 +330,14 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/bootstrap/js/demo/datatables-demo.js"></script>
+
 
 
 </body>

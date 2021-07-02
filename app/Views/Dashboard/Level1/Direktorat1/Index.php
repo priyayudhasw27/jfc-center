@@ -166,7 +166,7 @@
 
                         <!-- Kuota Grand Carnival -->
                         <?php foreach ($kategori as $k => $j) : ?>
-                            
+
                             <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
@@ -174,16 +174,10 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Peserta <?= $j->nama_kategori ?>
                                                 </div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                            <div id="jumlahPeserta<?= $k ?>"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <a class="card-body" href="/Peserta/DaftarPeserta/<?= $j->id_kategori ?>">Lihat</a>
-                                                    </div>
+                                                <div class="font-weight-bold text-gray-800">
+                                                    <div id="jumlahPeserta<?= $k ?>"></div>
                                                 </div>
+                                                <a class="btn btn-primary mt-2" href="/Peserta/DaftarPeserta/<?= $j->id_kategori ?>">Lihat</a>
                                             </div>
                                         </div>
                                     </div>

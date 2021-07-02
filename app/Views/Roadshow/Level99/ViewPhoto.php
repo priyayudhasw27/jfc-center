@@ -13,6 +13,8 @@
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -250,8 +252,13 @@
                             <div class="col-auto">
                                 <?php foreach ($photoData as $x => $y) : ?>
                                     <div>
-                                        <label class="mt-4 mb-2 font-weight-bold">Foto <?= $x+1 ?></label>
+                                        <div class="row justify-content-between ml-2 mt-4 mb-2 ">
+                                            <label class="font-weight-bold">Foto <?= $x + 1 ?></label>
+                                            <div class="btn btn-primary" onclick="deletePhoto('<?= $y->id_uploads ?>', '<?= $y->filepath ?>')">Hapus Foto</div>
+                                        </div>
+                                        <hr>
                                         <img style="width: 100%;" src="/assets/uploaded/<?= $y->filepath ?>" alt="">
+                                        <hr>
                                     </div>
                                 <?php endforeach ?>
                             </div>
@@ -304,6 +311,35 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        // JQuery for delete photo
+        function deletePhoto(id_uploads, filepath) {
+            $.ajax({
+                type: 'POST',
+                url: '/Upload/Delete',
+                data: {
+                    id_uploads: id_uploads,
+                    filepath: filepath,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Berhasil menghapus',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+            })
+        }
+    </script>
 
 
     <!-- Bootstrap core JavaScript-->

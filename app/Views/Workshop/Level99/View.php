@@ -263,7 +263,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Venue</div>
-                                    <div class="text-gray-800"><?= $workshop->nama_venue ?></div>
+                                    <div class="text-gray-800"><?= $workshop->venue ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Dresscode</div>
                                     <div class="text-gray-800"><?= $workshop->dresscode ?></div>
                                     <div class="text-gray-800 font-weight-bold mt-2 ">Instruktur Pengampu :</div>

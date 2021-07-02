@@ -268,11 +268,9 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        // $('#nama_peserta').text(data.result['nama_peserta']);
-                        // $('#status').text('Success');
                         Swal.fire({
                             title: 'Berhasil!',
-                            text: data.result['nama_peserta'],
+                            text: data.pesertaData['nama_peserta']+', Keterlambatan : '+data.keterlambatan,
                             icon: 'success',
                             confirmButtonText: 'Ok'
                         })
@@ -281,13 +279,14 @@
             });
             Instascan.Camera.getCameras().then(function(cameras) {
                 // console.log(cameras);
-                if (cameras.length < 1) {
-                    scanner.start(cameras[0]);
-                } else if (cameras.length > 1) {
-                    scanner.start(cameras[1]);
-                } else {
-                    console.error('No cameras found.');
-                }
+                scanner.start(cameras[0]);
+                // if (cameras.length < 1) {
+                //     scanner.start(cameras[0]);
+                // } else if (cameras.length > 1) {
+                //     scanner.start(cameras[1]);
+                // } else {
+                //     console.error('No cameras found.');
+                // }
             }).catch(function(e) {
                 console.error(e);
             });

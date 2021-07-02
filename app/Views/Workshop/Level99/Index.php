@@ -245,7 +245,7 @@
                                             <div class="font-weight-bold text-primary text-uppercase mb-1">
                                                 <?= $workshopItem->nama_workshop ?></div>
                                             <hr>
-                                            <div class="mb-0 font-weight-bold text-gray-800"><?= date('d-m-Y', strtotime($workshopItem->tanggal)) ?></div>
+                                            <div class="mb-0 font-weight-bold text-gray-800"><?= date('d-M-Y', strtotime($workshopItem->tanggal)) ?></div>
                                             <div class="row mb-3">
                                                 <div class="col">
                                                     Hadir : <div class="text-success font-weight-bold"><?= $pesertaHadir[$workshopItem->id_workshop] ?> Peserta</div>

@@ -90,11 +90,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Event -->
             <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
@@ -237,7 +245,7 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <!-- <div class="font-weight-bold">Nama Lengkap</div> -->
                                         <label class="font-weight-bold">Nama Lengkap</label>
-                                        <input type="text" class="form-control" name="nama_leader" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap" value="<?= $leaderData->nama_leader ?>">
+                                        <input type="text" class="form-control" name="nama_leader" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap" value="<?= $leaderData->nama_leader ?>">
                                         <div id="nameAlert"></div>
                                     </div>
                                     <!-- Jenis Kelamin -->
@@ -254,13 +262,13 @@
                                     <!-- Email -->
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label class="font-weight-bold">Email</label>
-                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email" value="<?= $leaderData->email ?>">
+                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email" value="<?= $leaderData->email ?>">
                                         <div id="emailAlert"></div>
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
                                         <label class="font-weight-bold">Nomor HP</label>
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $leaderData->nomor_hp ?>"><br>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" oninvalid="this.setCustomValidity('Wajib diisi')" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $leaderData->nomor_hp ?>"><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->

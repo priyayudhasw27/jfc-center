@@ -229,14 +229,14 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Workshop</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Approval Request</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row justify-content-between">
                                 <div class="col">
-                                    <h6 class="m-0 font-weight-bold text-primary">Peserta Workshop</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Moving Peserta</h6>
                                 </div>
                                 <div class="col">
                                     <div class="row justify-content-end">
@@ -253,7 +253,7 @@
                                             <th>Nama Peserta</th>
                                             <th>Defile Awal</th>
                                             <th>Defile Tujuan</th>
-                                            <th>PIC yang mengajukan</th>
+                                            <th>Leader yang mengajukan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

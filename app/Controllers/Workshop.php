@@ -257,6 +257,8 @@ class Workshop extends BaseController
 			$jadwalModel = new JadwalModel;
 			$workshopModel = new WorkshopModel;
 			$kehadiranInstrukturModel = new KehadiranInstrukturModel;
+			$kehadiranPesertaModel = new KehadiranPesertaModel;
+			$pesertaModel = new PesertaModel;
 
 			$namaWorkshop = $this->request->getPost('nama_workshop');
 			$materi = $this->request->getPost('materi');
@@ -268,6 +270,7 @@ class Workshop extends BaseController
 			$idInstruktur = $this->request->getPost('id_instruktur');
 			$idJadwal = 'j' . rand(0312, 9999);
 			$idWorkshop = 'ws' . rand(0123, 9999);
+			$pesertaData = $pesertaModel->_get();
 
 			// INSERT JADWAL
 			$jadwalData = [
@@ -289,7 +292,7 @@ class Workshop extends BaseController
 			];
 			$workshopModel->_Insert($workshopData);
 
-			// INSERT KEHADIRAN TUTOR
+			// INSERT KEHADIRAN INSTRUKTUR
 			foreach ($idInstruktur as $x) {
 				$kehadiranInstrukturData = [
 					'id_kehadiran' => 'kt_' . rand(0123, 9999),
@@ -298,6 +301,18 @@ class Workshop extends BaseController
 					'inclass' => 0,
 				];
 				$kehadiranInstrukturModel->_Insert($kehadiranInstrukturData);
+			}
+
+			// Insert kehadiran peserta
+			// mengikutkan semua peserta ke workshop baru
+			foreach ($pesertaData as $m){
+				$kehadiranPesertaData = [
+					'id_kehadiran' => 'kp_' . rand(0123, 9999),
+					'id_peserta' => $m->id_peserta,
+					'id_workshop' => $idWorkshop,
+					'inclass' => 0,
+				];
+				$kehadiranPesertaModel->_Insert($kehadiranPesertaData);
 			}
 
 

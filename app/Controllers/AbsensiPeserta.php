@@ -6,6 +6,9 @@ use App\Models\KehadiranPesertaModel;
 use App\Models\KehadiranInstrukturModel;
 use App\Models\PesertaModel;
 use App\Models\InstrukturModel;
+use App\Models\JadwalModel;
+use App\Models\WorkshopModel;
+use DateTime;
 
 class AbsensiPeserta extends BaseController
 {
@@ -111,7 +114,9 @@ class AbsensiPeserta extends BaseController
 			// Enroll peserta, ubah status jadi inclass
 			if ($this->request->getVar('action') == "enroll") {
 				$kehadiranPesertaModel = new KehadiranPesertaModel;
+				$workshopModel = new WorkshopModel;
 				$pesertaModel = new PesertaModel;
+				$jadwalModel = new JadwalModel;
 
 				// get id workshop
 				$idWorkshop = $this->request->getVar('id_workshop');
@@ -120,19 +125,30 @@ class AbsensiPeserta extends BaseController
 				$idPeserta = $this->request->getVar('id_peserta');
 
 				// get data peserta
-				$pesertaData = $pesertaModel->_findById($idPeserta);
+				$pesertaData = $pesertaModel->_findById($idPeserta)[0];
 
 				// get id kehadiran
 				$idKehadiran = $kehadiranPesertaModel->_findId($idPeserta, $idWorkshop)[0]->id_kehadiran;
 
+				// get Jadwal
+				$workshopData = $workshopModel->_findById($idWorkshop);
+				$jadwalData = $jadwalModel->_findById($workshopData->id_jadwal);
+				$jamMulaiWorkshop = new DateTime($jadwalData->waktu_mulai);
+				$jamAbsen = new DateTime('now');
+
+				$diff = $jamAbsen->diff($jamMulaiWorkshop);
+				$keterlambatan = $diff->h.' Jam '.$diff->i. ' Menit';
+
 				// ubah status inclass
 				$kehadiranPesertaData = [
 					'inclass' => 1,
+					'keterlambatan' => $keterlambatan,
 				];
-				$kehadiranPesertaModel->_update($idKehadiran, $kehadiranPesertaData);
+				// $kehadiranPesertaModel->_update($idKehadiran, $kehadiranPesertaData);
 
 				$output = array(
-					'result' => $pesertaData,
+					'pesertaData' => $pesertaData,
+					'keterlambatan' => $keterlambatan,
 				);
 
 				return json_encode($output);

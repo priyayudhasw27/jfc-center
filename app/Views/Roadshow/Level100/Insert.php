@@ -9,10 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Instruktur - JFC Center</title>
+    <title>Roadshow - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+
+    <!-- Sweet Alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom fonts for this template-->
@@ -21,6 +25,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/bootstrap/css/jfc-center.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -90,15 +97,23 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+            <!-- Event -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item active" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Users</span>
@@ -108,7 +123,7 @@
                         <h6 class="collapse-header">Pengguna Sistem</h6>
                         <a class="collapse-item" href="/Admin">Admin</a>
                         <a class="collapse-item" href="/Operator">Operator</a>
-                        <a class="collapse-item active" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
                         <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
@@ -221,92 +236,55 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4 mt-4 border-left-primary">
                         <div class="card-header py-3">
-                            <div class="text-center text-gray-800 h3">Tambah Instruktur</div>
+                            <div class="text-center text-gray-800 h3">Tambah Roadshow</div>
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                        <form id="form" class="user" action="/Instruktur/Save" method="post">
+                            <form id="form" class="user" action="/Roadshow/Save" method="post">
                                 <!-- BIODATA -->
-                                <div class="form-group row">
-                                    <!-- Nama lengkap -->
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control" name="nama_instruktur" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap">
-                                        <div id="nameAlert"></div>
-                                    </div>
-                                    <!-- Jenis Kelamin -->
-                                    <div class="col-sm-6">
-                                        <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
-                                            <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                                            <option value="Laki - laki">Laki - laki</option>
-                                            <option value="Perempuan">Perempuan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <!-- Email -->
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control" name="email" id="email" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Email">
-                                        <div id="emailAlert"></div>
-                                    </div>
-                                    <!-- Nomor Hp -->
-                                    <div class="col-sm-6">
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nomor HP"><br>
-                                    </div>
-                                </div>
-                                <!-- Alamat -->
+                                <!-- Lokasi Roadshow -->
+                                <input type="hidden" id="idPeserta" name="id_peserta">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Alamat">
-                                    <div id="alamatAlert"></div>
+                                    <label class="font-weight-bold">Lokasi Roadshow</label>
+                                    <input type="text" class="form-control" name="lokasi" id="lokasi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Lokasi Roadshow">
+                                    <div id="lokasiAlert"></div>
                                 </div>
-                                <div class="form-group row">
-                                    <!-- Kecamatan -->
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kecamatan" id="kecamatan" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kecamatan">
-                                        <div id="alamatAlert"></div>
-                                    </div>
-                                    <!-- Kabupaten -->
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="kabupaten" id="kabupaten" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Kabupaten">
-                                        <div id="alamatAlert"></div>
-                                    </div>
-                                    <!-- Provinsi -->
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input required type="text" class="form-control" name="provinsi" id="provinsi" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Provinsi">
-                                        <div id="alamatAlert"></div>
-                                    </div>
-                                </div>
-                                <br>
                                 <div class="form-group">
-                                    <!-- Asal -->
-                                    <input type="text" class="form-control" name="asal" id="asal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Asal Sekolah/Instansi">
-                                    <div id="asalAlert"></div>
+                                    <label class="font-weight-bold">Tanggal</label>
+                                    <input type="date" class="form-control" name="tanggal" id="tanggal" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Tanggal Roadshow">
+                                    <div id="tanggalAlert"></div>
                                 </div>
-
-                                <!-- Prestasi -->
                                 <div class="form-group">
-                                    <textarea required class="form-control" name="prestasi" id="prestasi" form="form" cols="30" rows="10" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
+                                    <label class="font-weight-bold text-primary" id="totalPeserta">0 Peserta ditambahkan</label>
                                 </div>
-
-
-                                <!-- USER Data -->
-                                <br>
-                                <!-- Username -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="username" id="username" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Username">
-                                    <div id="usernameAlert"></div>
-                                </div>
-                                <div class="form-group row">
-                                    <!-- Password -->
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control" name="password" id="password" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Password">
+                                    <label class="font-weight-bold">Tambah Peserta</label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Lengkap</th>
+                                                    <th>Kategori</th>
+                                                    <th>Defile</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($pesertaData as $x => $pesertaItem) : ?>
+                                                    <tr>
+                                                        <td><?= $pesertaItem->nama_peserta ?></td>
+                                                        <td><?= $pesertaItem->nama_kategori ?></td>
+                                                        <td><?= $pesertaItem->nama_sub_kategori ?></td>
+                                                        <td>
+                                                            <div id="tambahButton<?= $x ?>" onclick="add(<?= $x ?>,'<?= $pesertaItem->id_peserta ?>')" class=" btn btn-block btn-primary">Tambah</div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <!-- Confirm Password -->
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Konfirmasi Password"> <br>
-                                        <div id="passwordAlert"></div>
-                                    </div>
                                 </div>
-
+                                <!-- Submit Button -->
                                 <div class="form-group col-md-5">
                                     <input type="submit" class="btn btn-block btn-primary btn-user" value="Tambah">
                                     <a href="javascript:history.back()" class="mt-3 btn btn-block btn-secondary btn-user">Batal</a>
@@ -363,6 +341,34 @@
 
     <!-- custom script -->
     <script>
+
+        // Adding Several Peserta to Roadshow
+        var idPesertas = [];
+        var totalPeserta;
+
+        // Add Peserta to list
+        function add(id, idPeserta) {
+            idPesertas.push(idPeserta);
+            console.log(idPesertas);
+            $('#tambahButton' + id).attr("onclick", "remove(" + id + ",'" + idPeserta + "')").text('Hapus').toggleClass('btn-primary btn-secondary');
+            $('#totalPeserta').text(idPesertas.length+' Peserta ditambahkan');
+            $('#idPeserta').val(idPesertas);
+        };
+
+        // Remove Peserta from list
+        function remove(id, idPeserta) {
+            idPesertas = $.grep(idPesertas, function(value) {
+                return value != idPeserta;
+            });
+            console.log(idPesertas);
+            $('#tambahButton' + id).attr("onclick", "add(" + id + ",'" + idPeserta + "')").text('Tambah').toggleClass('btn-secondary btn-primary');
+            $('#totalPeserta').text(idPesertas.length+' Peserta ditambahkan');
+            $('#idPeserta').val(idPesertas);
+        };
+
+
+
+
         // 
         // 
         // 
@@ -378,120 +384,6 @@
                 document.getElementById('nameAlert').innerHTML = "";
             }
         })
-        // Validasi Email ===========================
-        $('#email').change(function(e) {
-            var rule = /^([a-zA-Z0-9_\.-]+)@([\a-z\.-]+)\.([a-z\.]{2,6})+$/;
-            var value = document.getElementById('email').value;
-            if (!value.match(rule)) {
-                document.getElementById('emailAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Format email tidak benar</div>';
-            } else {
-                document.getElementById('emailAlert').innerHTML = "";
-            }
-        })
-        // Validasi Alamat ===========================
-        $('#alamat').change(function(e) {
-            var rule = /^[a-zA-Z0-9.-/ ]+$/;
-            var value = document.getElementById('alamat').value;
-            if (!value.match(rule)) {
-                document.getElementById('alamatAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Alamat tidak valid</div>';
-            } else {
-                document.getElementById('alamatAlert').innerHTML = "";
-            }
-        })
-        // Validasi Asal ===========================
-        $('#asal').change(function(e) {
-            var rule = /^[a-zA-Z.0-9/ ]{3,50}$/;
-            var value = document.getElementById('asal').value;
-            if (!value.match(rule)) {
-                document.getElementById('asalAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Input melebihi 50 karakter</div>';
-            } else {
-                document.getElementById('asalAlert').innerHTML = "";
-            }
-        })
-        // Validasi username ===========================
-        var z = $('#username');
-        z.change(function(e) {
-            $.ajax({
-                type: 'POST',
-                url: '/Registrasi/ValidateUsername',
-                data: {
-                    action: 'validate',
-                    username: z.val(),
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data == 'fail') {
-                        document.getElementById('usernameAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Username sudah digunakan, mohon gunakan yang lain</div>'
-                    } else {
-                        document.getElementById('usernameAlert').innerHTML = ""
-                    }
-                }
-            })
-        })
-        // Validasi password ===========================
-        var password = $('#password');
-        var confirmPassword = $('#confirmPassword');
-        confirmPassword.change(function(e) {
-            if (confirmPassword.val() == password.val()) {
-                document.getElementById('passwordAlert').innerHTML = '';
-            } else {
-                document.getElementById('passwordAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Password tidak sama</div>';
-            }
-        })
-
-        // 
-        // 
-        // 
-        // Get Kecamatan, Kabupaten via Provinsi ================================================
-        var x = $('#pilihKabupaten');
-        var y = $('#pilihKecamatan');
-        // Get Kabupaten ===========================
-        $('#pilihProvinsi').change(function(e) {
-            var a = $('#pilihProvinsi option:selected').val();
-            $.ajax({
-                type: 'POST',
-                url: '/Registrasi/getKabupaten',
-                data: {
-                    action: 'getKabupaten',
-                    idProvinsi: a
-                },
-                dataType: 'json',
-                success: function(data) {
-                    // console.log(data.Kabupaten)
-                    x.empty();
-                    y.empty();
-                    x.append($("<option></option>").attr("value", null).text('-pilih kabupaten-'));
-                    y.append($("<option></option>").attr("value", null).text('-pilih kecamatan-'));
-                    // mengisi option dengan kabupaten
-                    $.each(data.kabupaten, function(key, value) {
-                        x.append($("<option></option>")
-                            .attr("value", value.id_kabupaten).text(value.nama_kabupaten));
-                    });
-                },
-            });
-        });
-        // Get Kecamatan ===========================
-        $('#pilihKabupaten').change(function(e) {
-            var b = $('#pilihKabupaten option:selected').val();
-            $.ajax({
-                type: 'POST',
-                url: '/Registrasi/getKecamatan',
-                data: {
-                    action: 'getKecamatan',
-                    idKabupaten: b
-                },
-                dataType: 'json',
-                success: function(data) {
-                    y.empty();
-                    y.append($("<option></option>").attr("value", null).text('-pilih kecamatan-'));
-                    // mengisi option dengan kecamatan
-                    $.each(data.kecamatan, function(key, value) {
-                        y.append($("<option></option>")
-                            .attr("value", value.id_kecamatan).text(value.nama_kecamatan));
-                    });
-                },
-            });
-        });
     </script>
 
     <!-- Bootstrap core JavaScript-->
@@ -503,6 +395,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/bootstrap/js/demo/datatables-demo.js"></script>
 
 
 </body>

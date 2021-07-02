@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Instruktur - JFC Center</title>
+    <title>Roadshow - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -90,15 +90,23 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+            <!-- Event -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item active" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Users</span>
@@ -108,7 +116,7 @@
                         <h6 class="collapse-header">Pengguna Sistem</h6>
                         <a class="collapse-item" href="/Admin">Admin</a>
                         <a class="collapse-item" href="/Operator">Operator</a>
-                        <a class="collapse-item active" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
                         <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
@@ -222,26 +230,25 @@
 
                     <!-- Page Heading -->
                     <div class="col">
-                        <h1 class="h3 mb-2 text-gray-800">Instruktur</h1>
-                        <div class="mb-2">Anda dapat melihat data instruktur di halaman ini.</div>
+                        <h1 class="h3 mb-2 text-gray-800">Roadshow</h1>
+                        <div class="mb-2">Anda dapat melihat data roadshow di halaman ini.</div>
                         <div class="mb-4">
-                            <a href="/Instruktur/NewForm" class="d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Instruktur Baru</a>
+                            <a href="/Roadshow/NewForm" class="d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Roadshow Baru</a>
                         </div>
                         <hr class="mb-4">
                     </div>
-                    <?php foreach ($instruktur as $instrukturItem) : ?>
+
+                    <?php foreach ($roadshowData as $roadshowItem) : ?>
                         <div class="col-xl-5 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                                <?= $instrukturItem->nama_instruktur ?></div>
+                                                Roadshow <?= $roadshowItem->lokasi ?></div>
                                             <hr>
-                                            <div class="mb-2 font-weight-bold text-gray-800"><?= $instrukturItem->nomor_hp ?></div>
-                                            Alamat Email : <div class="font-weight-bold"><?= $instrukturItem->email ?></div>
-                                            Alamat Rumah : <div class="font-weight-bold"><?= $instrukturItem->alamat ?></div>
-                                            <a href="/instruktur/View/<?= $instrukturItem->id_instruktur ?>"" class="mt-4 btn btn-primary">Lihat</a>
+                                            <div class="mb-2 font-weight-bold text-gray-800">Tanggal : <?= date('d-M-Y', strtotime($roadshowItem->tanggal)) ?></div>
+                                            <a href="/Roadshow/View/<?= $roadshowItem->id_roadshow ?>"" class="mt-4 btn btn-primary">Lihat</a>
                                         </div>
                                     </div>
                                 </div>

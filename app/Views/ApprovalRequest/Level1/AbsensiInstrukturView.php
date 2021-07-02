@@ -63,13 +63,12 @@
             <!-- Approval Request -->
             <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-check-double"></i>
                     <span>Approval Request</span>
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/ApprovalRequest/AbsensiInstruktur">Absensi Instruktur</a>
-                        <a class="collapse-item" href="/ApprovalRequest/MovingPeserta">Moving Peserta</a>
+                        <a class="collapse-item active" href="/ApprovalRequest/AbsensiInstruktur">Absensi Instruktur</a>
                     </div>
                 </div>
             </li>
@@ -182,14 +181,14 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Workshop</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Approval Request</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row justify-content-between">
                                 <div class="col">
-                                    <h6 class="m-0 font-weight-bold text-primary">Peserta Workshop</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Absensi Instruktur</h6>
                                 </div>
                                 <div class="col">
                                     <div class="row justify-content-end">

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Instruktur - JFC Center</title>
+    <title>Roadshow - JFC Center</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -89,15 +89,23 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+            <!-- Event -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item active" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Users</span>
@@ -107,7 +115,7 @@
                         <h6 class="collapse-header">Pengguna Sistem</h6>
                         <a class="collapse-item" href="/Admin">Admin</a>
                         <a class="collapse-item" href="/Operator">Operator</a>
-                        <a class="collapse-item active" href="/Instruktur">Instruktur</a>
+                        <a class="collapse-item" href="/Instruktur">Instruktur</a>
                         <a class="collapse-item" href="/Leader">Leader</a>
                     </div>
                 </div>
@@ -220,7 +228,7 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4 mt-4 border-left-primary">
                         <div class="card-header py-3">
-                            <div class="text-center text-gray-800 h3">Tambah Instruktur</div>
+                            <div class="text-center text-gray-800 h3">Update Data Instruktur</div>
                         </div>
                         <div class="card-body justify-alignment-left">
 
@@ -228,7 +236,7 @@
 
                                 <!-- hidden input -->
                                 <input type="hidden" name="id_instruktur" value="<?= $instrukturData->id_instruktur ?>">
-                                <input type="hidden" name="username" value="<?= $instrukturData->username ?>">
+                                <input type="hidden" name="username"value="<?= $instrukturData->username ?>">
 
                                 <!-- BIODATA -->
                                 <div class="form-group row">
@@ -259,13 +267,13 @@
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
                                         <label class="font-weight-bold">Nomor HP</label>
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" value="<?= $instrukturData->nomor_hp ?>"><br>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nomor HP" value="<?= $instrukturData->nomor_hp ?>"><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->
                                 <div class="form-group">
                                     <label class="font-weight-bold">Alamat</label>
-                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" placeholder="Alamat" oninput="this.setCustomValidity('')" value="<?= $instrukturData->alamat ?>">
+                                    <input type="text" class="form-control" name="alamat" id="alamat" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Alamat" value="<?= $instrukturData->alamat ?>">
                                     <div id="alamatAlert"></div>
                                 </div>
                                 <div class="form-group row">

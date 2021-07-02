@@ -41,12 +41,12 @@ class JadwalModel extends Model{
         ->getResult();
     }
 
-    // public function _findByWorkshop($id_workshop){
-    //     $result = $this->where('id_workshop', $id_workshop)
-    //     ->get()
-    //     ->getResult();
+    public function _findByWorkshop($id_workshop){
+        $result = $this->where('id_workshop', $id_workshop)
+        ->get()
+        ->getResult();
 
-    //     return $result;
-    // }
+        return $result;
+    }
 
 }

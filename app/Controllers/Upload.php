@@ -20,7 +20,7 @@ class Upload extends BaseController
 			$file->move('assets/uploaded/', $fileName);
 
 			$data = [
-				'id_uploads' => 'up'.rand(0123,9999),
+				'id_uploads' => 'up' . rand(0123, 9999),
 				'filepath' => $fileName,
 				'username' => $username,
 				'id_usage' => $idUsage,
@@ -30,7 +30,7 @@ class Upload extends BaseController
 			$uploadsModel->_Insert($data);
 
 			$redirectPage = $this->request->getPost('redirectPage');
-			return redirect()->to('/Galeri/'.$redirectPage);
+			return redirect()->to('/Galeri/' . $redirectPage);
 		}
 	}
 
@@ -39,9 +39,9 @@ class Upload extends BaseController
 		if ($this->request->getVar('action') == 'GetPhotos') {
 			$uploadsModel = new UploadsModel;
 
-			if($this->request->getVar('username') != null){
+			if ($this->request->getVar('username') != null) {
 				$username = $this->request->getVar('username');
-			}else{
+			} else {
 				$username = $this->session->userData['username'];
 			}
 			$idUsage = $this->request->getVar('id_usage');
@@ -66,21 +66,25 @@ class Upload extends BaseController
 
 	public function Delete()
 	{
-		if ($this->request->getVar('action') == 'Delete') {
-			$uploadsModel = new UploadsModel;
+		$uploadsModel = new UploadsModel;
 
-			$idUploads = $this->request->getVar('id_uploads');
-			// $uploadsModel->_delete($idUploads);
+		$idUploads = $this->request->getVar('id_uploads');
 
-			$output = array(
-				'status' => 'ok'
-			);
-			return json_encode($idUploads);
-		}
+		$filepath = FCPATH . 'assets/uploaded/' . $this->request->getVar('filepath');
+
+		$uploadsModel->_delete($idUploads);
+		unlink($filepath);
+
+
+		$output = array(
+			'status' => 'ok'
+		);
+		return json_encode($output);
 	}
 
-	public function GetTotal(){
-		if($this->request->getVar('action') == 'getTotal'){
+	public function GetTotal()
+	{
+		if ($this->request->getVar('action') == 'getTotal') {
 			$uploadsModel = new UploadsModel;
 
 			$idUsage = $this->request->getVar('id_usage');

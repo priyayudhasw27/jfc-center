@@ -48,11 +48,10 @@ class KehadiranInstrukturModel extends Model
 
     public function _getWorkshopByInstruktur($id_instruktur)
     {
-        $result = $this->select('workshop.*, jadwal.*, venue.*')
+        $result = $this->select('workshop.*, jadwal.*')
             ->where('id_instruktur', $id_instruktur)
             ->join('workshop', 'workshop.id_workshop = kehadiran_instruktur.id_workshop')
             ->join('jadwal', 'jadwal.id_jadwal = workshop.id_jadwal')
-            ->join('venue', 'venue.id_venue = workshop.id_venue')
             ->get()
             ->getResult();
         return $result;

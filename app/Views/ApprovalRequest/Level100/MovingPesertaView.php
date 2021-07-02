@@ -68,7 +68,7 @@
                 </a>
                 <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/ApprovalRequest/MovingPeserta">Moving Peserta</a>
+                        <a class="collapse-item active" href="/ApprovalRequest/MovingPeserta">Moving Peserta</a>
                     </div>
                 </div>
             </li>
@@ -91,11 +91,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Event -->
             <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
@@ -222,14 +230,14 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Workshop</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Approval Request</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row justify-content-between">
                                 <div class="col">
-                                    <h6 class="m-0 font-weight-bold text-primary">Peserta Workshop</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Moving Peserta</h6>
                                 </div>
                                 <div class="col">
                                     <div class="row justify-content-end">
@@ -246,7 +254,7 @@
                                             <th>Nama Peserta</th>
                                             <th>Defile Awal</th>
                                             <th>Defile Tujuan</th>
-                                            <th>PIC yang mengajukan</th>
+                                            <th>Leader yang mengajukan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

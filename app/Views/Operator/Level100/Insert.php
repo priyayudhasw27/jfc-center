@@ -90,11 +90,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Event -->
             <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
@@ -313,7 +321,8 @@
                                 </div>
 
                                 <div class="form-group col-md-5">
-                                    <input type="submit" class="btn btn-block btn-success btn-user" value="Tambah">
+                                    <input type="submit" class="btn btn-block btn-primary btn-user" value="Tambah">
+                                    <a href="javascript:history.back()" class="mt-3 btn btn-block btn-secondary btn-user">Batal</a>
                                 </div>
 
                             </form>

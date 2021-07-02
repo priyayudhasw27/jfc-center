@@ -59,12 +59,18 @@
                     <i class="fas fa-fw fa-book"></i>
                     <span>Workshop</span></a>
             </li>
-            
-            <!-- Nav Item - Charts -->
+
+            <!-- Approval Request -->
             <li class="nav-item">
-                <a class="nav-link" href="/ApprovalRequest/AbsensiInstruktur">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ApprovalRequestCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-check-double"></i>
-                    <span>Approval Request</span></a>
+                    <span>Approval Request</span>
+                </a>
+                <div id="ApprovalRequestCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/ApprovalRequest/AbsensiInstruktur">Absensi Instruktur</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

@@ -90,11 +90,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Event -->
             <li class="nav-item">
-                <a class="nav-link" href="/Workshop">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Workshop</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Event</span>
+                </a>
+                <div id="eventCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Event</h6>
+                        <a class="collapse-item" href="/Workshop">Workshop</a>
+                        <a class="collapse-item" href="/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Users -->
@@ -225,7 +233,7 @@
                         </div>
                         <div class="card-body justify-alignment-left">
 
-                        <form id="form" class="user" action="/Instruktur/Save" method="post">
+                            <form id="form" class="user" action="/Instruktur/Save" method="post">
                                 <!-- BIODATA -->
                                 <div class="form-group row">
                                     <!-- Nama lengkap -->
@@ -250,7 +258,7 @@
                                     </div>
                                     <!-- Nomor Hp -->
                                     <div class="col-sm-6">
-                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nomor HP"><br>
+                                        <input type="number" class="form-control" name="nomor_hp" id="nomor_hp" placeholder="Nomor HP"oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" ><br>
                                     </div>
                                 </div>
                                 <!-- Alamat -->
@@ -284,7 +292,7 @@
 
                                 <!-- Prestasi -->
                                 <div class="form-group">
-                                    <textarea required class="form-control" name="prestasi" id="prestasi" form="form" cols="30" rows="10" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
+                                    <textarea required class="form-control" name="prestasi" id="prestasi" form="form" cols="30" rows="10" placeholder="Tuliskan prestasi yang pernah anda raih"></textarea>
                                 </div>
 
 

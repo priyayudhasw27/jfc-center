@@ -90,7 +90,7 @@
             </li>
 
             <!-- Event -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Event</span>
