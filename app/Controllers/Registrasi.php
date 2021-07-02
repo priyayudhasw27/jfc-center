@@ -91,9 +91,9 @@ class Registrasi extends BaseController
 			$hash = md5(uniqid(rand(), true));
 
 			// get File
-			// $file = $this->request->getFile('profilePhoto');
-			// $fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
-			// $file->move('assets/profile-photos/', $fileName);
+			$file = $this->request->getFile('profilePhoto');
+			$fileName = $idPeserta . '-' . rand(0123, 9999) . '-profile.jpg';
+			$file->move('assets/profile-photos/', $fileName);
 
 			// cek apakah subkategori ada atau tidak
 			if ($this->request->getPost('id_sub_kategori') == '') {
@@ -137,15 +137,15 @@ class Registrasi extends BaseController
 			// id for profile photos is usg_0211
 			$uploadsData = [
 				'id_uploads' => 'up' . rand(0123, 9999),
-				// 'filepath' => $fileName,
-				'id_peserta' => $idPeserta,
+				'filepath' => $fileName,
+				'username' => $username,
 				'id_usage' => 'usg_0211',
 			];
 
 			// Insertion to Database ==========================
 
-			// $uploadsModel->_Insert($uploadsData);
 			$userModel->_Insert($userData);
+			$uploadsModel->_Insert($uploadsData);
 			$pesertaModel->_Insert($pesertaData);
 			$keikutsertaanModel->_Insert($keikutsertaanData);
 
@@ -179,47 +179,47 @@ class Registrasi extends BaseController
 			$result->saveToFile(FCPATH . 'assets/qrcode/' . $idPeserta . '.png');
 			$qrcodePath = FCPATH . 'assets/qrcode/' . $idPeserta . '.png';
 
-			// Send Email Function =============================
-			$mail = new PHPMailer(true);
+			// // Send Email Function =============================
+			// $mail = new PHPMailer(true);
 
-			try {
-			//Server settings
-			$mail->isSMTP();                                            //Send using SMTP
-			$mail->Host       = 'ssl://mail.jfc-center.id';                     //Set the SMTP server to send through
-			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-			$mail->Username   = 'official-admin@jfc-center.id';                     //SMTP username
-			$mail->Password   = '9CahayaM4il';                               //SMTP password
-			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-			$mail->Port       = 465;                              //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+			// try {
+			// //Server settings
+			// $mail->isSMTP();                                            //Send using SMTP
+			// $mail->Host       = 'ssl://mail.jfc-center.id';                     //Set the SMTP server to send through
+			// $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			// $mail->Username   = 'official-admin@jfc-center.id';                     //SMTP username
+			// $mail->Password   = '9CahayaM4il';                               //SMTP password
+			// $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+			// $mail->Port       = 465;                              //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
-			//Recipients  //Add a recipient
-			$mail->setFrom('official-admin@jfc-center.id', 'JFC-Center Official');
-			$mail->addAddress(strval($email));
+			// //Recipients  //Add a recipient
+			// $mail->setFrom('official-admin@jfc-center.id', 'JFC-Center Official');
+			// $mail->addAddress(strval($email));
 
-				//Attachments
-				$mail->addAttachment($qrcodePath);         //Add attachment
+			// 	//Attachments
+			// 	$mail->addAttachment($qrcodePath);         //Add attachment
 
-				//Content
-				$mail->isHTML(true);                                  //Set email format to HTML
-				$mail->Subject = 'Buka dong, ini QR-Codemu  ' . $namaPeserta;
-				$mail->Body    =
-					'
-				<h2> Hai ' . $namaPeserta . '! <br> </h2>
+			// 	//Content
+			// 	$mail->isHTML(true);                                  //Set email format to HTML
+			// 	$mail->Subject = 'Buka dong, ini QR-Codemu  ' . $namaPeserta;
+			// 	$mail->Body    =
+			// 		'
+			// 	<h2> Hai ' . $namaPeserta . '! <br> </h2>
 
-				<h4>Simpan QR-Code dengan baik</h4> <br>
-				QR-Code ini digunakan sebagai identitas anda. dan digunakan untuk absensi pada saat workshop. <br>
-				<hr>
-				<br>
-				<h3>Terimakasih, dan selamat bergabung!</h3>
-				';
-				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			// 	<h4>Simpan QR-Code dengan baik</h4> <br>
+			// 	QR-Code ini digunakan sebagai identitas anda. dan digunakan untuk absensi pada saat workshop. <br>
+			// 	<hr>
+			// 	<br>
+			// 	<h3>Terimakasih, dan selamat bergabung!</h3>
+			// 	';
+			// 	$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-				//Send Email
-				// $mail->send();
-				// echo 'Message has been sent';
-			} catch (Exception $e) {
-				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-			}
+			// 	//Send Email
+			// 	// $mail->send();
+			// 	// echo 'Message has been sent';
+			// } catch (Exception $e) {
+			// 	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			// }
 
 			$output = [
 				'namaLengkap' => $namaPeserta,

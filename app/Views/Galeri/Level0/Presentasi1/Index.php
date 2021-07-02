@@ -78,11 +78,21 @@
                     <span>Workshop</span></a>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Galeri -->
             <li class="nav-item active">
-                <a class="nav-link" href="/Galeri">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#galeriCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-images"></i>
-                    <span>Galeri</span></a>
+                    <span>Galeri</span>
+                </a>
+                <div id="galeriCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Galeri Foto</h6>
+                        <a class="collapse-item active" href="/Galeri/Presentasi1">Presentasi 1</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi2">Presentasi 2</a>
+                        <a class="collapse-item" href="/Galeri/GrandJuri">Grand Juri</a>
+                        <a class="collapse-item" href="/Galeri/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -192,9 +202,8 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Galeri</h1>
-                    <div class="h5">Anda dapat mengupload foto untuk Presentasi, Grand Juri dan Roadshow di halaman ini.</div>
-                    <div class="mb-4 font-weight-bold">Album roadshow akan muncul ketika anda ikut serta dalam sebuah roadshow.</div>
+                    <h1 class="h3 mb-2 text-gray-800">Galeri Presentasi 1</h1>
+                    <div class="mb-4">Anda dapat mengupload foto untuk Grand Juri di halaman ini.</div>
                     <div class="mb-4 btn btn-primary" data-toggle="modal" data-target="#uploadModal">Upload Foto</div>
 
 
@@ -205,40 +214,11 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="row" id="presentasi1Album">
+                            <div class="row" id="thumbnails">
 
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- ALBUM Presentasi 2 -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Album Presentasi 2</h6>
-                        </div>
-                        <div class="card-body">
-
-                            <div class="row" id="presentasi2Album">
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- ALBUM Grand Juri -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Album Grand Juri</h6>
-                        </div>
-                        <div class="card-body">
-
-                            <div class="row" id="grandJuriAlbum">
-
-                            </div>
-                        </div>
-                    </div>
-
 
 
                 </div>
@@ -309,16 +289,13 @@
                             <div class="text-danger" id="fileAlert"></div>
                         </div>
                         <div class="form-group">
-                            Upload gambar ke album:
+                            Upload gambar ke album <?= $usageData->nama_usage ?>
+                            <input type="hidden" name="id_usage" value="<?= $usageData->id_usage ?>"> 
                         </div>
-                        <div class="form-group">
-                            <select required class="form-control" name="id_usage" id="pilihUsage">
-                                <?php foreach ($usageData as $usageItem) : ?>
-                                    <option value=<?= $usageItem->id_usage ?>><?= $usageItem->nama_usage ?></option>
-                                <?php endforeach ?>
-                            </select>
-                            <div class="text-danger" id="maksimalAlert"></div>
-                        </div>
+
+                        <!-- Hidden input untuk menentukan redirect link setelah upload -->
+                        <input type="hidden" name="redirectPage" value="Presentasi1">
+
                         <div class="form-group">
                             <div><input type="submit" class="btn btn-primary" id="submitUploadButton" value="Upload"></div>
                         </div>
@@ -347,10 +324,6 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div id="image"></div>
-                    <hr>
-                    <div class="row">
-                        <div id="deleteButton" class="btn btn-danger">Hapus</div>
-                    </div>
                 </div>
                 <!-- End of Modal Body -->
 
@@ -360,8 +333,6 @@
 
 
     <script>
-
-
         // ========================== Package PENAMPIL FOTO GALERI
         // Open preview Modal dan Get Photo by id uploads
         function openPreviewModal(id_uploads) {
@@ -407,58 +378,45 @@
         $(document).ready(function(e) {
 
 
-            // Grand Juri Photo
+            // Get photo collection
             $.ajax({
                 type: 'post',
                 url: '/Upload/GetPhotos',
                 data: {
                     action: 'GetPhotos',
-                    id_usage: 'usg_0241'
+                    id_usage: '<?= $usageData->id_usage ?>',
                 },
                 dataType: 'json',
                 success: function(data) {
-                    var x = $('#grandJuriAlbum')
+                    var x = $('#thumbnails')
                     $.each(data, function(key, value) {
                         x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
                     });
                 }
             })
 
-
-            // Presentasi 1 Photo
+            // Get total uploaded photo
             $.ajax({
                 type: 'post',
-                url: '/Upload/GetPhotos',
+                url: '/Upload/GetTotal',
                 data: {
-                    action: 'GetPhotos',
-                    id_usage: 'usg_0111'
+                    action: 'getTotal',
+                    id_usage: '<?= $usageData->id_usage ?>',
                 },
                 dataType: 'json',
                 success: function(data) {
-                    var x = $('#presentasi1Album')
-                    $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
-                    });
-                }
-            })
-
-            // Presentasi 2 Photo
-            $.ajax({
-                type: 'post',
-                url: '/Upload/GetPhotos',
-                data: {
-                    action: 'GetPhotos',
-                    id_usage: 'usg_0112'
-                },
-                dataType: 'json',
-                success: function(data) {
-                    var x = $('#presentasi2Album')
-                    $.each(data, function(key, value) {
-                        x.append('<div class="col-auto"><img class="thumbnail" src="/assets/uploaded/' + value.filepath + '" alt="" onclick="openPreviewModal(\'' + value.id_uploads + '\')"></div>')
-                    });
+                    if (data >= 3) {
+                        $('#maksimalAlert').html('<div class=" mt-1"><i class ="fa fa-exclamation-triangle"></i> Anda sudah mengupload 3 foto</div>')
+                        $('#submitUploadButton').prop('disabled', true);
+                    } else {
+                        $('#maksimalAlert').html('');
+                        $('#submitUploadButton').prop('disabled', false);
+                    }
                 }
             })
         })
+
+
 
         // ========================== End Package penampil galeri
 
@@ -473,28 +431,6 @@
         //         })
         //     }
         // });
-
-        // Get total uploaded photo
-        $('#pilihUsage').change(function(e) {
-            $.ajax({
-                type: 'post',
-                url: 'Upload/GetTotal',
-                data: {
-                    action: 'getTotal',
-                    id_usage: $('#pilihUsage option:selected').val(),
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data >= 3) {
-                        $('#maksimalAlert').html('<div class=" mt-1"><i class ="fa fa-exclamation-triangle"></i> Anda sudah mengupload 3 foto</div>')
-                        $('#submitUploadButton').prop('disabled', true);
-                    } else {
-                        $('#maksimalAlert').html('');
-                        $('#submitUploadButton').prop('disabled', false);
-                    }
-                }
-            })
-        })
     </script>
 
 

@@ -192,6 +192,18 @@ class Peserta extends BaseController
 		return view('/Peserta/Level99/Insert');
 	}
 
+	public function search(){
+		if($this->request->getMethod() == 'post'){
+			$namaPeserta = $this->request->getVar('namaPeserta');
+
+			$pesertaModel = new PesertaModel;
+
+			$pesertaData = $pesertaModel->_search(strval($namaPeserta));
+
+			return json_encode($pesertaData);
+		}
+	}
+
 	// ================ CRUD METHOD =================
 
 	// INSERT ==============================

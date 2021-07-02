@@ -134,4 +134,13 @@ class PesertaModel extends Model
 
         return $result;
     }
+
+    public function _search($nama_peserta){
+        $result = $this->like('nama_peserta', $nama_peserta)
+        ->limit(10)
+        ->get()
+        ->getResult();
+
+        return $result;
+    }
 }

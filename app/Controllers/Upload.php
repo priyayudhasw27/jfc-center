@@ -26,9 +26,13 @@ class Upload extends BaseController
 				'id_usage' => $idUsage,
 			];
 
-			$uploadsModel->_Insert($data);
+			// print_r($data);
 
-			return redirect()->to('/Galeri');
+			$redirectPage = $this->request->getPost('redirectPage');
+
+			// $uploadsModel->_Insert($data);
+
+			return redirect()->to('/Galeri/'.$redirectPage);
 		}
 	}
 

@@ -72,11 +72,21 @@
                     <span>Workshop</span></a>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Galeri -->
             <li class="nav-item">
-                <a class="nav-link" href="/Galeri">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#galeriCollapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-images"></i>
-                    <span>Galeri</span></a>
+                    <span>Galeri</span>
+                </a>
+                <div id="galeriCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Galeri Foto</h6>
+                        <a class="collapse-item" href="/Galeri/Presentasi1">Presentasi 1</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi2">Presentasi 2</a>
+                        <a class="collapse-item" href="/Galeri/GrandJuri">Grand Juri</a>
+                        <a class="collapse-item" href="/Galeri/Roadshow">Roadshow</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
