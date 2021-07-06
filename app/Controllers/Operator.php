@@ -154,17 +154,17 @@ class Operator extends BaseController
 
 			$operatorData = [
 				'id_operator' => $idOperator,
-				'nama_operator' => $namaOperator,
+				'nama_operator' => ucwords($namaOperator),
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'asal' => $asal,
+				'alamat' => ucwords($alamat),
+				'asal' => ucwords($asal),
 				'id_direktorat' => $direktorat,
 				'username' => $username,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
+				'kecamatan' => ucwords($kecamatan),
+				'kabupaten' => ucwords($kabupaten),
+				'provinsi' => ucwords($provinsi),
 			];
 
 			// Insertion to Database ==========================
@@ -215,17 +215,17 @@ class Operator extends BaseController
 			];
 
 			$operatorData = [
-				'nama_operator' => $namaOperator,
+				'nama_operator' => ucwords($namaOperator),
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'asal' => $asal,
+				'alamat' => ucwords($alamat),
+				'asal' => ucwords($asal),
 				'id_direktorat' => $direktorat,
 				'username' => $username,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
+				'kecamatan' => ucwords($kecamatan),
+				'kabupaten' => ucwords($kabupaten),
+				'provinsi' => ucwords($provinsi),
 			];
 
 
@@ -246,6 +246,33 @@ class Operator extends BaseController
 			</script>");
 			return redirect()->to('/Operator');
 		}
+	}
+
+	// DELETE ============================
+	public function Delete()
+	{
+		$userModel = new UserModel;
+
+		$username = $this->request->uri->getSegment('3');
+
+		// delete from database
+		$userModel->_delete($username);
+
+		$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil menghapus Operator',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+
+		// print_r($username);
+
+		return redirect()->to('/Operator');
 	}
 
 

@@ -153,17 +153,17 @@ class Instruktur extends BaseController
 
 			$instrukturData = [
 				'id_instruktur' => $idInstruktur,
-				'nama_instruktur' => $namaInstruktur,
+				'nama_instruktur' => ucwords($namaInstruktur),
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'asal' => $asal,
+				'alamat' => ucwords($alamat),
+				'asal' => ucwords($asal),
 				'username' => $username,
 				'prestasi' => $prestasi,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
+				'kecamatan' => ucwords($kecamatan),
+				'kabupaten' => ucwords($kabupaten),
+				'provinsi' => ucwords($provinsi),
 			];
 
 			// Insertion to Database ==========================
@@ -214,17 +214,17 @@ class Instruktur extends BaseController
 			];
 
 			$instrukturData = [
-				'nama_instruktur' => $namaInstruktur,
+				'nama_instruktur' => ucwords($namaInstruktur),
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'asal' => $asal,
+				'alamat' => ucwords($alamat),
+				'asal' => ucwords($asal),
 				'username' => $username,
 				'prestasi' => $prestasi,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
+				'kecamatan' => ucwords($kecamatan),
+				'kabupaten' => ucwords($kabupaten),
+				'provinsi' => ucwords($provinsi),
 			];
 
 			// Insertion to Database ==========================
@@ -244,6 +244,33 @@ class Instruktur extends BaseController
 			</script>");
 			return redirect()->to('/Instruktur');
 		}
+	}
+
+	// DELETE ============================
+	public function Delete()
+	{
+		$userModel = new UserModel;
+
+		$username = $this->request->uri->getSegment('3');
+
+		// delete from database
+		$userModel->_delete($username);
+
+		$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil menghapus Instruktur',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+
+		// print_r($username);
+
+		return redirect()->to('/Instruktur');
 	}
 
 

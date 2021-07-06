@@ -88,9 +88,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Galeri Foto</h6>
                         <a class="collapse-item" href="/Galeri/Presentasi1">Presentasi 1</a>
-                        <a class="collapse-item active" href="/Galeri/Presentasi2">Presentasi 2</a>
+                        <a class="collapse-item" href="/Galeri/Presentasi2">Presentasi 2</a>
                         <a class="collapse-item" href="/Galeri/GrandJuri">Grand Juri</a>
-                        <a class="collapse-item" href="/Galeri/Roadshow">Roadshow</a>
+                        <a class="collapse-item active" href="/Galeri/Roadshow">Roadshow</a>
                     </div>
                 </div>
             </li>

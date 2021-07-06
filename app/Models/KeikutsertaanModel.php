@@ -47,4 +47,10 @@ class KeikutsertaanModel extends Model
 
         return $result;
     }
+    public function _getTotalByKategori($id_kategori){
+        $result = $this->where('id_kategori', $id_kategori)
+        ->countAllResults();
+
+        return $result;
+    }
 }

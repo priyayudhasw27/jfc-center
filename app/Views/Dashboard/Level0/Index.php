@@ -204,29 +204,18 @@
                     <!-- Content Row -->
                     <div class="row">
 
-                        <!-- Progress Workshop -->
+                        <!-- Total Workshop -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Workshop
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">--%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">-/- Workshop telah diikuti
-                                            </div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total Workshop</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll">- Workshop</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-check fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +230,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Workshop yang telah diikuti</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- Workshop</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone">- Workshop</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-check fa-2x text-gray-300"></i>
@@ -259,7 +248,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 Workshop yang tidak diikuti</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- Workshop</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopMissed">- Workshop</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
@@ -277,7 +266,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                 Workshop yang akan datang</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- Workshop</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopUndone">- Workshop</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clock fa-2x text-gray-300"></i>
@@ -333,6 +322,63 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // get Total Workshop
+            $.ajax({
+                type: 'post',
+                url: '/Overview/GetTotalWorkshop',
+                data: {
+                    action: 'GetTotalWorkshopByPeserta',
+                    username: '<?= $userData["username"] ?>',
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#workshopAll').text(data+' Workshop');
+                }
+            })
+            // get Total Workshop Done
+            $.ajax({
+                type: 'post',
+                url: '/Overview/GetTotalWorkshop',
+                data: {
+                    action: 'GetTotalWorkshopDoneByPeserta',
+                    username: '<?= $userData["username"] ?>',
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#workshopDone').text(data+' Workshop');
+                }
+            })
+            // get Total Workshop Undone
+            $.ajax({
+                type: 'post',
+                url: '/Overview/GetTotalWorkshop',
+                data: {
+                    action: 'GetTotalWorkshopUndoneByPeserta',
+                    username: '<?= $userData["username"] ?>',
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#workshopUndone').text(data+' Workshop');
+                }
+            })
+            // get Total Workshop Missed
+            $.ajax({
+                type: 'post',
+                url: '/Overview/GetTotalWorkshop',
+                data: {
+                    action: 'GetTotalWorkshopMissedByPeserta',
+                    username: '<?= $userData["username"] ?>',
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#workshopMissed').text(data+' Workshop');
+                }
+            })
+        })
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

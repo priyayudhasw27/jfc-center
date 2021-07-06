@@ -284,11 +284,11 @@ class Workshop extends BaseController
 			// INSERT WORKSHOP
 			$workshopData = [
 				'id_workshop' => $idWorkshop,
-				'nama_workshop' => $namaWorkshop,
+				'nama_workshop' => ucwords($namaWorkshop),
 				'materi' => $materi,
 				'id_jadwal' => $idJadwal,
-				'venue' => $venue,
-				'dresscode' => $dresscode,
+				'venue' => ucwords($venue),
+				'dresscode' => ucwords($dresscode),
 			];
 			$workshopModel->_Insert($workshopData);
 

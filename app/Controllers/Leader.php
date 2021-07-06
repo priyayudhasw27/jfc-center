@@ -168,15 +168,15 @@ class Leader extends BaseController
 
 			$instrukturData = [
 				'id_leader' => $idLeader,
-				'nama_leader' => $namaLeader,
+				'nama_leader' => ucwords($namaLeader),
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
-				'asal' => $asal,
+				'alamat' => ucwords($alamat),
+				'kecamatan' => ucwords($kecamatan),
+				'kabupaten' => ucwords($kabupaten),
+				'provinsi' => ucwords($provinsi),
+				'asal' => ucwords($asal),
 				'username' => $username,
 				'id_kategori' => $idKategori,
 				'id_sub_kategori' => $idSubKategori,
@@ -232,15 +232,15 @@ class Leader extends BaseController
 			];
 
 			$instrukturData = [
-				'nama_leader' => $namaLeader,
+				'nama_leader' => ucwords($namaLeader),
 				'jenis_kelamin' => $jenisKelamin,
 				'email' => $email,
 				'nomor_hp' => $nomorHp,
-				'alamat' => $alamat,
-				'kecamatan' => $kecamatan,
-				'kabupaten' => $kabupaten,
-				'provinsi' => $provinsi,
-				'asal' => $asal,
+				'alamat' => ucwords($alamat),
+				'kecamatan' => ucwords($kecamatan),
+				'kabupaten' => ucwords($kabupaten),
+				'provinsi' => ucwords($provinsi),
+				'asal' => ucwords($asal),
 				'username' => $username,
 			];
 
@@ -262,6 +262,33 @@ class Leader extends BaseController
 			</script>");
 			return redirect()->to('/Leader');
 		}
+	}
+
+	// DELETE ============================
+	public function Delete()
+	{
+		$userModel = new UserModel;
+
+		$username = $this->request->uri->getSegment('3');
+
+		// delete from database
+		$userModel->_delete($username);
+
+		$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil menghapus Leader',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+
+		// print_r($username);
+
+		return redirect()->to('/Leader');
 	}
 
 

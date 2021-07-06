@@ -96,16 +96,33 @@ class PesertaModel extends Model
         return $result;
     }
 
+    // Get total peserta dengan kategori dan sub kategori
     public function _getJumlahPeserta($id_kategori = '', $id_sub_kategori = '')
     {
+        $yearNow = date('Y', strtotime("now"));
         if ($id_kategori != '' && $id_sub_kategori == '') {
             $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
                 ->where('id_kategori', $id_kategori)
+                ->where("peserta.created_at >= '".$yearNow."-01-01' && peserta.created_at <= '".$yearNow."-12-31'")
                 ->countAllResults();
         } else if ($id_sub_kategori != '') {
             $result = $this->join('keikutsertaan', 'keikutsertaan.id_peserta = peserta.id_peserta')
                 ->where('id_sub_kategori', $id_sub_kategori)
+                ->where("peserta.created_at >= '".$yearNow."-01-01' && peserta.created_at <= '".$yearNow."-12-31'")
                 ->countAllResults();
+        }
+        return $result;
+    }
+
+    // Get Total Peserta Per Tahun
+    public function _getTotal($year = '')
+    {
+        if (isset($year)) {
+            $result = $this->where('created_at >= "' . $year . '-01-01" && created_at <= "' . $year . '-12-31"')
+                ->CountAllResults();
+        } else {
+            $result = $this->select('*')
+                ->CountAllResults();
         }
 
         return $result;
@@ -135,11 +152,10 @@ class PesertaModel extends Model
         return $result;
     }
 
-    public function _search($nama_peserta){
-        $result = $this->like('nama_peserta', $nama_peserta)
-        ->limit(10)
-        ->get()
-        ->getResult();
+    public function _getTotalByJk($jk)
+    {
+        $result = $this->where('jenis_kelamin', $jk)
+            ->CountAllResults();
 
         return $result;
     }

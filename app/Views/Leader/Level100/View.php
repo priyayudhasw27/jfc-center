@@ -14,6 +14,9 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -247,6 +250,7 @@
                                 <div class="col">
                                     <div class="row justify-content-end">
                                         <a href="/Leader/UpdateForm/<?= $leaderData->id_leader ?>" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Update Data</a>
+                                        <div onclick="remove()" class="ml-2 d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Hapus Leader</div>
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +289,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -331,6 +335,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function remove() {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'Apakah anda yakin untuk menghapus leader?',
+                icon: 'warning',
+                confirmButtonText: 'Hapus',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace("/Leader/Delete/<?= $leaderData->username ?>");
+                }
+            })
+        }
+    </script>
 
 
     <!-- Bootstrap core JavaScript-->

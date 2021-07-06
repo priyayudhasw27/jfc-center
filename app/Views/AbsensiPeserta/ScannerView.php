@@ -279,14 +279,14 @@
             });
             Instascan.Camera.getCameras().then(function(cameras) {
                 // console.log(cameras);
-                scanner.start(cameras[0]);
-                // if (cameras.length < 1) {
-                //     scanner.start(cameras[0]);
-                // } else if (cameras.length > 1) {
-                //     scanner.start(cameras[1]);
-                // } else {
-                //     console.error('No cameras found.');
-                // }
+                // scanner.start(cameras[0]);
+                if (cameras.length < 1) {
+                    scanner.start(cameras[0]);
+                } else if (cameras.length > 1) {
+                    scanner.start(cameras[1]);
+                } else {
+                    console.error('No cameras found.');
+                }
             }).catch(function(e) {
                 console.error(e);
             });

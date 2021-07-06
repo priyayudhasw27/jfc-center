@@ -219,6 +219,33 @@ class Admin extends BaseController
 		}
 	}
 
+	// DELETE ============================
+	public function Delete()
+	{
+		$userModel = new UserModel;
+
+		$username = $this->request->uri->getSegment('3');
+
+		// delete from database
+		$userModel->_delete($username);
+
+		$this->session->setFlashdata("alert", "<!-- javascript -->
+			<script>
+				$(document).ready(
+					Swal.fire({
+						title: 'Berhasil!',
+						text: 'Berhasil menghapus Admin',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				)
+			</script>");
+
+		// print_r($username);
+
+		return redirect()->to('/Admin');
+	}
+
 
 	// SECONDARY FUNCTION
 	// ===================================================================================

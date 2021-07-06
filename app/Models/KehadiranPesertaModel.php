@@ -59,11 +59,47 @@ class KehadiranPesertaModel extends Model
 
     public function _countHadirByWorkshop($id_workshop)
     {
-        return $this->where("id_workshop = '".$id_workshop."' && inclass = 1")->countAllResults();
+        return $this->where("id_workshop = '" . $id_workshop . "' && inclass = 1")->countAllResults();
     }
 
     public function _countTidakHadirByWorkshop($id_workshop)
     {
-        return $this->where("id_workshop = '".$id_workshop."' && inclass = 0")->countAllResults();
+        return $this->where("id_workshop = '" . $id_workshop . "' && inclass = 0")->countAllResults();
+    }
+
+    public function _getTotalWorkshopByPeserta($id_peserta)
+    {
+        $result = $this->where('id_peserta', $id_peserta)
+            ->countAllResults();
+        return $result;
+    }
+
+    public function _getTotalWorkshopDoneByPeserta($id_peserta)
+    {
+        $result = $this->where("id_peserta = '".$id_peserta."' && inclass = 1")
+            ->countAllResults();
+        return $result;
+    }
+
+    public function _getTotalWorkshopUndoneByPeserta($id_peserta)
+    {
+        $result = $this->where('kehadiran_peserta.id_peserta', $id_peserta)
+        ->join('workshop', 'workshop.id_workshop = kehadiran_peserta.id_workshop')
+        ->join('jadwal', 'jadwal.id_jadwal = workshop.id_jadwal')
+        ->where('jadwal.tanggal >= CURDATE()')
+        ->where('inclass = 0')
+        ->countAllResults();
+        return $result;
+    }
+
+    public function _getTotalWorkshopMissedByPeserta($id_peserta)
+    {
+        $result = $this->where('kehadiran_peserta.id_peserta', $id_peserta)
+        ->join('workshop', 'workshop.id_workshop = kehadiran_peserta.id_workshop')
+        ->join('jadwal', 'jadwal.id_jadwal = workshop.id_jadwal')
+        ->where('jadwal.tanggal <= CURDATE()')
+        ->where('inclass = 0')
+        ->countAllResults();
+        return $result;
     }
 }
