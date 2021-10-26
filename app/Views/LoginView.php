@@ -35,7 +35,8 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                    </div>
                     <div class="col-lg-7">
                         <div class="p-5">
 
@@ -50,7 +51,7 @@
                                 <h1 class="h6 font-weight-bold text-gray-600 mb-4">Login</h1>
                             </div>
                             <!-- End Header -->
-                            
+
                             <div><?= $errorMessage ?></div>
                             <form class="user" action="/Authentication/Login" method="post">
                                 <!-- Username -->
@@ -68,6 +69,9 @@
                             <hr>
                             <div class="text-center">
                                 Belum punya akun? <a class="small" href="/Registrasi">Klik di sini untuk mendaftar</a>
+                            </div>
+                            <div>
+                                <a class="btn btn-success btn-user btn-block mt-4" href="/Ticketing/Registrasi">Buy Tickets Now!</a>
                             </div>
                         </div>
                     </div>

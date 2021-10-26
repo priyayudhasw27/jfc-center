@@ -89,6 +89,10 @@ class Authentication extends BaseController
                         return redirect()->to('/Dashboard');
                     } else if ($level == 100) {
                         return redirect()->to('/Dashboard');
+                    } else if ($level == 4){
+                        return redirect()->to('/Ticketing/Penonton/Dashboard');
+                    } else if ($level == 5){
+                        return redirect()->to('/Ticketing/Admin/Dashboard');
                     }
                 }
             } else {
