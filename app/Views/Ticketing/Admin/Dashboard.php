@@ -56,55 +56,6 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -153,7 +104,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                     Waiting Payment</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll">- Ticket</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"> <span id="unpaidInvoices"></span> Invoices</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-history fa-2x text-gray-300"></i>
@@ -171,7 +122,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Bought Ticket</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone">- Ticket</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="boughtTicket"></span> Ticket</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-check fa-2x text-gray-300"></i>
@@ -191,7 +142,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Ticket Category</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone">- Ticket</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"> <span id="totalTicketCategories"></span> Categories</div>
                                             </div>
                                             <div class="col mr-2">
                                                 <button class="btn btn-primary" onclick="openTicketCategory()">Detail</button>
@@ -207,7 +158,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Total Visitor</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone">- Visitor</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalTicketInVenue"></span> Visitor</div>
                                             </div>
                                             <div class="col mr-2">
                                                 <button class="btn btn-primary" onclick="openPortal()">Open Portal</button>
@@ -224,10 +175,10 @@
                         <div class="card-header py-3">
                             <div class="row">
                                 <div class="col">
-                                    <h6 id="headerTicketTable" class="m-0 font-weight-bold text-primary">Waiting Verification <i class="fa fa-history"></i></h6>
+                                    <h6 id="headerTicketTable" class="m-0 font-weight-bold text-primary"><span id="invoiceTableTitle"></span></h6>
                                     <div class="mt-4">
-                                        <button class="btn btn-primary">Waiting Verification</button>
-                                        <button class="btn btn-success">Verified Ticket</button>
+                                        <button class="btn btn-primary" onclick="getWaitingInvoice()">Waiting Verification</button>
+                                        <button class="btn btn-success" onclick="getVerifiedInvoice()">Verified Ticket</button>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -242,96 +193,12 @@
                                         <tr>
                                             <th>ID Invoice</th>
                                             <th>Tanggal</th>
-                                            <th>Nama</th>
+                                            <th>Username</th>
                                             <th>Total</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>123456</td>
-                                            <td>20-05-2021</td>
-                                            <td>Priya Yudha Swandana</td>
-                                            <td>Rp 50.0000</td>
-                                            <td><button class="btn btn-primary" onClick="openInvoice('a')">Lihat</button></td>
-                                        </tr>
+                                    <tbody id="invoiceTableData">
                                     </tbody>
                                 </table>
                             </div>
@@ -428,6 +295,44 @@
         </div>
     </div>
 
+    <!-- Invoice Detail Modal-->
+    <div class="modal fade" id="invoiceDetailModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Invoice No. <span id="id_invoice"></span> <span id="invoice_status"></span></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class=" col-lg-6">
+                            <h4 id="username_invoice">Priya Yudha Swandana</h4>
+                            <strong id="tanggal_invoice">20-12-2021</strong>
+                            <hr>
+                            <div id="ticket_bought_invoice"></div>
+                            <hr>
+                            <div class="row justify-content-between">
+                                <div class="col"><strong>Total</strong></div>
+                                <div class="col"><strong id="totalPriceInvoice"></strong></div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class=" col-lg-6">
+                            <div><strong>Bukti Pembayaran</strong></div>
+                            <div class="mt-2" id="paymentImage"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="confirmPaymentButton"></div>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Paid Ticket Modal-->
     <div class="modal fade" id="paidTicketModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -474,7 +379,7 @@
 
     <!-- Ticket Modal-->
     <div class="modal fade" id="ticketCategoryModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ticket Category</h5>
@@ -483,39 +388,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col">Grand Carnival</div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">VIP</div>
-                                <div class="col">Rp 75000</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">VIP</div>
-                                <div class="col">Rp 75000</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">VIP</div>
-                                <div class="col">Rp 75000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">WACI</div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">VIP</div>
-                                <div class="col">Rp 75000</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">VIP</div>
-                                <div class="col">Rp 75000</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">VIP</div>
-                                <div class="col">Rp 75000</div>
-                            </div>
-                        </div>
+                    <div id="tickets">
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -540,11 +414,35 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Nama Kategori</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" id="nama_kategori" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tanggal</label>
+                        <input class="form-control" type="date" id="tanggal" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Start</label>
+                        <input class="form-control" type="time" id="start" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="">End</label>
+                        <input class="form-control" type="time" id="end" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Kuota</label>
+                        <input class="form-control" type="number" id="kuota" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Lokasi</label>
+                        <input class="form-control" type="text" id="location" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Link Lokasi</label>
+                        <input class="form-control" type="text" id="location_link" name="nama">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary">Add</button>
+                    <button class="btn btn-primary" onclick="storeCategory()">Add</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 </div>
             </div>
@@ -564,21 +462,21 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Pilih Kategori</label>
-                        <select class="form-control" name="" id="">
-                            <option value="">Grand Carnival</option>
+                        <select class="form-control" name="" id="id_category">
+                            <!-- <option value="">Grand Carnival</option> -->
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="">Nama Sub Kategori</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" id="nama_sub_kategori">
                     </div>
                     <div class="form-group">
                         <label for="">Harga</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" id="harga">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary">Add</button>
+                    <button class="btn btn-primary" onclick="storeSubCategory()">Add</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 </div>
             </div>
@@ -596,21 +494,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Harga</label>
-                        <input class="form-control" type="text" autofocus>
-                    </div>
+                    <form action="">
+                        <div class="form-group">
+                            <label for="">ID Ticket</label>
+                            <input id="asyu" class="form-control" type="text" autofocus>
+                        </div>
+                    </form>
 
-                    <h4>Priya Yudha Swandana</h4>
-                    <strong>20-12-2021</strong>
-                    <hr>
-                    <div class="row justify-content-between">
-                        <div class="col">Grand Carnival VIP</div>
-                        <div class="col">Rp 70.000</div>
-                    </div>
+                    <div id="ticketBoughtDetailPortal"></div>
                 </div>
                 <div class="modal-footer">
-                <button class="btn btn-success">Check In</button>
+                    <button class="btn btn-success" onclick="checkIn()">Check In</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 </div>
             </div>
@@ -618,52 +512,10 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            // get Total Workshop
-            $.ajax({
-                type: 'post',
-                url: '/Overview/GetTotalWorkshop',
-                data: {
-                    action: 'GetTotalWorkshopByPeserta',
-                    username: '<?= $userData["username"] ?>',
-                },
-                dataType: 'json',
-                success: function(data) {
-                    $('#workshopAll').text(data + ' Workshop');
-                }
-            })
-
-            // paid ticket datatables
-            $('#paidTicketTable').DataTable();
-            $('#needVerificationTable').DataTable();
-        })
-
-
-
-        function openInvoice(idInvoice) {
-            $('#invoiceModal').modal('show');
-        }
-
-        function openPaidTicket() {
-            $('#paidTicketModal').modal('show');
-        }
-
-        function openTicketCategory() {
-            $('#ticketCategoryModal').modal('show');
-        }
-
-        function openAddTicketCategory() {
-            $('#addTicketCategoryModal').modal('show');
-        }
-
-        function openAddTicketSubCategory() {
-            $('#addTicketSubCategoryModal').modal('show');
-        }
-
-        function openPortal(){
-            $('#portalModal').modal('show');
-        }
+        
     </script>
+
+    <script src="/myJs/adminTicketManagement.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

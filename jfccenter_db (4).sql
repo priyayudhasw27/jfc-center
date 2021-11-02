@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Okt 2021 pada 10.43
+-- Waktu pembuatan: 03 Nov 2021 pada 00.31
 -- Versi server: 10.4.20-MariaDB
 -- Versi PHP: 8.0.9
 
@@ -331,8 +331,8 @@ INSERT INTO `operator` (`id_operator`, `nama_operator`, `jenis_kelamin`, `email`
 --
 
 CREATE TABLE `penonton` (
-  `id_peserta` varchar(10) NOT NULL,
-  `nama_peserta` varchar(100) NOT NULL,
+  `id_penonton` varchar(30) NOT NULL,
+  `nama_lengkap` varchar(100) NOT NULL,
   `jenis_kelamin` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `nomor_hp` varchar(13) NOT NULL,
@@ -340,6 +340,13 @@ CREATE TABLE `penonton` (
   `username` varchar(15) NOT NULL,
   `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `penonton`
+--
+
+INSERT INTO `penonton` (`id_penonton`, `nama_lengkap`, `jenis_kelamin`, `email`, `nomor_hp`, `alamat`, `username`, `created_at`) VALUES
+('audience_4650', 'Priya Yudha Swandana', 'Laki - laki', 'priyayudha.sw27@gmail.com', '081330374369', 'perum. pondok tanggul asri B.5', 'dana', '2021-10-28');
 
 -- --------------------------------------------------------
 
@@ -477,8 +484,19 @@ CREATE TABLE `ticket_bought` (
   `nama` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `no_hp` varchar(100) NOT NULL,
-  `bar_code` varchar(100) DEFAULT NULL
+  `bar_code` varchar(100) DEFAULT NULL,
+  `status` enum('unpaid','waiting','verified') NOT NULL,
+  `in_venue` enum('no','yes') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ticket_bought`
+--
+
+INSERT INTO `ticket_bought` (`id`, `username`, `id_ticket_sub`, `nama`, `email`, `no_hp`, `bar_code`, `status`, `in_venue`) VALUES
+(87016, 'penonton', 11, 'Priya Yudha Swandana', 'priyayudha.sw27@gmail.com', '081330374369', '/assets/boughtTicket/87016.jpg', 'verified', 'no'),
+(714784, 'penonton', 13, 'Yoni ArgoIndustri', 'Yoni@mail.com', '081330374369', '/assets/boughtTicket/714784.jpg', 'verified', 'no'),
+(999079, 'penonton', 11, 'asdf', 'asdf', 'asdf', NULL, 'unpaid', 'no');
 
 -- --------------------------------------------------------
 
@@ -503,8 +521,25 @@ CREATE TABLE `ticket_cart` (
 
 CREATE TABLE `ticket_category` (
   `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL
+  `nama` varchar(100) NOT NULL,
+  `tanggal` date NOT NULL DEFAULT current_timestamp(),
+  `start` time NOT NULL DEFAULT current_timestamp(),
+  `end` time NOT NULL DEFAULT current_timestamp(),
+  `kuota` int(11) NOT NULL,
+  `location` varchar(200) NOT NULL,
+  `location_link` varchar(200) NOT NULL,
+  `status` enum('available','unavailable') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ticket_category`
+--
+
+INSERT INTO `ticket_category` (`id`, `nama`, `tanggal`, `start`, `end`, `kuota`, `location`, `location_link`, `status`) VALUES
+(8, 'Grand Carnival', '2021-11-21', '19:00:00', '21:00:00', 50, 'Cempaka Hill Hotel Jember, Jalan Cempaka, Kedawung Kidul, Gebang, Kabupaten Jember, Jawa Timur ', 'https://www.google.com/maps/place/Cempaka+Hill+Hotel+Jember/@-8.1582802,113.6811356,17z/data=!3m1!4b1!4m8!3m7!1s0x2dd6946c2b9cd255:0x285d1af738aae4c5!5m2!4m1!1i2!8m2!3d-8.1582851!4d113.6833326', 'available'),
+(11, 'Artwear', '2021-11-20', '19:00:00', '21:00:00', 50, 'Cempaka Hill Hotel Jember, Jalan Cempaka, Kedawung Kidul, Gebang, Kabupaten Jember, Jawa Timur ', 'https://www.google.com/maps/place/Cempaka+Hill+Hotel+Jember/@-8.1582802,113.6811356,17z/data=!3m1!4b1!4m8!3m7!1s0x2dd6946c2b9cd255:0x285d1af738aae4c5!5m2!4m1!1i2!8m2!3d-8.1582851!4d113.6833326', 'available'),
+(12, 'World Kids Carnival', '2021-11-21', '10:00:00', '12:00:00', 50, 'Cempaka Hill Hotel Jember, Jalan Cempaka, Kedawung Kidul, Gebang, Kabupaten Jember, Jawa Timur ', 'https://www.google.com/maps/place/Cempaka+Hill+Hotel+Jember/@-8.1582802,113.6811356,17z/data=!3m1!4b1!4m8!3m7!1s0x2dd6946c2b9cd255:0x285d1af738aae4c5!5m2!4m1!1i2!8m2!3d-8.1582851!4d113.6833326', 'available'),
+(13, 'WACI & Pet', '2021-11-20', '14:00:00', '16:00:00', 50, 'Cempaka Hill Hotel Jember, Jalan Cempaka, Kedawung Kidul, Gebang, Kabupaten Jember, Jawa Timur ', 'https://www.google.com/maps/place/Cempaka+Hill+Hotel+Jember/@-8.1582802,113.6811356,17z/data=!3m1!4b1!4m8!3m7!1s0x2dd6946c2b9cd255:0x285d1af738aae4c5!5m2!4m1!1i2!8m2!3d-8.1582851!4d113.6833326', 'available');
 
 -- --------------------------------------------------------
 
@@ -517,8 +552,17 @@ CREATE TABLE `ticket_invoice` (
   `username` varchar(30) NOT NULL,
   `total` double NOT NULL,
   `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `status` enum('unpaid','paid','verified') NOT NULL
+  `expired_date` datetime DEFAULT current_timestamp(),
+  `status` enum('unpaid','waiting','verified','expired') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ticket_invoice`
+--
+
+INSERT INTO `ticket_invoice` (`id`, `username`, `total`, `created_at`, `expired_date`, `status`) VALUES
+(10807, 'penonton', 300000, '2021-11-02', NULL, 'verified'),
+(486483, 'penonton', 250000, '2021-11-02', '2021-11-02 16:01:44', 'unpaid');
 
 -- --------------------------------------------------------
 
@@ -531,6 +575,15 @@ CREATE TABLE `ticket_invoice_detail` (
   `id_invoice` int(11) NOT NULL,
   `id_ticket_bought` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ticket_invoice_detail`
+--
+
+INSERT INTO `ticket_invoice_detail` (`id`, `id_invoice`, `id_ticket_bought`) VALUES
+(12, 10807, 87016),
+(13, 10807, 714784),
+(14, 486483, 999079);
 
 -- --------------------------------------------------------
 
@@ -546,6 +599,13 @@ CREATE TABLE `ticket_payment` (
   `created_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `ticket_payment`
+--
+
+INSERT INTO `ticket_payment` (`id`, `id_invoice`, `username`, `bukti_pembayaran`, `created_at`) VALUES
+(5, 10807, 'penonton', '10807.jpg', '2021-11-02');
+
 -- --------------------------------------------------------
 
 --
@@ -558,6 +618,16 @@ CREATE TABLE `ticket_sub_category` (
   `nama` varchar(100) NOT NULL,
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ticket_sub_category`
+--
+
+INSERT INTO `ticket_sub_category` (`id`, `id_ticket_category`, `nama`, `harga`) VALUES
+(11, 8, 'Reguler', 250000),
+(12, 11, 'Reguler', 50000),
+(13, 12, 'Reguler', 50000),
+(14, 13, 'Reguler', 50000);
 
 -- --------------------------------------------------------
 
@@ -637,6 +707,7 @@ INSERT INTO `user` (`username`, `password`, `id_level`, `hash`, `active`) VALUES
 ('bayuyabayu97', '7ffdc4b920856018a93f7d8e2aa9b1b1', '2', '29292c3d93ed8a0538a883aefe0e3811', 1),
 ('bsetiawan', 'a65fe5a5e0a4e4677a65a87f1a405adb', '99', 'c08d8852e72ba14b1adf94f428ef27ee', 1),
 ('Clarissa31', '23aec3ce66176b74c37791baacfb9897', '0', '91d45833f1bb553dba905882423bb585', 1),
+('dana', '21cb4e4be93c09542ffa73b2b5cb95ea', '4', '5b3e06b6ceff91fa6b6ddbb7584f758c', 1),
 ('DaveDove', '0b893a2e6f95a1a55d0b74502138ceaf', '0', 'f700a61b916849d02e396a4dd5bfe482', 1),
 ('Devita Aprilia', 'fbe5cd107a1fbe0fb374dcd2049c6984', '0', '0b8b877be00ded4c465f519c7d2ea02d', 1),
 ('dhaniel.mh', 'b0c176850577bde31e6655341804fe34', '2', 'bf4cbdf5d6a51e0f3e6bad0d3d897045', 1),
@@ -800,7 +871,7 @@ ALTER TABLE `operator`
 -- Indeks untuk tabel `penonton`
 --
 ALTER TABLE `penonton`
-  ADD PRIMARY KEY (`id_peserta`),
+  ADD PRIMARY KEY (`id_penonton`),
   ADD KEY `kategori_event` (`username`);
 
 --
@@ -917,46 +988,34 @@ ALTER TABLE `workshop`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `ticket_bought`
---
-ALTER TABLE `ticket_bought`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT untuk tabel `ticket_cart`
 --
 ALTER TABLE `ticket_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `ticket_category`
 --
 ALTER TABLE `ticket_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `ticket_invoice`
---
-ALTER TABLE `ticket_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `ticket_invoice_detail`
 --
 ALTER TABLE `ticket_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `ticket_payment`
 --
 ALTER TABLE `ticket_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `ticket_sub_category`
 --
 ALTER TABLE `ticket_sub_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -1033,6 +1092,46 @@ ALTER TABLE `peserta`
 ALTER TABLE `peserta_roadshow`
   ADD CONSTRAINT `peserta_roadshow_ibfk_1` FOREIGN KEY (`id_peserta`) REFERENCES `peserta` (`id_peserta`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `peserta_roadshow_ibfk_2` FOREIGN KEY (`id_roadshow`) REFERENCES `roadshow` (`id_roadshow`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ticket_bought`
+--
+ALTER TABLE `ticket_bought`
+  ADD CONSTRAINT `ticket_bought_ibfk_1` FOREIGN KEY (`id_ticket_sub`) REFERENCES `ticket_sub_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ticket_bought_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ticket_cart`
+--
+ALTER TABLE `ticket_cart`
+  ADD CONSTRAINT `ticket_cart_ibfk_1` FOREIGN KEY (`id_ticket_sub`) REFERENCES `ticket_sub_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ticket_cart_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ticket_invoice`
+--
+ALTER TABLE `ticket_invoice`
+  ADD CONSTRAINT `ticket_invoice_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ticket_invoice_detail`
+--
+ALTER TABLE `ticket_invoice_detail`
+  ADD CONSTRAINT `ticket_invoice_detail_ibfk_1` FOREIGN KEY (`id_invoice`) REFERENCES `ticket_invoice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ticket_invoice_detail_ibfk_2` FOREIGN KEY (`id_ticket_bought`) REFERENCES `ticket_bought` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ticket_payment`
+--
+ALTER TABLE `ticket_payment`
+  ADD CONSTRAINT `ticket_payment_ibfk_1` FOREIGN KEY (`id_invoice`) REFERENCES `ticket_invoice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ticket_payment_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `ticket_sub_category`
+--
+ALTER TABLE `ticket_sub_category`
+  ADD CONSTRAINT `ticket_sub_category_ibfk_1` FOREIGN KEY (`id_ticket_category`) REFERENCES `ticket_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `uploads`

@@ -4,16 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TicketPaymentModel extends Model
+class TicketInvoiceModel extends Model
 {
-    protected $table = 'ticket_payment';
+    protected $table = 'ticket_invoice';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
     protected $allowedFields = [
         'id',
-        'id_invoice',
         'username',
-        'bukti_pembayaran',
+        'total',
         'created_at',
+        'expired_date',
+        'status',
     ];
 }

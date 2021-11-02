@@ -56,55 +56,6 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -153,7 +104,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                     My Ticket</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll">- Ticket</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"><span id="totalBoughtTicket"></span> Ticket</div>
                                             </div>
                                             <div class="col mr-2">
                                                 <button class="btn btn-primary" onclick="buyTicket()">Buy Ticket</button>
@@ -168,10 +119,14 @@
                                 <div class="card border-left-success shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
+                                            <div class="col mr-4">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Invoice</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone">- </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalUnpaidInvoice"></span> Unpaid</div>
+                                                <hr>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalWaitingInvoice"></span> Waiting</div>
+                                                <hr>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalPaidInvoice"></span> Paid</div>
                                             </div>
                                             <div class="col mr-2">
                                                 <button class="btn btn-primary" onclick="openInvoice()">Open</button>
@@ -191,7 +146,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                     Ticket Cart</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll">- Ticket</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"> <span id="ticketOnCartDashboard"></span> Ticket</div>
                                             </div>
                                             <div class="col mr-2">
                                                 <button class="btn btn-primary" onclick="openCart()">Open Cart</button>
@@ -208,30 +163,7 @@
                         <h1 class="h3 mb-0 text-gray-800">My Ticket</h1>
                     </div>
 
-                    <div class="col-xl-5 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                            Grand Carnival <p>vip</p>
-                                        </div>
-                                        <hr>
-                                        <div class="mb-0 font-weight-bold text-gray-800">Priya Yudha Swandana</div>
-                                        <div class="row mb-3">
-                                            <div class="col">
-                                                Email : <div class="text-success font-weight-bold">priyayudha.sw27@gmail.com</div>
-                                            </div>
-                                            <div class="col">
-                                                No. HP : <div class="text-danger font-weight-bold">081330374369</div>
-                                            </div>
-                                        </div>
-                                        <button class=" btn btn-primary" onclick='detailTicket()'>Lihat</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="myTicket"></div>
 
                 </div>
 
@@ -280,11 +212,9 @@
         </div>
     </div>
 
-
-
     <!-- Buy Ticket Modal-->
     <div class="modal fade" id="buyTicketModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Buy Ticket</h5>
@@ -294,71 +224,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="col">
-                        <h4 class="mb-4">Silahkan isi biodata pemilik ticket</h4>
+                        <div class="row">
+                            <div class="col-auto align-content-center">
+                                <div class="h4 text-info"> <i class="fa fa-info-circle"></i> <span id="ticketOnCart"></span> Ticket dalam keranjang</div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary" onclick="openCart()"><i class="fa fa-shopping-cart"></i> Check Out</button>
+                            </div>
+                        </div>
+                        <p class="mb-2 mt-4"><strong>Silahkan isi biodata pemilik ticket</strong></p>
                         <div class="form-group">
                             <label for="">Nama</label>
-                            <input class="form-control" type="text" name="" id="">
+                            <input class="form-control" type="text" name="" id="namaPemesan">
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input class="form-control" type="text" name="" id="">
+                            <input class="form-control" type="text" name="" id="emailPemesan">
                         </div>
                         <div class="form-group">
                             <label for="">Nomor Hp</label>
-                            <input class="form-control" type="text" name="" id="">
+                            <input class="form-control" type="text" name="" id="nomorHpPemesan">
                         </div>
                     </div>
+                    <div class="col">
+                        <p class="mb-2 mt-4"><strong>Pilih Ticket anda</strong></p>
+                    </div>
                     <div id="tickets" class="mt-4">
-                        <div class="col-xl-5 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                                Grand Carnival
-                                            </div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <label for="">Nomor Hp</label>
-                                                <select class="form-control" name="" id="">
-                                                    <option value="">Reguler</option>
-                                                    <option value="">VIP</option>
-                                                    <option value="">VVIP</option>
-                                                </select>
-                                            </div>
-                                            <button class=" btn btn-primary"> <i class="fa fa-cart-plus"></i> Tambahkan ke keranjang</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                                WACI
-                                            </div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <label for="">Nomor Hp</label>
-                                                <select class="form-control" name="" id="">
-                                                    <option value="">Reguler</option>
-                                                    <option value="">VIP</option>
-                                                    <option value="">VVIP</option>
-                                                </select>
-                                            </div>
-                                            <button class=" btn btn-primary"> <i class="fa fa-cart-plus"></i> Tambahkan ke keranjang</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="openCart()"><i class="fa fa-shopping-cart"></i> Check Out</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 </div>
             </div>
@@ -376,53 +270,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="tickets" class="mt-4">
-                        <div class="col-xl-5 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                                Grand Carnival <span>VIP</span>
-                                            </div>
-                                            <hr>
-                                            <p>Priya Yudha Swandana</p>
-                                            <p>priyayudha.sw27@gmail.com</p>
-                                            <p>081330374369</p>
-                                            <button class=" btn btn-primary"> <i class="fa fa-trash"></i> Hapus</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="font-weight-bold text-primary text-uppercase mb-1">
-                                                WACI
-                                            </div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <label for="">Nomor Hp</label>
-                                                <select class="form-control" name="" id="">
-                                                    <option value="">Reguler</option>
-                                                    <option value="">VIP</option>
-                                                    <option value="">VVIP</option>
-                                                </select>
-                                            </div>
-                                            <button class=" btn btn-primary"> <i class="fa fa-trash"></i> Hapus</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="ticketsOnCart" class="mt-4">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <strong>Total : <span>Rp 150.000</span></strong>
-                    <button class="btn btn-primary" onclick="openInvoiceDetail()"><i class="fa fa-shopping-cart"></i> Check Out</button>
+                    <strong>Total : Rp <span id="priceOnCart"></span></strong>
+                    <div id="checkOutButton"></div>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 </div>
             </div>
@@ -434,31 +287,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Invoice No</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Invoice No. <span id="id_invoice"></span></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4>Priya Yudha Swandana</h4>
-                    <strong>20-12-2021</strong>
+                    <h4 id="username_invoice">Priya Yudha Swandana</h4>
+                    <strong id="tanggal_invoice">20-12-2021</strong>
                     <hr>
-                    <div class="row justify-content-between">
-                        <div class="col">Grand Carnival VIP</div>
-                        <div class="col">Rp 70.000</div>
-                    </div>
-                    <div class="row justify-content-between">
-                        <div class="col">Grand Carnival VIP</div>
-                        <div class="col">Rp 70.000</div>
-                    </div>
-                    <div class="row justify-content-between">
-                        <div class="col">Grand Carnival VIP</div>
-                        <div class="col">Rp 70.000</div>
-                    </div>
+                    <div id="ticket_bought_invoice"></div>
                     <hr>
                     <div class="row justify-content-between">
                         <div class="col"><strong>Total</strong></div>
-                        <div class="col"><strong>Rp 210.000</strong></div>
+                        <div class="col"><strong id="totalPriceInvoice"></strong></div>
                     </div>
                     <hr>
                     <div class="text-center">
@@ -469,7 +311,7 @@
                     <div class="text-center">Atas Nama Budi Setiawan</div>
                     <hr>
                     <div>Bukti Pembayaran</div>
-                    <div style="widht: 100%"></div>
+                    <div style="width: 100%"></div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" onclick="uploadPembayaran()"> <i class="fa fa-upload"></i> Upload bukti pembayaran</button>
@@ -484,7 +326,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Invoice No</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Invoice</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -497,43 +339,13 @@
                                 <tr>
                                     <th>ID Invoice</th>
                                     <th>Tanggal</th>
-                                    <th>Nama</th>
+                                    <th>Username</th>
                                     <th>Total</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>123456</td>
-                                    <td>20-05-2021</td>
-                                    <td>Priya Yudha Swandana</td>
-                                    <td>Rp 50.0000</td>
-                                    <td>
-                                        <p class="text-success">Paid <i class="fa fa-check"></i></p>
-                                    </td>
-                                    <td><button class="btn btn-primary" onclick="openInvoiceDetail()">Detail</button></td>
-                                </tr>
-                                <tr>
-                                    <td>123456</td>
-                                    <td>20-05-2021</td>
-                                    <td>Priya Yudha Swandana</td>
-                                    <td>Rp 50.0000</td>
-                                    <td>
-                                        <p class="text-info">Waiting <i class="fa fa-history"></i></p>
-                                    </td>
-                                    <td><button class="btn btn-primary" onclick="openInvoiceDetail()">Detail</button></td>
-                                </tr>
-                                <tr>
-                                    <td>123456</td>
-                                    <td>20-05-2021</td>
-                                    <td>Priya Yudha Swandana</td>
-                                    <td>Rp 50.0000</td>
-                                    <td>
-                                        <p class="text-danger">Unpaid <i class="fa fa-times"></i></p>
-                                    </td>
-                                    <td><button class="btn btn-primary" onclick="openInvoiceDetail()">Detail</button></td>
-                                </tr>
+                            <tbody id="invoiceTableData">
                             </tbody>
                         </table>
                     </div>
@@ -555,81 +367,33 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="col">
-                        <h4 class="mb-4">Silahkan upload bukti pembayaran</h4>
-                        <div class="form-group">
-                            <input class="form-control" type="file" name="" id="">
+                <form id="registrationForm" enctype="multipart/form-data" class="user" action="/Ticketing/Penonton/Ticket/UploadPayment" method="post">
+                    <div class="modal-body">
+                        <div class="col">
+                            <h4 class="mb-4">Silahkan upload bukti pembayaran</h4>
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="payment" id="" accept="image/*" capture>
+                                <input hidden type="text" id="invoiceId" name="invoiceId">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" onclick=""><i class="fa fa-upload"></i> Upload</button>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" onclick=""><i class="fa fa-upload"></i> Upload</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Ticket Detail Modal-->
     <div class="modal fade" id="ticketDetailModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ticket</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="barcode"></div>
-                    <hr>
-                    <div class="text-center">
-                        <strong> <span>Grand Carnival</span> - <span>VIP</span></strong>
-                        <h4>Priya Yudha Swandana</h4>
-                        <strong>20-12-2021</strong>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
+        <div class="modal-dialog modal-lg" role="document">
+            <div id="ticketBoughtDetail"></div>
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {})
-
-
-
-        function buyTicket() {
-            $('#buyTicketModal').modal('show');
-        }
-
-        function openCart() {
-            $('.modal').modal('hide');
-            $('#cartModal').modal('show');
-        }
-
-        function openInvoiceDetail() {
-            $('.modal').modal('hide');
-            $('#invoiceDetailModal').modal('show');
-        }
-
-        function openInvoice() {
-            $('#invoiceModal').modal('show');
-        }
-
-        function uploadPembayaran() {
-            $('.modal').modal('hide');
-            $('#uploadPembayaranModal').modal('show');
-        }
-
-        function detailTicket() {
-            $('.modal').modal('hide');
-            $('#ticketDetailModal').modal('show');
-        }
-    </script>
+    <script src="/myJs/penontonTicketManagement.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

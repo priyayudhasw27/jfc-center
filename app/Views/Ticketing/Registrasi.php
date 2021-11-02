@@ -49,13 +49,13 @@
 
 
                         <!-- FORM -->
-                        <form id="registrationForm" enctype="multipart/form-data" class="user" action="/Registrasi/Save" method="post">
+                        <form id="registrationForm"class="user" action="/Ticketing/Registrasi/Save" method="post">
 
                             <!-- BIODATA -->
                             <div class="form-group row">
                                 <!-- Nama lengkap -->
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input required type="text" class="form-control" name="nama_peserta" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap">
+                                    <input required type="text" class="form-control" name="nama_penonton" id="nama_lengkap" oninvalid="this.setCustomValidity('Wajib diisi')" oninput="this.setCustomValidity('')" placeholder="Nama Lengkap">
                                     <div id="nameAlert"></div>
                                 </div>
                                 <!-- Jenis Kelamin -->
@@ -130,19 +130,6 @@
 
     <!-- custom script -->
     <script>
-        // Menampilkan pilihan foto profil
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    $('#preview')
-                        .attr('src', e.target.result)
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
 
         // 
         // 
