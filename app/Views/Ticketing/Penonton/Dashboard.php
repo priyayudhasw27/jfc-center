@@ -212,8 +212,8 @@
         </div>
     </div>
 
-    <!-- Buy Ticket Modal-->
-    <div class="modal fade" id="buyTicketModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Buy Edelweiss Ticket Modal-->
+    <div class="modal fade" id="buyTicketEdelweissModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -249,11 +249,116 @@
                     <div class="col">
                         <p class="mb-2 mt-4"><strong>Pilih Ticket anda</strong></p>
                     </div>
-                    <div id="tickets" class="mt-4">
+                    <div id="edelweissTickets" class="mt-4">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Kcm Ticket Modal-->
+    <div class="modal fade" id="buyTicketKcmModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buy Ticket</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-auto align-content-center">
+                                <div class="h4 text-info"> <i class="fa fa-info-circle"></i> <span id="ticketOnCart"></span> Ticket dalam keranjang</div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary" onclick="openCart()"><i class="fa fa-shopping-cart"></i> Check Out</button>
+                            </div>
+                        </div>
+                        <p class="mb-2 mt-4"><strong>Silahkan isi biodata pemilik ticket</strong></p>
+                        <div class="form-group">
+                            <label for="">Nama</label>
+                            <input class="form-control" type="text" name="" id="namaPemesan">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input class="form-control" type="text" name="" id="emailPemesan">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nomor Hp</label>
+                            <input class="form-control" type="text" name="" id="nomorHpPemesan">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="mb-2 mt-4"><strong>Pilih Ticket anda</strong></p>
+                    </div>
+                    <div id="kcmTickets" class="mt-4">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Select Location Modal-->
+    <div class="modal fade" id="selectLocationModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="background-color: transparent; border: none; outline: none;">
+                <div id="location">
+                    <div class="col-lg-12 col-md-12 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="font-weight-bold text-primary text-uppercase mb-1">
+                                    Edelweiss Grand Ballroom (Main Event)
+                                </div>
+                                <hr>
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col mr-2">
+                                        <div>Jl. Cempaka, Kedawung Kidul, Gebang, Kec. Patrang, Kabupaten Jember, Jawa Timur 68117</div>
+                                        <div>
+                                            <a href="https://www.google.com/maps?q=cempaka+hill+hotel+jember&source=lmns&bih=961&biw=2543&rlz=1C1FKPE_idID967ID967&hl=id&sa=X&ved=2ahUKEwiC2cDK0vvzAhVvktgFHcd4DicQ_AUoAnoECAEQAg">Lihat Lokasi di Map</a>
+                                        </div>
+                                        <div class="mt-4"><button class="btn btn-primary" type="button" onclick="buyEdelweissTicket()">Pilih</button></div>
+                                    </div>
+                                    <div class="col">
+                                        <div>
+                                            <img style="width: 100%" src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10000480-800x600-FIT_AND_TRIM-0ea177579037bb85bd36bb0cccbcdb20.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="font-weight-bold text-primary text-uppercase mb-1">
+                                    Kota Cinema Mall (Exclusive Live)
+                                </div>
+                                <hr>
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col mr-2">
+                                        <div>Jl. Gajah Mada No.176, Kb. Kidul, Jember Kidul, Kec. Kaliwates, Kabupaten Jember, Jawa Timur 68131</div>
+                                        <div>
+                                            <a href="https://www.google.com/maps/place/Kota+Cinema+Mall+Jember/@-8.1747066,113.684373,17z/data=!3m1!4b1!4m5!3m4!1s0x2dd6952d97be51a9:0xb76925e26b415a!8m2!3d-8.1747135!4d113.6865527?hl=id">Lihat Lokasi di Map</a>
+                                        </div>
+                                        <div class="mt-4"><button class="btn btn-primary" type="button" onclick="buyKcmTicket()">Pilih</button></div>
+                                    </div>
+                                    <div class="col">
+                                        <div>
+                                            <img style="width: 100%" src="https://www.jadwalnonton.com/data/images/theaters/kota-cinema-jember_430x280.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -390,6 +495,29 @@
     <div class="modal fade" id="ticketDetailModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div id="ticketBoughtDetail"></div>
+        </div>
+    </div>
+
+    <!-- Select Seat Modal -->
+    <div class="modal fade" id="seatSelectorModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select Seat</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div style="width: 900px">
+                        <div class="row justify-content-center mb-4"> <button style="width: 400px" class="btn btn-secondary btn-sm" disabled>Layar</button> </div>
+                        <div id="seat" class="row row-cols-15 no-gutters"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="saveSeat"></div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -754,6 +754,12 @@ pre code {
     max-width: 16.66667%;
 }
 
+.row-cols-15>* {
+    flex: 0 0 5.882353%;
+    /* max-width: 6.666667%; */
+    /* width: 1000px; */
+}
+
 .col-auto {
     flex: 0 0 auto;
     width: auto;
@@ -2498,6 +2504,18 @@ fieldset:disabled a.btn {
     color: #fff;
     background-color: #df4e76;
     border-color: #ff90dd;
+}
+
+.seat-primary {
+    color: #fff;
+    background-color: #df4e76;
+    border-color: #ff90dd;
+}
+
+.seat-primary:hover {
+    color: #fff;
+    background-color: #c72855;
+    border-color: #e26fc0;
 }
 
 .btn-primary:hover {

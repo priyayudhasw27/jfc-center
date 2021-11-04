@@ -9,6 +9,7 @@ use App\Models\TicketCategoryModel;
 use App\Models\TicketInvoiceDetailModel;
 use App\Models\TicketInvoiceModel;
 use App\Models\TicketPaymentModel;
+use App\Models\TicketSeatModel;
 use App\Models\TicketSubCategoryModel;
 
 class Ticket extends BaseController
@@ -30,9 +31,14 @@ class Ticket extends BaseController
 
 	public function GetCategories()
 	{
+		$location = $this->request->getVar('location');
+
 		$categoryModel = new TicketCategoryModel();
 
-		$categories = $categoryModel->findAll();
+		$categories = $categoryModel->select('*')
+		->where('location', isset($location) ? $location : '')
+		->get()
+		->getResult();
 		return json_encode($categories);
 	}
 
@@ -49,6 +55,7 @@ class Ticket extends BaseController
 		$nama = $this->request->getVar('nama');
 		$email = $this->request->getVar('email');
 		$nomorHp = $this->request->getVar('nomorHp');
+		$idSeat = $this->request->getVer('id_seat');
 		$username = $this->session->userData['username'];
 
 		$cartModel = new TicketCartModel();
@@ -59,6 +66,7 @@ class Ticket extends BaseController
 			'nama' => $nama,
 			'email' => $email,
 			'no_hp' => $nomorHp,
+			'id_ticket_sub' => $idSeat,
 		];
 
 		$cartModel->insert($data);
@@ -128,6 +136,7 @@ class Ticket extends BaseController
 				'nama' => $x->nama,
 				'email' => $x->email,
 				'no_hp' => $x->no_hp,
+				'id_ticket_sub' => $x->id_ticket_sub,
 			];
 			$ticketBoughtModel->insert($boughtTicketData);
 			$cartModel->delete($x->id);
@@ -253,6 +262,19 @@ class Ticket extends BaseController
 		->join('ticket_sub_category',' ticket_sub_category.id = ticket_bought.id_ticket_sub')
 		->join('ticket_category',' ticket_category.id = ticket_sub_category.id_ticket_category')
 		->get()->getRow();
+		return json_encode($result);
+	}
+
+	public function GetSeat(){
+		$seatModel = new TicketSeatModel();
+
+		$idStudio = $this->request->getVar('id_studio');
+
+		$result = $seatModel->select('ticket_seat.*, ticket_seat.status AS seat_status, ticket_studio.nama AS nama_studio')
+		->where('id_studio', isset($idStudio) ? $idStudio : '')
+		->join('ticket_studio', 'ticket_studio.id = ticket_seat.id_studio')
+		->get()
+		->getResult();
 		return json_encode($result);
 	}
 }
