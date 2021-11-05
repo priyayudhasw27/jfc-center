@@ -13,6 +13,7 @@ class TicketInvoiceModel extends Model
         'id',
         'username',
         'total',
+        'unique_code',
         'created_at',
         'expired_date',
         'status',

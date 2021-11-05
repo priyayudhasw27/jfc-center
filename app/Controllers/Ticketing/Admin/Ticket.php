@@ -66,6 +66,7 @@ class Ticket extends BaseController
 		$end = $this->request->getVar('end');
 		$kuota = $this->request->getVar('kuota');
 		$location = $this->request->getVar('location');
+		$address = $this->request->getVar('address');
 		$locationLink = $this->request->getVar('location_link');
 
 
@@ -77,6 +78,7 @@ class Ticket extends BaseController
 			'end' => $end,
 			'kuota' => $kuota,
 			'location' => $location,
+			'address' => $address,
 			'location_link' => $locationLink,
 		];
 		$categoryModel->insert($data);
@@ -234,7 +236,7 @@ class Ticket extends BaseController
 	public function GetBoughtTicketDetail(){
 		$ticketBoughtModel = new TicketBoughtModel();
 		$id = $this->request->getVar('id_ticket_bought');
-		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_sub_category.nama AS nama_sub_category, ticket_category.nama AS nama_category')
+		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_sub_category.nama AS nama_sub_category, ticket_category.nama AS nama_category, ticket_category.location AS location')
 		->where('ticket_bought.id', $id)
 		->join('ticket_sub_category',' ticket_sub_category.id = ticket_bought.id_ticket_sub')
 		->join('ticket_category',' ticket_category.id = ticket_sub_category.id_ticket_category')

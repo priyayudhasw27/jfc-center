@@ -4,17 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TicketCartModel extends Model
+class TicketBookedSeatModel extends Model
 {
-    protected $table = 'ticket_cart';
+    protected $table = 'ticket_booked_ticket';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
     protected $allowedFields = [
         'id',
-        'username',
+        'id_ticket_seat',
+        'id_ticket_bought',
         'id_ticket_sub',
-        'nama',
-        'email',
-        'no_hp',
     ];
 }

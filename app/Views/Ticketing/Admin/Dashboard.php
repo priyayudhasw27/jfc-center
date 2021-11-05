@@ -434,7 +434,14 @@
                     </div>
                     <div class="form-group">
                         <label for="">Lokasi</label>
-                        <input class="form-control" type="text" id="location" name="nama">
+                        <select class="form-control" name="" id="location">
+                            <option value="Edelweiss Grand Ballroom">Edelweiss Grand Ballroom</option>
+                            <option value="Kota Cinema Mall Jember">Kota Cinema Mall Jember</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Alamat</label>
+                        <input class="form-control" type="text" id="address" name="nama">
                     </div>
                     <div class="form-group">
                         <label for="">Link Lokasi</label>

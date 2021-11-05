@@ -107,7 +107,7 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"><span id="totalBoughtTicket"></span> Ticket</div>
                                             </div>
                                             <div class="col mr-2">
-                                                <button class="btn btn-primary" onclick="buyTicket()">Buy Ticket</button>
+                                                <button class="btn btn-primary" onclick="selectLocation()">Buy Ticket</button>
                                             </div>
                                         </div>
                                     </div>
@@ -212,13 +212,13 @@
         </div>
     </div>
 
-    <!-- Buy Edelweiss Ticket Modal-->
-    <div class="modal fade" id="buyTicketEdelweissModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Buy Ticket Modal-->
+    <div class="modal fade" id="buyTicketModal" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Buy Ticket</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <button class="close" type="button" aria-label="Close" onclick="closeBuyTicket()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -249,54 +249,7 @@
                     <div class="col">
                         <p class="mb-2 mt-4"><strong>Pilih Ticket anda</strong></p>
                     </div>
-                    <div id="edelweissTickets" class="mt-4">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Buy Kcm Ticket Modal-->
-    <div class="modal fade" id="buyTicketKcmModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Buy Ticket</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-auto align-content-center">
-                                <div class="h4 text-info"> <i class="fa fa-info-circle"></i> <span id="ticketOnCart"></span> Ticket dalam keranjang</div>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary" onclick="openCart()"><i class="fa fa-shopping-cart"></i> Check Out</button>
-                            </div>
-                        </div>
-                        <p class="mb-2 mt-4"><strong>Silahkan isi biodata pemilik ticket</strong></p>
-                        <div class="form-group">
-                            <label for="">Nama</label>
-                            <input class="form-control" type="text" name="" id="namaPemesan">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Email</label>
-                            <input class="form-control" type="text" name="" id="emailPemesan">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Nomor Hp</label>
-                            <input class="form-control" type="text" name="" id="nomorHpPemesan">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <p class="mb-2 mt-4"><strong>Pilih Ticket anda</strong></p>
-                    </div>
-                    <div id="kcmTickets" class="mt-4">
+                    <div id="tickets" class="mt-4">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -324,7 +277,7 @@
                                         <div>
                                             <a href="https://www.google.com/maps?q=cempaka+hill+hotel+jember&source=lmns&bih=961&biw=2543&rlz=1C1FKPE_idID967ID967&hl=id&sa=X&ved=2ahUKEwiC2cDK0vvzAhVvktgFHcd4DicQ_AUoAnoECAEQAg">Lihat Lokasi di Map</a>
                                         </div>
-                                        <div class="mt-4"><button class="btn btn-primary" type="button" onclick="buyEdelweissTicket()">Pilih</button></div>
+                                        <div class="mt-4"><button class="btn btn-primary" type="button" onclick="buyTicket('Edelweiss Grand Ballroom')">Pilih</button></div>
                                     </div>
                                     <div class="col">
                                         <div>
@@ -348,7 +301,7 @@
                                         <div>
                                             <a href="https://www.google.com/maps/place/Kota+Cinema+Mall+Jember/@-8.1747066,113.684373,17z/data=!3m1!4b1!4m5!3m4!1s0x2dd6952d97be51a9:0xb76925e26b415a!8m2!3d-8.1747135!4d113.6865527?hl=id">Lihat Lokasi di Map</a>
                                         </div>
-                                        <div class="mt-4"><button class="btn btn-primary" type="button" onclick="buyKcmTicket()">Pilih</button></div>
+                                        <div class="mt-4"><button class="btn btn-primary" type="button" onclick="buyTicket('Kota Cinema Mall Jember')">Pilih</button></div>
                                     </div>
                                     <div class="col">
                                         <div>
@@ -389,7 +342,7 @@
 
     <!-- Invoice Detail Modal-->
     <div class="modal fade" id="invoiceDetailModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Invoice No. <span id="id_invoice"></span></h5>
@@ -404,16 +357,19 @@
                     <div id="ticket_bought_invoice"></div>
                     <hr>
                     <div class="row justify-content-between">
-                        <div class="col"><strong>Total</strong></div>
+                        <div class="col"><strong>Total</strong> <p>(3 digit akhir adalah kode unik khusus)</p></div>
                         <div class="col"><strong id="totalPriceInvoice"></strong></div>
                     </div>
                     <hr>
                     <div class="text-center">
                         Silahkan melakukan pembayaran dengan cara transfer ke Nomor Rekening :
                     </div>
-                    <div class="text-center font-weight-bold">081354968465</div>
-                    <div class="text-center">BANK BRI</div>
-                    <div class="text-center">Atas Nama Budi Setiawan</div>
+                    <div class="text-center font-weight-bold text-primary">081354968465</div>
+                    <div class="text-center">BANK BCA</div>
+                    <div class="text-center">Atas Nama <strong class="text-primary">Yayasan Jember Fashion Carnaval</strong> </div>
+                    <hr>
+                    <div class="text-center">Invoice akan expired pada: <span class="text-primary" id="expired_date"></span> </div>
+                    <div class="text-center"><strong>Harap lakukan pembayaran sebelum waktu di atas</strong></div>
                     <hr>
                     <div>Bukti Pembayaran</div>
                     <div style="width: 100%"></div>

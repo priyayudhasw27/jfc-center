@@ -27,7 +27,8 @@ function storeCategory() {
     let start = $('#start').val()
     let end = $('#end').val()
     let kuota = $('#kuota').val()
-    let location = $('#location').val()
+    let location = $('#location option:selected').val()
+    let address = $('#address').val()
     let locationLink = $('#location_link').val()
 
     $.ajax({
@@ -40,6 +41,7 @@ function storeCategory() {
             end: end,
             kuota: kuota,
             location: location,
+            address: address,
             location_link: locationLink,
 
         },
@@ -95,7 +97,7 @@ function openTicketCategory() {
                                 <div>` + value.tanggal + `</div>
                                 <div>` + value.start + ` - ` + value.end + `</div>
                                 <div>` + value.kuota + ` Seat</div>
-                                <div>` + value.location + `</div>
+                                <div class="text-success">` + value.location + `</div>
                                 <div><a href="` + value.location_link + `">Link Map Lokasi</a></div>
                             </div>
                             <div class="col" id="subCategory` + value.id + `">
@@ -150,7 +152,7 @@ function openAddTicketSubCategory() {
         success: function(data) {
             $('#id_category').empty();
             $.each(data, function(index, value) {
-                $('#id_category').append('<option value="' + value.id + '">' + value.nama + '</option>');
+                $('#id_category').append('<option value="' + value.id + '">' + value.nama + ' | ' + value.location + '</option>');
             })
         }
     })
@@ -357,6 +359,7 @@ $('#asyu').keyup(function() {
                 <div class="text-center">
                     <strong>` + data.nama_category + ` - ` + data.nama_sub_category + `</strong>
                     <h4>` + data.nama + `</h4>
+                    <p class="text-primary">` + data.location + `</p>
                     ` + statusText + `
                     ` + inVenueText + `
                 </div>

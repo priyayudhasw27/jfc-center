@@ -55,7 +55,7 @@ class Ticket extends BaseController
 		$nama = $this->request->getVar('nama');
 		$email = $this->request->getVar('email');
 		$nomorHp = $this->request->getVar('nomorHp');
-		$idSeat = $this->request->getVer('id_seat');
+		// $idSeat = $this->request->getVar('id_seat');
 		$username = $this->session->userData['username'];
 
 		$cartModel = new TicketCartModel();
@@ -66,7 +66,6 @@ class Ticket extends BaseController
 			'nama' => $nama,
 			'email' => $email,
 			'no_hp' => $nomorHp,
-			'id_ticket_sub' => $idSeat,
 		];
 
 		$cartModel->insert($data);
@@ -110,6 +109,7 @@ class Ticket extends BaseController
 		$cartModel = new TicketCartModel();
 
 		$total = $this->request->getVar('total');
+		$uniqueCode = $this->request->getVar('unique_code');
 		$invoiceID = rand(0,999999);
 
 		$expiredDate = date("Y-m-d H:i:s", strtotime('+1 hour', time()));
@@ -118,6 +118,7 @@ class Ticket extends BaseController
 			'id' => $invoiceID,
 			'username' => $username,
 			'total' => $total,
+			'unique_code' => $uniqueCode,
 			'created_at' => date('Y-m-d'),
 			'expired_date' => $expiredDate,
 			'status' => 'unpaid',
@@ -136,7 +137,6 @@ class Ticket extends BaseController
 				'nama' => $x->nama,
 				'email' => $x->email,
 				'no_hp' => $x->no_hp,
-				'id_ticket_sub' => $x->id_ticket_sub,
 			];
 			$ticketBoughtModel->insert($boughtTicketData);
 			$cartModel->delete($x->id);
@@ -267,11 +267,14 @@ class Ticket extends BaseController
 
 	public function GetSeat(){
 		$seatModel = new TicketSeatModel();
+		$subCategoryModel = new TicketSubCategoryModel();
 
-		$idStudio = $this->request->getVar('id_studio');
+		$idSubCategory = $this->request->getVar('id_sub_category');
+
+		$idStudio = $subCategoryModel->find($idSubCategory);
 
 		$result = $seatModel->select('ticket_seat.*, ticket_seat.status AS seat_status, ticket_studio.nama AS nama_studio')
-		->where('id_studio', isset($idStudio) ? $idStudio : '')
+		->where('id_studio', $idStudio->id_ticket_studio)
 		->join('ticket_studio', 'ticket_studio.id = ticket_seat.id_studio')
 		->get()
 		->getResult();
