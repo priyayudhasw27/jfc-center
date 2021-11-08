@@ -106,8 +106,8 @@
                                                     Waiting Payment</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"> <span id="unpaidInvoices"></span> Invoices</div>
                                             </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-history fa-2x text-gray-300"></i>
+                                            <div class="col mr-2">
+                                                <button class="btn btn-primary" onclick="openUnpaidInvoice()">Detail</button>
                                             </div>
                                         </div>
                                     </div>
@@ -162,6 +162,22 @@
                                             </div>
                                             <div class="col mr-2">
                                                 <button class="btn btn-primary" onclick="openPortal()">Open Portal</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <!-- Total Workshop -->
+                            <div class="col mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col">
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    Sisa Kuota Ticket</div>
+                                                <div id="sisaKuota"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +313,7 @@
 
     <!-- Invoice Detail Modal-->
     <div class="modal fade" id="invoiceDetailModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Invoice No. <span id="id_invoice"></span> <span id="invoice_status"></span></h5>
@@ -403,7 +419,7 @@
 
     <!-- Add Ticket Category Modal-->
     <div class="modal fade" id="addTicketCategoryModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
@@ -431,21 +447,6 @@
                     <div class="form-group">
                         <label for="">Kuota</label>
                         <input class="form-control" type="number" id="kuota" name="nama">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Lokasi</label>
-                        <select class="form-control" name="" id="location">
-                            <option value="Edelweiss Grand Ballroom">Edelweiss Grand Ballroom</option>
-                            <option value="Kota Cinema Mall Jember">Kota Cinema Mall Jember</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alamat</label>
-                        <input class="form-control" type="text" id="address" name="nama">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Link Lokasi</label>
-                        <input class="form-control" type="text" id="location_link" name="nama">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -501,7 +502,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="" id="portal_form">
                         <div class="form-group">
                             <label for="">ID Ticket</label>
                             <input id="asyu" class="form-control" type="text" autofocus>
@@ -518,11 +519,45 @@
         </div>
     </div>
 
+    <!-- Unpaid Invoice Modal-->
+    <div class="modal fade" id="unpaidInvoiceModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Unpaid Invoice</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="unpaidInvoiceTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID Invoice</th>
+                                    <th>Tanggal</th>
+                                    <th>Username</th>
+                                    <th>Total</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="unpaidInvoiceData">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        
+
     </script>
 
-    <script src="/myJs/adminTicketManagement.js"></script>
+    <script src="/myJs/adminTicketManagement.js?t=1"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

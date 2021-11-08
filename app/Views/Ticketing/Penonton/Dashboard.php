@@ -101,13 +101,13 @@
                                 <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
+                                            <div class="col">
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                     My Ticket</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"><span id="totalBoughtTicket"></span> Ticket</div>
                                             </div>
-                                            <div class="col mr-2">
-                                                <button class="btn btn-primary" onclick="selectLocation()">Buy Ticket</button>
+                                            <div class="col ml-4">
+                                                <button class="btn btn-primary" onclick="buyTicket()">Buy Ticket</button>
                                             </div>
                                         </div>
                                     </div>
@@ -119,16 +119,16 @@
                                 <div class="card border-left-success shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
-                                            <div class="col mr-4">
+                                            <div class="col">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Invoice</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalUnpaidInvoice"></span> Unpaid</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span class="text-danger" id="totalUnpaidInvoice"></span> Unpaid</div>
                                                 <hr>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalWaitingInvoice"></span> Waiting</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span class="text-info" id="totalWaitingInvoice"></span> Waiting</div>
                                                 <hr>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalPaidInvoice"></span> Paid</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span class="text-success" id="totalPaidInvoice"></span> Paid</div>
                                             </div>
-                                            <div class="col mr-2">
+                                            <div class="col ml-4">
                                                 <button class="btn btn-primary" onclick="openInvoice()">Open</button>
                                             </div>
                                         </div>
@@ -143,13 +143,10 @@
                                 <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
+                                            <div class="col">
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                    Ticket Cart</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopAll"> <span id="ticketOnCartDashboard"></span> Ticket</div>
-                                            </div>
-                                            <div class="col mr-2">
-                                                <button class="btn btn-primary" onclick="openCart()">Open Cart</button>
+                                                    Sisa Kuota Ticket</div>
+                                                <div id="sisaKuota"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -224,25 +221,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="col">
-                        <div class="row">
-                            <div class="col-auto align-content-center">
-                                <div class="h4 text-info"> <i class="fa fa-info-circle"></i> <span id="ticketOnCart"></span> Ticket dalam keranjang</div>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary" onclick="openCart()"><i class="fa fa-shopping-cart"></i> Check Out</button>
-                            </div>
-                        </div>
-                        <p class="mb-2 mt-4"><strong>Silahkan isi biodata pemilik ticket</strong></p>
+                        <p class="mb-2 text-primary"><strong>Silahkan isi biodata pemilik ticket</strong></p>
                         <div class="form-group">
-                            <label for="">Nama</label>
+                            <label for="">Nama <span class="text-primary">*Wajib</span></label>
                             <input class="form-control" type="text" name="" id="namaPemesan">
                         </div>
                         <div class="form-group">
-                            <label for="">Email</label>
+                            <label for="">Email (Jika Ada)</label>
                             <input class="form-control" type="text" name="" id="emailPemesan">
                         </div>
                         <div class="form-group">
-                            <label for="">Nomor Hp</label>
+                            <label for="">Nomor Hp <span class="text-primary">*Wajib</span></label>
                             <input class="form-control" type="text" name="" id="nomorHpPemesan">
                         </div>
                     </div>
@@ -345,7 +334,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Invoice No. <span id="id_invoice"></span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Invoice No. <span id="id_invoice"></span> <span id="status_invoice"></span></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -375,8 +364,8 @@
                     <div style="width: 100%"></div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" onclick="uploadPembayaran()"> <i class="fa fa-upload"></i> Upload bukti pembayaran</button>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button id="uploadPaymentButton" class="btn btn-primary" type="button" onclick="uploadPembayaran()"> <i class="fa fa-upload"></i> Upload bukti pembayaran</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
@@ -450,7 +439,9 @@
     <!-- Ticket Detail Modal-->
     <div class="modal fade" id="ticketDetailModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="background-color: transparent; outline: none; border: none;">
             <div id="ticketBoughtDetail"></div>
+            </div>
         </div>
     </div>
 
@@ -477,7 +468,7 @@
         </div>
     </div>
 
-    <script src="/myJs/penontonTicketManagement.js"></script>
+    <script src="/myJs/penontonTicketManagement.js?t=12345"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

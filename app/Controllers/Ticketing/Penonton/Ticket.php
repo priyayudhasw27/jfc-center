@@ -31,14 +31,9 @@ class Ticket extends BaseController
 
 	public function GetCategories()
 	{
-		$location = $this->request->getVar('location');
-
 		$categoryModel = new TicketCategoryModel();
 
-		$categories = $categoryModel->select('*')
-		->where('location', isset($location) ? $location : '')
-		->get()
-		->getResult();
+		$categories = $categoryModel->findAll();
 		return json_encode($categories);
 	}
 
@@ -50,7 +45,8 @@ class Ticket extends BaseController
 		return json_encode($subCategories);
 	}
 
-	public function AddToCart(){
+	public function AddToCart()
+	{
 		$selectedTicket = $this->request->getVar('selectedTicket');
 		$nama = $this->request->getVar('nama');
 		$email = $this->request->getVar('email');
@@ -72,52 +68,62 @@ class Ticket extends BaseController
 		return json_encode('success');
 	}
 
-	public function CountOnCart(){
+	public function CountOnCart()
+	{
 		$username = $this->session->userData['username'];
 
 		$cartModel = new TicketCartModel();
-		
+
 		$result = $cartModel->select('*')->where('username', $username)->countAllResults();
 		return json_encode($result);
 	}
 
-	public function GetCart(){
+	public function GetCart()
+	{
 		$username = $this->session->userData['username'];
 
 		$cartModel = new TicketCartModel();
-		
+
 		$result = $cartModel->select('ticket_category.nama AS nama_category, ticket_category.* , ticket_sub_category.nama AS nama_sub_category, ticket_sub_category.harga AS harga, ticket_cart.*')->where('username', $username)
-		->join('ticket_sub_category', 'ticket_sub_category.id = ticket_cart.id_ticket_sub')
-		->join('ticket_category', 'ticket_category.id = ticket_sub_category.id_ticket_category')
-		->get()
-		->getResult();
+			->join('ticket_sub_category', 'ticket_sub_category.id = ticket_cart.id_ticket_sub')
+			->join('ticket_category', 'ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()
+			->getResult();
 		return json_encode($result);
 	}
 
-	public function DeleteCart(){
+	public function DeleteCart()
+	{
 		$cartModel = new TicketCartModel();
 		$idCart = $this->request->getVar('id_cart');
 		$cartModel->delete($idCart);
 		return json_encode('success');
 	}
 
-	public function CheckOut(){
+	public function CheckOut()
+	{
 		$username = $this->session->userData['username'];
 		$invoiceModel = new TicketInvoiceModel();
 		$invoiceDetailModel = new TicketInvoiceDetailModel();
 		$ticketBoughtModel = new TicketBoughtModel();
-		$cartModel = new TicketCartModel();
+		$subCategoryModel = new TicketSubCategoryModel;
 
-		$total = $this->request->getVar('total');
-		$uniqueCode = $this->request->getVar('unique_code');
-		$invoiceID = rand(0,999999);
+		$idSubCategory = $this->request->getVar('id_ticket_sub');
+		$nama = $this->request->getVar('nama');
+		$email = $this->request->getVar('email');
+		$noHp = $this->request->getVar('no_hp');
+		$invoiceID = rand(0, 999999);
+
+		$hargaTicket = $subCategoryModel->select('harga')->where('id', $idSubCategory)->get()->getResult();
+		$uniqueCode = rand(100, 200);
+		$totalHarga = $hargaTicket[0]->harga + $uniqueCode;
 
 		$expiredDate = date("Y-m-d H:i:s", strtotime('+1 hour', time()));
-		
+
 		$invoiceData = [
 			'id' => $invoiceID,
 			'username' => $username,
-			'total' => $total,
+			'total' => $totalHarga,
 			'unique_code' => $uniqueCode,
 			'created_at' => date('Y-m-d'),
 			'expired_date' => $expiredDate,
@@ -126,75 +132,73 @@ class Ticket extends BaseController
 
 		$invoiceModel->insert($invoiceData);
 
-		$boughtTicket = $cartModel->select('*')->where('username', $username)->get()->getResult();
+		$boughtTicketId = rand(0, 999999);
+		$boughtTicketData = [
+			'id' => $boughtTicketId,
+			'username' => $username,
+			'id_ticket_sub' => $idSubCategory,
+			'nama' => $nama,
+			'email' => $email,
+			'no_hp' => $noHp,
+		];
+		$ticketBoughtModel->insert($boughtTicketData);
+		$invoiceDetailData = [
+			'id_invoice' => $invoiceID,
+			'id_ticket_bought' => $boughtTicketId,
+		];
+		$invoiceDetailModel->insert($invoiceDetailData);
 
-		foreach($boughtTicket as $x){
-			$boughtTicketId = rand(0,999999);
-			$boughtTicketData = [
-				'id' => $boughtTicketId,
-				'username' => $username,
-				'id_ticket_sub' => $x->id_ticket_sub,
-				'nama' => $x->nama,
-				'email' => $x->email,
-				'no_hp' => $x->no_hp,
-			];
-			$ticketBoughtModel->insert($boughtTicketData);
-			$cartModel->delete($x->id);
-			$invoiceDetailData = [
-				'id_invoice' => $invoiceID,
-				'id_ticket_bought' => $boughtTicketId,
-			];
-			$invoiceDetailModel->insert($invoiceDetailData);
-		}
 
-		
 
 		return json_encode($invoiceID);
 	}
 
-	
+
 
 	//  INVOICE SECTION ===========================================================
 
-	public function CountInvoice(){
+	public function CountInvoice()
+	{
 		$status = $this->request->getVar('status');
 		$where = isset($status) ? $status : '';
 
 		$invoiceModel = new TicketInvoiceModel();
 		$result = $invoiceModel->select('*')
-		->where('username', $this->session->userData['username'])
-		->where('status', $where)
-		->countAllResults();
+			->where('username', $this->session->userData['username'])
+			->where('status', $where)
+			->countAllResults();
 
 		return json_encode($result);
 	}
 
-	public function GetInvoice(){
+	public function GetInvoice()
+	{
 		$username = $this->session->userData['username'];
-		
+
 		$invoiceModel = new TicketInvoiceModel();
 
 		$result = $invoiceModel->select('*')
-		->where('ticket_invoice.username', $username)
-		->get()->getResult();
+			->where('ticket_invoice.username', $username)
+			->get()->getResult();
 
 		return json_encode($result);
 	}
 
-	public function GetInvoiceDetail(){
+	public function GetInvoiceDetail()
+	{
 		$invoiceModel = new TicketInvoiceModel();
 		$invoiceDetailModel = new TicketInvoiceDetailModel();
 		$id = $this->request->getVar('id_invoice');
 
 		// get the invoice data after insertion
-		$invoice= $invoiceModel->find($id);
-		$invoiceDetail= $invoiceDetailModel->select('ticket_category.nama AS nama_category, ticket_sub_category.*, ticket_bought.nama AS nama_pemilik, ticket_invoice_detail.id_ticket_bought AS id_ticket_bought')
-		->where('id_invoice', $id)
-		->join('ticket_bought', 'ticket_bought.id = ticket_invoice_detail.id_ticket_bought')
-		->join('ticket_sub_category', 'ticket_sub_category.id = ticket_bought.id_ticket_sub')
-		->join('ticket_category', 'ticket_category.id = ticket_sub_category.id_ticket_category')
-		->get()
-		->getResult();
+		$invoice = $invoiceModel->find($id);
+		$invoiceDetail = $invoiceDetailModel->select('ticket_category.nama AS nama_category, ticket_sub_category.*, ticket_bought.nama AS nama_pemilik, ticket_invoice_detail.id_ticket_bought AS id_ticket_bought')
+			->where('id_invoice', $id)
+			->join('ticket_bought', 'ticket_bought.id = ticket_invoice_detail.id_ticket_bought')
+			->join('ticket_sub_category', 'ticket_sub_category.id = ticket_bought.id_ticket_sub')
+			->join('ticket_category', 'ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()
+			->getResult();
 
 		$result = [
 			'invoice' => $invoice,
@@ -204,13 +208,14 @@ class Ticket extends BaseController
 		return json_encode($result);
 	}
 
-	public function UploadPayment(){
-		$invoiceId =$this->request->getVar('invoiceId');
+	public function UploadPayment()
+	{
+		$invoiceId = $this->request->getVar('invoiceId');
 		$username = $this->session->userData['username'];
 		$created_at = date('Y-m-d');
 		// get File
 		$file = $this->request->getFile('payment');
-		$fileName = $invoiceId.'.jpg';
+		$fileName = $invoiceId . '.jpg';
 		$file->move('assets/payment/', $fileName);
 
 		$paymentModel = new TicketPaymentModel();
@@ -232,40 +237,44 @@ class Ticket extends BaseController
 		return redirect()->back();
 	}
 
-	function GetBoughtTicket(){
+	function GetBoughtTicket()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$username = $this->session->userData['username'];
 		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_sub_category.nama AS nama_sub_category, ticket_category.nama AS nama_category')
-		->where('username', $username)
-		->where('ticket_bought.status', 'verified')
-		->join('ticket_sub_category',' ticket_sub_category.id = ticket_bought.id_ticket_sub')
-		->join('ticket_category',' ticket_category.id = ticket_sub_category.id_ticket_category')
-		->get()->getResult();
+			->where('username', $username)
+			->where('ticket_bought.status', 'verified')
+			->join('ticket_sub_category', ' ticket_sub_category.id = ticket_bought.id_ticket_sub')
+			->join('ticket_category', ' ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()->getResult();
 		return json_encode($result);
 	}
 
-	function CountBoughtTicket(){
+	function CountBoughtTicket()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$username = $this->session->userData['username'];
 		$result = $ticketBoughtModel->select('*')
-		->where('username', $username)
-		->where('status', 'verified')
-		->countAllResults();
+			->where('username', $username)
+			->where('status', 'verified')
+			->countAllResults();
 		return json_encode($result);
 	}
 
-	function GetBoughtTicketDetail(){
+	function GetBoughtTicketDetail()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$id = $this->request->getVar('id_ticket_bought');
 		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_bought.id AS id_ticket, ticket_sub_category.nama AS nama_sub_category, ticket_category.*, ticket_category.nama AS nama_category')
-		->where('ticket_bought.id', $id)
-		->join('ticket_sub_category',' ticket_sub_category.id = ticket_bought.id_ticket_sub')
-		->join('ticket_category',' ticket_category.id = ticket_sub_category.id_ticket_category')
-		->get()->getRow();
+			->where('ticket_bought.id', $id)
+			->join('ticket_sub_category', ' ticket_sub_category.id = ticket_bought.id_ticket_sub')
+			->join('ticket_category', ' ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()->getRow();
 		return json_encode($result);
 	}
 
-	public function GetSeat(){
+	public function GetSeat()
+	{
 		$seatModel = new TicketSeatModel();
 		$subCategoryModel = new TicketSubCategoryModel();
 
@@ -274,10 +283,10 @@ class Ticket extends BaseController
 		$idStudio = $subCategoryModel->find($idSubCategory);
 
 		$result = $seatModel->select('ticket_seat.*, ticket_seat.status AS seat_status, ticket_studio.nama AS nama_studio')
-		->where('id_studio', $idStudio->id_ticket_studio)
-		->join('ticket_studio', 'ticket_studio.id = ticket_seat.id_studio')
-		->get()
-		->getResult();
+			->where('id_studio', $idStudio->id_ticket_studio)
+			->join('ticket_studio', 'ticket_studio.id = ticket_seat.id_studio')
+			->get()
+			->getResult();
 		return json_encode($result);
 	}
 }

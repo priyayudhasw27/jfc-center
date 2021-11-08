@@ -16,8 +16,5 @@ class TicketCategoryModel extends Model
         'start',
         'end',
         'kuota',
-        'location',
-        'location_link',
-        'status',
     ];
 }

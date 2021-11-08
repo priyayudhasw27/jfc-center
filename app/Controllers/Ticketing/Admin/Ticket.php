@@ -65,9 +65,6 @@ class Ticket extends BaseController
 		$start = $this->request->getVar('start');
 		$end = $this->request->getVar('end');
 		$kuota = $this->request->getVar('kuota');
-		$location = $this->request->getVar('location');
-		$address = $this->request->getVar('address');
-		$locationLink = $this->request->getVar('location_link');
 
 
 
@@ -77,9 +74,6 @@ class Ticket extends BaseController
 			'start' => $start,
 			'end' => $end,
 			'kuota' => $kuota,
-			'location' => $location,
-			'address' => $address,
-			'location_link' => $locationLink,
 		];
 		$categoryModel->insert($data);
 
@@ -114,7 +108,18 @@ class Ticket extends BaseController
 
 		return json_encode($result);
 	}
-	
+
+	public function GetUnpaidInvoice()
+	{
+		$invoiceModel = new TicketInvoiceModel();
+
+		$result = $invoiceModel->select('*')
+			->where('status', 'unpaid')
+			->get()->getResult();
+
+		return json_encode($result);
+	}
+
 	public function GetVerifiedInvoice()
 	{
 		$invoiceModel = new TicketInvoiceModel();
@@ -189,7 +194,8 @@ class Ticket extends BaseController
 		return json_encode('success');
 	}
 
-	public function RevokePayment(){
+	public function RevokePayment()
+	{
 		$invoiceId = $this->request->getVar('id_invoice');
 
 		$invoiceModel = new TicketInvoiceModel();
@@ -203,7 +209,7 @@ class Ticket extends BaseController
 		$boughtTicketModel = new TicketBoughtModel();
 		$boughtTicket = $invoiceDetailModel->select('*')->where('id_invoice', $invoiceId)->get()->getResult();
 		foreach ($boughtTicket as $x) {
-			unlink('assets/boughtTicket/'.$x->id_ticket_bought . '.jpg');
+			unlink('assets/boughtTicket/' . $x->id_ticket_bought . '.jpg');
 			$barcodePath = '';
 			$updateBarcode = [
 				'bar_code' => $barcodePath,
@@ -215,36 +221,41 @@ class Ticket extends BaseController
 		return json_encode('success');
 	}
 
-	public function CountUnpaidInvoice(){
+	public function CountUnpaidInvoice()
+	{
 		$ticketUnpaidModel = new TicketInvoiceModel();
 		$result = $ticketUnpaidModel->select('*')->where('status', 'unpaid')->countAllResults();
 		return json_encode($result);
 	}
 
-	public function CountBoughtTicket(){
+	public function CountBoughtTicket()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$result = $ticketBoughtModel->select('*')->where('status', 'verified')->countAllResults();
 		return json_encode($result);
 	}
 
-	public function CountTicketInVenue(){
+	public function CountTicketInVenue()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$result = $ticketBoughtModel->select('*')->where('in_venue', 'yes')->countAllResults();
 		return json_encode($result);
 	}
 
-	public function GetBoughtTicketDetail(){
+	public function GetBoughtTicketDetail()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$id = $this->request->getVar('id_ticket_bought');
 		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_sub_category.nama AS nama_sub_category, ticket_category.nama AS nama_category, ticket_category.location AS location')
-		->where('ticket_bought.id', $id)
-		->join('ticket_sub_category',' ticket_sub_category.id = ticket_bought.id_ticket_sub')
-		->join('ticket_category',' ticket_category.id = ticket_sub_category.id_ticket_category')
-		->get()->getRow();
+			->where('ticket_bought.id', $id)
+			->join('ticket_sub_category', ' ticket_sub_category.id = ticket_bought.id_ticket_sub')
+			->join('ticket_category', ' ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()->getRow();
 		return json_encode($result);
 	}
 
-	public function CheckIn(){
+	public function CheckIn()
+	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$idBoughtTicket = $this->request->getVar('id_ticket_bought');
 		$data = [
@@ -255,7 +266,8 @@ class Ticket extends BaseController
 		return json_encode('success');
 	}
 
-	public function DeleteCategory(){
+	public function DeleteCategory()
+	{
 		$categoryModel = new TicketCategoryModel();
 		$id = $this->request->getVar('id_ticket_category');
 		$categoryModel->delete($id);
@@ -263,11 +275,105 @@ class Ticket extends BaseController
 		return json_encode('success');
 	}
 
-	public function DeleteSubCategory(){
+	public function DeleteSubCategory()
+	{
 		$subCategoryModel = new TicketSubCategoryModel();
 		$id = $this->request->getVar('id_ticket_sub');
 		$subCategoryModel->delete($id);
 
 		return json_encode('success');
+	}
+
+	public function CheckExpired()
+	{
+		$start = date("Y-m-d H:i:s", strtotime('-10 second', time()));
+		$end = date("Y-m-d H:i:s", strtotime('+10 second', time()));
+
+		$invoiceModel = new TicketInvoiceModel;
+		$ticketBoughtModel = new TicketBoughtModel;
+
+		$result = $invoiceModel->select('ticket_invoice.id, ticket_bought.id AS id_ticket_bought')
+			->where('expired_date >=', $start)
+			->where('expired_date <=', $end)
+			->join('ticket_invoice_detail', 'ticket_invoice_detail.id_invoice = ticket_invoice.id')
+			->join('ticket_bought', 'ticket_bought.id = ticket_invoice_detail.id_ticket_bought')
+			->get()
+			->getResult();
+
+
+		$data = [
+			'status' => 'expired'
+		];
+
+		foreach ($result as $x) {
+			$invoiceModel->update($x->id, $data);
+			$ticketBoughtModel->update($x->id_ticket_bought, $data);
+		}
+	}
+
+	public function CheckStatusTicket()
+	{
+		$id = $this->request->getVar('id_invoice');
+
+		$invoiceModel = new TicketInvoiceModel;
+		$result = $invoiceModel->find($id);
+
+		return json_encode($result->status);
+	}
+
+	public function CheckKuota()
+	{
+		$subCategoryModel = new TicketSubCategoryModel;
+		$ticketBoughtModel = new TicketBoughtModel;
+
+		$idSubCategory = $this->request->getVar('id_sub_category');
+
+		$query = $subCategoryModel->select('ticket_category.kuota')
+			->where('ticket_sub_category.id', $idSubCategory)
+			->join('ticket_category', 'ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()
+			->getResult();
+
+		$kuota = $query[0]->kuota;
+
+		$bought = $ticketBoughtModel->select('*')
+			->where('id_ticket_sub', $idSubCategory)
+			->where('status !=', 'expired')
+			->countAllResults();
+
+		$sisaKuota = $kuota - $bought;
+
+		return json_encode($sisaKuota);
+	}
+
+	public function CheckKuotaAll()
+	{
+		$subCategoryModel = new TicketSubCategoryModel;
+		$ticketBoughtModel = new TicketBoughtModel;
+
+
+		$query = $subCategoryModel->select('ticket_category.kuota, ticket_sub_category.id AS id_sub, ticket_category.id AS id_cat, ticket_category.nama AS nama_cat')
+			->join('ticket_category', 'ticket_category.id = ticket_sub_category.id_ticket_category')
+			->get()
+			->getResult();
+
+		$result = [];
+		foreach ($query as $y => $x) {
+			$kuota = $x->kuota;
+
+			$bought = $ticketBoughtModel->select('*')
+				->where('id_ticket_sub', $x->id_sub)
+				->where('status !=', 'expired')
+				->countAllResults();
+
+			$sisaKuota = $kuota - $bought;
+			$result[$y] = [
+				'nama_category' => $x->nama_cat,
+				'id_category' => $x->id_cat,
+				'id_sub' => $x->id_sub,
+				'sisa_kuota' => $sisaKuota,
+			];
+		}
+		return json_encode($result);
 	}
 }

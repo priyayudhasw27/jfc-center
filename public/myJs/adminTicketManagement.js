@@ -7,8 +7,31 @@ $(document).ready(function() {
     getWaitingInvoice();
     countUnpaidInvoice('#unpaidInvoices');
     countTicketBought('#boughtTicket');
-    countTicketInVenue('#totalTicketInVenue')
+    countTicketInVenue('#totalTicketInVenue');
+    checkExpired();
+    checkKuotaAll();
+    setInterval(function() {
+        countUnpaidInvoice('#unpaidInvoices');
+        countTicketBought('#boughtTicket');
+        countTicketInVenue('#totalTicketInVenue');
+        checkExpired();
+        checkKuotaAll();
+        getWaitingInvoice();
+    }, 10000);
 })
+
+let fullDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+let onlyDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+function checkExpired() {
+    $.ajax({
+        type: 'get',
+        url: '/Ticketing/Admin/Ticket/CheckExpired',
+        dataType: 'json',
+        success: function(data) {},
+    })
+}
+
 
 function getTotalCategories() {
     $.ajax({
@@ -89,12 +112,13 @@ function openTicketCategory() {
         dataType: 'json',
         success: function(data) {
             $.each(data, function(index, value) {
+                let date = new Date(value.tanggal).toLocaleDateString('id-ID', onlyDateOpt)
                 $('#tickets').append(
                     `
                         <div class="row mb-2">
                             <div class="col" id="">
                                 <strong>` + value.nama + `</strong> <button class="ml-2 btn btn-sm btn-danger" onclick="deleteCategory(` + value.id + `)"><i class="fa fa-trash"></i></button>
-                                <div>` + value.tanggal + `</div>
+                                <div>` + date + `</div>
                                 <div>` + value.start + ` - ` + value.end + `</div>
                                 <div>` + value.kuota + ` Seat</div>
                                 <div class="text-success">` + value.location + `</div>
@@ -179,11 +203,12 @@ function openInvoiceDetail(id_invoice) {
         },
         dataType: 'json',
         success: function(data) {
+            let date = new Date(data.invoice.created_at).toLocaleDateString('id-ID', onlyDateOpt)
             $('#ticket_bought_invoice').empty();
             $('#id_invoice').text(data.invoice.id);
             data.invoice.status == 'verified' ? $('#id_invoice').html('<i class="ml-2 fa fa-check text-success"> verified</i>') : $('#id_invoice').html('');
             $('#username_invoice').text(data.invoice.username);
-            $('#tanggal_invoice').text(data.invoice.created_at);
+            $('#tanggal_invoice').text(date);
 
             $.each(data.detail, function(index, value) {
                 $('#ticket_bought_invoice').append(
@@ -268,11 +293,12 @@ function getWaitingInvoice() {
             $('#invoiceTableTitle').html(`Waiting Verification <i class="fa fa-history"></i>`)
             $('#invoiceTableData').empty()
             $.each(data, function(index, value) {
+                let date = new Date(value.created_at).toLocaleDateString('id-ID', onlyDateOpt)
                 $('#invoiceTableData').append(
                     `
                 <tr>
                     <td>` + value.id + `</td>
-                    <td>` + value.created_at + `</td>
+                    <td>` + date + `</td>
                     <td>` + value.username + `</td>
                     <td>Rp ` + value.total + `</td>
                     <td><button class="btn btn-primary" onclick="openInvoiceDetail(` + value.id + `)">Detail</button></td>
@@ -280,6 +306,33 @@ function getWaitingInvoice() {
                 `
                 )
             })
+        }
+    })
+}
+
+function openUnpaidInvoice() {
+    $.ajax({
+        type: 'get',
+        url: '/Ticketing/Admin/Ticket/GetUnpaidInvoice',
+        dataType: 'json',
+        success: function(data) {
+            $('#unpaidInvoiceData').empty();
+            $.each(data, function(index, value) {
+                let date = new Date(value.created_at).toLocaleDateString('id-ID', onlyDateOpt)
+                $('#unpaidInvoiceData').append(
+                    `
+                <tr>
+                    <td>` + value.id + `</td>
+                    <td>` + date + `</td>
+                    <td>` + value.username + `</td>
+                    <td>Rp ` + value.total + `</td>
+                    <td><button class="btn btn-primary" onclick="openInvoiceDetail(` + value.id + `)">Detail</button></td>
+                </tr>
+                `
+                )
+            })
+            $('#unpaidInvoiceTable').DataTable();
+            $('#unpaidInvoiceModal').modal('show');
         }
     })
 }
@@ -433,3 +486,23 @@ function deleteSubCategory(id) {
         }
     })
 }
+
+function checkKuotaAll() {
+    $.ajax({
+        type: 'get',
+        url: '/Ticketing/Admin/Ticket/CheckKuotaAll',
+        dataType: 'json',
+        success: function(data) {
+            $('#sisaKuota').empty()
+            $.each(data, function(index, value) {
+                $('#sisaKuota').append(
+                    `<div class="row mb-0 font-weight-bold text-gray-800""><div class="col-lg-8 col-6 col-md-7">` + value.nama_category + `</div><div class="col"><span class="text-primary">` + value.sisa_kuota + `</span></div></div>`
+                );
+            })
+        }
+    })
+}
+
+$('#portal_form').submit(function(e) {
+    e.preventDefault()
+})

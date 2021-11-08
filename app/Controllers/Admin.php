@@ -30,8 +30,6 @@ class Admin extends BaseController
 			'alert' => $alert,
 		];
 
-		// print_r($data);
-
 		if ($this->session->userData['id_level'] == 99) {
 			echo view('/Admin/Level99/Index', $data);
 		} else if ($this->session->userData['id_level'] == 100) {

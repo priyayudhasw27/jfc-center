@@ -162,7 +162,7 @@
         })
         // Validasi Alamat ===========================
         $('#alamat').change(function(e) {
-            var rule = /^[a-zA-Z0-9.-/ ]+$/;
+            var rule = /^[a-zA-Z0-9.-/, ]+$/;
             var value = document.getElementById('alamat').value;
             if (!value.match(rule)) {
                 document.getElementById('alamatAlert').innerHTML = '<div class="text-danger"><i class="fa fas fa-exclamation-triangle"></i> Alamat tidak valid</div>';

@@ -5,46 +5,69 @@ $(document).ready(function() {
     countPaidInvoice('#totalPaidInvoice');
     countBoughtTicket('#totalBoughtTicket');
     getBoughtTicket();
+    checkExpired();
+    checkKuotaAll();
+
+    setInterval(function() {
+        countOnCart('#ticketOnCartDashboard');
+        countUnpaidInvoice('#totalUnpaidInvoice');
+        countWaitingInvoice('#totalWaitingInvoice');
+        countPaidInvoice('#totalPaidInvoice');
+        countBoughtTicket('#totalBoughtTicket');
+        getBoughtTicket();
+        checkExpired();
+        checkKuotaAll();
+    }, 10000);
 })
 
+let fullDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+let onlyDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 
-
-
-
-
-function addToCart(idCategory, id_seat) {
-    let selectedTicket = $('#subCategory' + idCategory + ' option:selected').val();
-    let nama = $('#namaPemesan').val();
-    let email = $('#emailPemesan').val();
-    let nomorHp = $('#nomorHpPemesan').val();
-
-    if (nama && email && nomorHp) {
-        $.ajax({
-            type: 'post',
-            url: '/Ticketing/Penonton/Ticket/AddToCart',
-            data: {
-                selectedTicket: selectedTicket,
-                nama: nama,
-                email: email,
-                nomorHp: nomorHp,
-                id_seat: id_seat,
-            },
-            dataType: 'json',
-            success: function(data) {
-                $('#buyTicketModal').modal('hide');
-                // buyTicket();
-                setTimeout(function() {
-                    countOnCart('#ticketOnCartDashboard');
-                    alert('Berhasil menambahkan ke keranjang.');
-                }, 500)
-
-            },
-        })
-    } else {
-        alert('Harap lengkapi biodata pemilik ticket')
-    }
+function checkExpired() {
+    $.ajax({
+        type: 'get',
+        url: '/Ticketing/Admin/Ticket/CheckExpired',
+        dataType: 'json',
+        success: function(data) {},
+    })
 }
+
+
+
+
+// function addToCart(idCategory) {
+//     let selectedTicket = $('#subCategory' + idCategory + ' option:selected').val();
+//     let nama = $('#namaPemesan').val();
+//     let email = $('#emailPemesan').val();
+//     let nomorHp = $('#nomorHpPemesan').val();
+
+//     if (nama && nomorHp) {
+//         $.ajax({
+//             type: 'post',
+//             url: '/Ticketing/Penonton/Ticket/AddToCart',
+//             data: {
+//                 selectedTicket: selectedTicket,
+//                 nama: nama,
+//                 email: email,
+//                 nomorHp: nomorHp,
+//             },
+//             dataType: 'json',
+//             success: function(data) {
+//                 $('#buyTicketModal').modal('hide');
+//                 // buyTicket();
+//                 setTimeout(function() {
+//                     countOnCart('#ticketOnCartDashboard');
+//                     alert('Berhasil menambahkan ke keranjang.');
+//                 }, 500)
+
+//             },
+//         })
+//         alert('asdf')
+//     } else {
+//         alert('Harap lengkapi biodata pemilik ticket')
+//     }
+// }
 
 function countOnCart(where) {
     $.ajax({
@@ -129,20 +152,33 @@ function deleteCart(id) {
     })
 }
 
-function checkOut(total, uniqueCode) {
-    $.ajax({
-        type: 'post',
-        url: '/Ticketing/Penonton/Ticket/CheckOut',
-        data: {
-            total: total,
-            unique_code: uniqueCode,
-        },
-        dataType: 'json',
-        success: function(data) {
-            countOnCart('#ticketOnCartDashboard');
-            openInvoiceDetail(data);
-        }
-    })
+function checkOut(idCategory) {
+    let selectedTicket = $('#subCategory' + idCategory + ' option:selected').val();
+    let nama = $('#namaPemesan').val();
+    let email = $('#emailPemesan').val();
+    let nomorHp = $('#nomorHpPemesan').val();
+
+    if (nama && nomorHp) {
+        $.ajax({
+            type: 'post',
+            url: '/Ticketing/Penonton/Ticket/CheckOut',
+            data: {
+                id_ticket_sub: selectedTicket,
+                nama: nama,
+                email: email,
+                no_hp: nomorHp,
+            },
+            dataType: 'json',
+            success: function(data) {
+                countOnCart('#ticketOnCartDashboard');
+                openInvoiceDetail(data);
+            }
+        })
+        alert('Berhasil')
+    } else {
+        alert('Harap lengkapi biodata pemilik ticket')
+    }
+
 }
 
 function countUnpaidInvoice(where) {
@@ -178,7 +214,7 @@ function countPaidInvoice(where) {
         type: 'get',
         url: '/Ticketing/Penonton/Ticket/CountInvoice',
         data: {
-            status: 'paid',
+            status: 'verified',
         },
         dataType: 'json',
         success: function(data) {
@@ -202,6 +238,8 @@ function openInvoice() {
                     status = `<p class="text-info">Waiting <i class="fa fa-history"></i></p>`
                 } else if (value.status == 'verified') {
                     status = `<p class="text-success">Verified <i class="fa fa-check"></i></p>`
+                } else if (value.status == 'expired') {
+                    status = `<p class="text-secondary">Expired <i class="fa fa-times"></i></p>`
                 }
                 $('#invoiceTableData').append(
                     `
@@ -232,11 +270,32 @@ function openInvoiceDetail(id_invoice) {
         },
         dataType: 'json',
         success: function(data) {
+            let expiredDate = new Date(data.invoice.expired_date).toLocaleDateString('id-ID', fullDateOpt)
+            let invoiceDate = new Date(data.invoice.created_at).toLocaleDateString('id-ID', onlyDateOpt)
             $('#ticket_bought_invoice').empty();
             $('#id_invoice').text(data.invoice.id);
             $('#username_invoice').text(data.invoice.username);
-            $('#tanggal_invoice').text(data.invoice.created_at);
-            $('#expired_date').text(data.invoice.expired_date);
+            $('#tanggal_invoice').text(invoiceDate);
+            $('#expired_date').text(expiredDate);
+
+            let status;
+            if (data.invoice.status == 'unpaid') {
+                status = `<p class="text-danger">Unpaid <i class="fa fa-times"></i></p>`
+            } else if (data.invoice.status == 'waiting') {
+                status = `<p class="text-info">Waiting <i class="fa fa-history"></i></p>`
+            } else if (data.invoice.status == 'verified') {
+                status = `<p class="text-success">Verified <i class="fa fa-check"></i></p>`
+            } else if (data.invoice.status == 'expired') {
+                status = `<p class="text-danger">Expired <i class="fa fa-times"></i></p>`
+            }
+
+            $('#status_invoice').html(status);
+
+            if (data.invoice.status == 'unpaid') {
+                $('#uploadPaymentButton').attr('disabled', false)
+            } else {
+                $('#uploadPaymentButton').attr('disabled', true)
+            }
 
             $.each(data.detail, function(index, value) {
                 $('#ticket_bought_invoice').append(
@@ -271,6 +330,7 @@ function uploadPembayaran() {
     $('#invoiceId').val(id_invoice);
     $('.modal').modal('hide');
     $('#uploadPembayaranModal').modal('show');
+    checkStatusTicket(id_invoice);
 }
 
 function detailTicket(id_ticket_bought) {
@@ -284,7 +344,7 @@ function detailTicket(id_ticket_bought) {
         },
         dataType: 'json',
         success: function(data) {
-            console.log(data);
+            let tanggal = new Date(data.tanggal).toLocaleDateString('id-ID', onlyDateOpt);
             $('#ticketBoughtDetail').html(
                 `
                 <div class="col-lg-12 col-md-12 mb-4">
@@ -296,9 +356,11 @@ function detailTicket(id_ticket_bought) {
                                <hr>
                                <div class="row no-gutters align-items-start">
                                     <div class="col mr-2">
-                                        <div><strong>` + data.tanggal + `</strong></div>
+                                        <div><strong>` + tanggal + `</strong></div>
                                         <div>` + data.start + ` - ` + data.end + `</div>
-                                        <div class="mt-2 mb-2">` + data.location + `</div>
+                                        <div class="mt-2 mb-2 text-success">` + data.location + `</div>
+                                        <div class="mt-2 mb-2"><a href="` + data.location_link + `">Lihat lokasi di map</a></div>
+                                        <div class="mt-2 mb-2 text-success">Blok ` + data.blok + `</div>
                                     </div>
                                     <div class ="col">
                                         <div><strong>` + data.nama + `</strong></div>
@@ -383,83 +445,18 @@ function selectLocation() {
     $('#selectLocationModal').modal('show');
 }
 
-// function buyTicket() {
-//     $.ajax({
-//         type: 'get',
-//         url: '/Ticketing/Penonton/Ticket/GetCategories',
-//         data: {
-//             location: 'Edelweiss Grand Ballroom',
-//         },
-//         dataType: 'json',
-//         success: function(data) {
-//             $('#edelweissTickets').empty()
-//             $.each(data, function(index, value) {
-//                 $('#edelweissTickets').append(
-//                     `
-//                     <div class="col-lg-12 col-md-12 mb-4">
-//                             <div class="card border-left-primary shadow h-100 py-2">
-//                                 <div class="card-body">
-//                                     <div class="row no-gutters align-items-center">
-//                                         <div class="col mr-2">
-//                                             <div class="font-weight-bold text-primary text-uppercase mb-1">
-//                                                 ` + value.nama + `
-//                                             </div>
-//                                             <hr>
-//                                             <div><strong>` + value.tanggal + `</strong></div>
-//                                             <div>` + value.start + ` - ` + value.end + `</div>
-//                                             <div class="mt-2 mb-2">` + value.location + `</div>
-//                                             <div class="form-group">
-//                                                 <label for=""><strong>Pilih Jenis Tiket</strong></label>
-//                                                 <select class="form-control" name="" id="subCategory` + value.id + `">
-//                                                 </select>
-//                                             </div>
-//                                             <button class=" btn btn-primary" onclick='addToCart(` + value.id + `)'> <i class="fa fa-cart-plus"></i> Tambahkan ke keranjang</button>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     `
-//                 )
-//             })
-//         }
-//     })
-//     $.ajax({
-//         type: 'get',
-//         url: '/Ticketing/Penonton/Ticket/GetSubCategories',
-//         dataType: 'json',
-//         success: function(data) {
-//             $.each(data, function(index, value) {
-//                 $('#subCategory' + value.id_ticket_category).append(
-//                     `
-//                     <option value=` + value.id + `>` + value.nama + ` Harga Rp` + value.harga + `</option>
-//                     `
-//                 )
-//             })
-//         }
-//     })
-//     countOnCart('#ticketOnCart');
-
-//     $('.modal').modal('hide');
-//     setTimeout(function() {
-//         $('#buyTicketEdelweissModal').modal('show');
-//     }, 200);
-// }
-
-function buyTicket(location) {
+function buyTicket() {
     $.ajax({
         type: 'get',
         url: '/Ticketing/Penonton/Ticket/GetCategories',
-        data: {
-            location: location,
-        },
         dataType: 'json',
         success: function(data) {
             $('#tickets').empty()
                 // let selectedSeat = selected_seat ? selected_seat : '';
 
             $.each(data, function(index, value) {
-                // let selectSeat = (location == 'Kota Cinema Mall Jember') ? `<div class="mt-2 mb-2"><button class=" btn btn-primary" onclick='seatSelector(` + value.id + `)'> <i class="fa fa-cart-plus"></i> Tambahkan ke keranjang</button>` : ``;
+                let date = new Date(value.tanggal).toLocaleDateString("id-ID", onlyDateOpt)
+
                 $('#tickets').append(
                     `
                     <div class="col-lg-12 col-md-12 mb-4">
@@ -471,7 +468,7 @@ function buyTicket(location) {
                                                 ` + value.nama + `
                                             </div>
                                             <hr>
-                                            <div><strong>` + value.tanggal + `</strong></div>
+                                            <div><strong>` + date + `</strong></div>
                                             <div>` + value.start + ` - ` + value.end + `</div>
                                             <div class="mt-2 mb-2">` + value.location + `</div>
                                             <div class="form-group">
@@ -479,7 +476,7 @@ function buyTicket(location) {
                                                 <select class="form-control" name="" id="subCategory` + value.id + `">
                                                 </select>
                                             </div>
-                                            <button class=" btn btn-primary" onclick='addToCart(` + value.id + `)'> <i class="fa fa-cart-plus"></i> Tambahkan ke keranjang</button>
+                                            <button id="beliButton` + value.id + `" class=" btn btn-primary" onclick='checkOut(` + value.id + `)'> <i class="fa fa-cart-plus"></i> Beli</button>
                                             
                                         </div>
                                     </div>
@@ -497,15 +494,22 @@ function buyTicket(location) {
         dataType: 'json',
         success: function(data) {
             $.each(data, function(index, value) {
-                $('#subCategory' + value.id_ticket_category).append(
-                    `
+                checkKuota(value.id).done(function(kuota) {
+                    kuota > 0 ?
+
+                        $('#subCategory' + value.id_ticket_category).append(
+                            `
                     <option value=` + value.id + `>` + value.nama + ` Harga Rp` + value.harga + `</option>
                     `
-                )
+                        )
+
+                    :
+
+                    $('#beliButton' + value.id_ticket_category).attr('disabled', true).html('Kuota Habis');
+                })
             })
         }
     })
-    countOnCart('#ticketOnCart');
 
     $('.modal').modal('hide');
     setTimeout(function() {
@@ -513,50 +517,50 @@ function buyTicket(location) {
     }, 200);
 }
 
-// the fucking seat selector
+function checkKuota(id_sub_category) {
+    return $.getJSON('/Ticketing/Admin/Ticket/CheckKuota', { id_sub_category: id_sub_category })
+        .done(function(response) {
+            a = response
+                // console.log(a);
+                // return a
+        })
+}
 
-// function seatSelector(idCategory) {
-//     $('.modal').modal('hide');
-//     let selectedTicket = $('#subCategory' + idCategory + ' option:selected').val();
 
-//     $.ajax({
-//         type: 'get',
-//         url: '/Ticketing/Penonton/Ticket/GetSeat',
-//         data: {
-//             id_sub_category: selectedTicket,
-//         },
-//         dataType: "json",
-//         success: function(data) {
-//             $('#seat').empty()
-//             $.each(data, function(index, value) {
-//                 let namaSeat = value.nama;
-//                 let seatNumber = namaSeat.replace(/^\D+/g, '');
-//                 // let seatStatus = (value.seat_status == 'booked') ? "btn-secondary" : "";
-//                 let jalan = (seatNumber == 7) ? 'style="margin-right: 100px"' : '';
-//                 let selectedSeat = (selectedSeatId == value.id) ? 'btn-success' : '';
-//                 $('#seat').append(
-//                     `<div class="col" ` + jalan + `><button onclick="selectSeat('` + value.id + `', '` + value.nama + `')" id="seat` + value.id + `" class="seat-primary btn ` + seatStatus + ` btn-sm seat ` + selectedSeat + `" style="width: 50px">` + namaSeat + `</button></div>`
-
-//                 )
-//             })
-//         }
-//     })
-
-//     $('#seatSelectorModal').modal('show');
-// }
-
-// function selectSeat(id) {
-//     $('.seat').removeClass('btn-success');
-//     $('#seat' + id).addClass('btn-success');
-//     $('#saveSeat').html(`<button class="btn btn-success" type="button" onclick="buyTicket('Kota Cinema Mall Jember')">Ok</button>`)
-// }
 
 function closeBuyTicket() {
     $('#buyTicketModal').modal('hide');
-    // clearSeat();
 }
 
-// function clearSeat() {
-//     selectedSeatId = '';
-//     selectedSeatName = '';
-// }
+function checkStatusTicket(id_invoice) {
+    $.ajax({
+        type: 'get',
+        url: '/Ticketing/Penonton/Ticket/CheckStatusTicket',
+        data: {
+            id_invoice: id_invoice,
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data == 'expired') {
+                $('.modal').modal('hide');
+                alert('Maaf invoice sudah Expired');
+            }
+        }
+    })
+}
+
+function checkKuotaAll() {
+    $.ajax({
+        type: 'get',
+        url: '/Ticketing/Admin/Ticket/CheckKuotaAll',
+        dataType: 'json',
+        success: function(data) {
+            $('#sisaKuota').empty()
+            $.each(data, function(index, value) {
+                $('#sisaKuota').append(
+                    `<div class="row mb-0 font-weight-bold text-gray-800""><div class="col-lg-8 col-6 col-md-7">` + value.nama_category + `</div><div class="col"><span class="text-primary">` + value.sisa_kuota + `</span></div></div>`
+                );
+            })
+        }
+    })
+}
