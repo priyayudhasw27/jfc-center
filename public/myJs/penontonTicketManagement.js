@@ -159,22 +159,26 @@ function checkOut(idCategory) {
     let nomorHp = $('#nomorHpPemesan').val();
 
     if (nama && nomorHp) {
-        $.ajax({
-            type: 'post',
-            url: '/Ticketing/Penonton/Ticket/CheckOut',
-            data: {
-                id_ticket_sub: selectedTicket,
-                nama: nama,
-                email: email,
-                no_hp: nomorHp,
-            },
-            dataType: 'json',
-            success: function(data) {
-                countOnCart('#ticketOnCartDashboard');
-                openInvoiceDetail(data);
-            }
-        })
-        alert('Berhasil')
+        if (selectedTicket) {
+            $.ajax({
+                type: 'post',
+                url: '/Ticketing/Penonton/Ticket/CheckOut',
+                data: {
+                    id_ticket_sub: selectedTicket,
+                    nama: nama,
+                    email: email,
+                    no_hp: nomorHp,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    countOnCart('#ticketOnCartDashboard');
+                    openInvoiceDetail(data);
+                }
+            })
+            alert('Berhasil')
+        } else {
+            alert('Ticket tidak terpilih. Pilih tiket atau refresh browser')
+        }
     } else {
         alert('Harap lengkapi biodata pemilik ticket')
     }

@@ -179,6 +179,7 @@ class Ticket extends BaseController
 
 		$result = $invoiceModel->select('*')
 			->where('ticket_invoice.username', $username)
+			->orderBy('created_at', 'DESC')
 			->get()->getResult();
 
 		return json_encode($result);
@@ -219,6 +220,8 @@ class Ticket extends BaseController
 		$file->move('assets/payment/', $fileName);
 
 		$paymentModel = new TicketPaymentModel();
+		$ticketBoughtModel = new TicketBoughtModel();
+
 		$data = [
 			'id_invoice' => $invoiceId,
 			'username' => $username,
@@ -233,6 +236,14 @@ class Ticket extends BaseController
 			'status' => 'waiting'
 		];
 		$invoiceModel->update($invoiceId, $data);
+
+		$idTicketBought = $invoiceModel->select('ticket_bought.id')
+			->where('id', $invoiceId)
+			->join('ticket_invoice_detail', 'ticket_invoice_detail.id_invoice = ticket_invoice.id')
+			->join('ticket_bought', 'ticket_bought.id = ticket_invoice_detail.id_ticket_bought')
+			->get()
+			->getResult();
+		$ticketBoughtModel->update($idTicketBought->id, $data);
 
 		return redirect()->back();
 	}

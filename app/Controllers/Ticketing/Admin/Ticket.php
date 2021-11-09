@@ -104,6 +104,7 @@ class Ticket extends BaseController
 
 		$result = $invoiceModel->select('*')
 			->where('status', 'waiting')
+			->orderBy('created_at', 'DESC')
 			->get()->getResult();
 
 		return json_encode($result);
@@ -295,6 +296,7 @@ class Ticket extends BaseController
 		$result = $invoiceModel->select('ticket_invoice.id, ticket_bought.id AS id_ticket_bought')
 			->where('expired_date >=', $start)
 			->where('expired_date <=', $end)
+			->where('ticket_invoice.status', 'unpaid')
 			->join('ticket_invoice_detail', 'ticket_invoice_detail.id_invoice = ticket_invoice.id')
 			->join('ticket_bought', 'ticket_bought.id = ticket_invoice_detail.id_ticket_bought')
 			->get()
