@@ -371,6 +371,7 @@ function detailTicket(id_ticket_bought) {
                                         <div>` + data.email + `</div>
                                         <div>` + data.no_hp + `</div>
                                         <div class="mt-2"><img src="` + data.bar_code + `"></div>
+                                        <div class="mt-2"><img src="` + data.id_ticket + `"></div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary" type="button" data-dismiss="modal" aria-label="Close">Tutup</button>

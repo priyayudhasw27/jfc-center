@@ -18,6 +18,7 @@ $(document).ready(function() {
         checkKuotaAll();
         getWaitingInvoice();
     }, 10000);
+    setInterval("window.location.reload()", 180000);
 })
 
 let fullDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -184,6 +185,7 @@ function openAddTicketSubCategory() {
 }
 
 function openPortal() {
+    $('#asyu').val('');
     $('#portalModal').modal('show');
     setTimeout(function() {
         $('#asyu').focus();
