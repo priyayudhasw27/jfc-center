@@ -78,8 +78,10 @@ class Dashboard extends BaseController
             ];
             echo view('/Dashboard/Level100/Index', $data);
         }else if ($userData['id_level'] == 4) {
+
             return redirect()->to('/Ticketing/Penonton/Dashboard');
         }else if ($userData['id_level'] == 5) {
+
             return redirect()->to('/Ticketing/Admin/Dashboard');
         }
     }

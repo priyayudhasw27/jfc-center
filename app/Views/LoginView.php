@@ -68,7 +68,8 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                Belum punya akun? <a class="small" href="/Registrasi">Klik di sini untuk mendaftar</a>
+                                <!--Belum punya akun? <a class="small" href="/Registrasi">Klik di sini untuk mendaftar</a>-->
+                                Belum punya akun? <a class="small" href="/Ticketing/Registrasi">Klik di sini untuk mendaftar</a>
                             </div>
                             <div>
                                 <a class="btn btn-success btn-user btn-block mt-4" href="/Ticketing/Registrasi">Buy Tickets Now!</a>

@@ -238,12 +238,12 @@ class Ticket extends BaseController
 		$invoiceModel->update($invoiceId, $data);
 
 		$idTicketBought = $invoiceModel->select('ticket_bought.id')
-			->where('id', $invoiceId)
+			->where('ticket_invoice.id', $invoiceId)
 			->join('ticket_invoice_detail', 'ticket_invoice_detail.id_invoice = ticket_invoice.id')
 			->join('ticket_bought', 'ticket_bought.id = ticket_invoice_detail.id_ticket_bought')
 			->get()
 			->getResult();
-		$ticketBoughtModel->update($idTicketBought->id, $data);
+		$ticketBoughtModel->update($idTicketBought[0]->id, $data);
 
 		return redirect()->back();
 	}
@@ -276,7 +276,7 @@ class Ticket extends BaseController
 	{
 		$ticketBoughtModel = new TicketBoughtModel();
 		$id = $this->request->getVar('id_ticket_bought');
-		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_bought.id AS id_ticket, ticket_sub_category.nama AS nama_sub_category, ticket_category.*, ticket_category.nama AS nama_category')
+		$result = $ticketBoughtModel->select('ticket_bought.*, ticket_bought.nama AS nama_pemilik, ticket_bought.id AS id_ticket, ticket_sub_category.nama AS nama_sub_category, ticket_category.*, ticket_category.nama AS nama_category')
 			->where('ticket_bought.id', $id)
 			->join('ticket_sub_category', ' ticket_sub_category.id = ticket_bought.id_ticket_sub')
 			->join('ticket_category', ' ticket_category.id = ticket_sub_category.id_ticket_category')

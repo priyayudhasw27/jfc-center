@@ -5,6 +5,7 @@ namespace App\Controllers\Ticketing\Admin;
 use App\Controllers\BaseController;
 use App\Models\TicketBoughtModel;
 use App\Models\TicketCategoryModel;
+use App\Models\TicketInVenueModel;
 use App\Models\TicketSubCategoryModel;
 use App\Models\TicketInvoiceModel;
 use App\Models\TicketInvoiceDetailModel;
@@ -102,9 +103,10 @@ class Ticket extends BaseController
 	{
 		$invoiceModel = new TicketInvoiceModel();
 
-		$result = $invoiceModel->select('*')
+		$result = $invoiceModel->select('ticket_invoice.*, penonton.nama_lengkap')
 			->where('status', 'waiting')
-			->orderBy('created_at', 'DESC')
+			->join('penonton', 'penonton.username = ticket_invoice.username', 'left')
+			->orderBy('ticket_invoice.created_at', 'DESC')
 			->get()->getResult();
 
 		return json_encode($result);
@@ -236,13 +238,6 @@ class Ticket extends BaseController
 		return json_encode($result);
 	}
 
-	public function CountTicketInVenue()
-	{
-		$ticketBoughtModel = new TicketBoughtModel();
-		$result = $ticketBoughtModel->select('*')->where('in_venue', 'yes')->countAllResults();
-		return json_encode($result);
-	}
-
 	public function GetBoughtTicketDetail()
 	{
 		$ticketBoughtModel = new TicketBoughtModel();
@@ -255,17 +250,7 @@ class Ticket extends BaseController
 		return json_encode($result);
 	}
 
-	public function CheckIn()
-	{
-		$ticketBoughtModel = new TicketBoughtModel();
-		$idBoughtTicket = $this->request->getVar('id_ticket_bought');
-		$data = [
-			'in_venue' => 'yes',
-		];
-		$ticketBoughtModel->update($idBoughtTicket, $data);
 
-		return json_encode('success');
-	}
 
 	public function DeleteCategory()
 	{
@@ -376,6 +361,49 @@ class Ticket extends BaseController
 				'sisa_kuota' => $sisaKuota,
 			];
 		}
+		return json_encode($result);
+	}
+
+	// PORTAL STUFF
+	public function CheckIn()
+	{
+		$ticketBoughtModel = new TicketBoughtModel();
+		$ticketInVenueModel = new TicketInVenueModel();
+		$idBoughtTicket = $this->request->getVar('id_ticket_bought');
+		$data1 = [
+			'in_venue' => 'yes',
+		];
+		$ticketBoughtModel->update($idBoughtTicket, $data1);
+		$uhuy = $ticketBoughtModel->find($idBoughtTicket);
+		$data = [
+			'username' => $uhuy->username,
+			'nama_lengkap' => $uhuy->nama,
+			'id_ticket_bought' => $uhuy->id,
+			'id_ticket_sub' => $uhuy->id_ticket_sub,
+		];
+		$ticketInVenueModel->insert($data);
+
+		return json_encode('success');
+	}
+
+
+	public function CountTicketInVenue()
+	{
+		$ticketInVenueModel = new TicketInVenueModel();
+		$result = $ticketInVenueModel->select('*')->where('tanggal', date('Y-m-d', time()))->countAllResults();
+		return json_encode($result);
+	}
+
+	public function GetTicketInVenue()
+	{
+		$ticketInVenueModel = new TicketInVenueModel();
+		$result = $ticketInVenueModel->select('ticket_in_venue.*, ticket_category.nama AS event')
+			->where('ticket_in_venue.tanggal', date('Y-m-d', time()))
+			->join('ticket_sub_category', ' ticket_sub_category.id = ticket_in_venue.id_ticket_sub')
+			->join('ticket_category', ' ticket_category.id = ticket_sub_category.id_ticket_category')
+			->orderBy('ticket_in_venue.waktu', 'DESC')
+			->get()
+			->getResult();
 		return json_encode($result);
 	}
 }

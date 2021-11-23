@@ -161,7 +161,7 @@
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="workshopDone"><span id="totalTicketInVenue"></span> Visitor</div>
                                             </div>
                                             <div class="col mr-2">
-                                                <button class="btn btn-primary" onclick="openPortal()">Open Portal</button>
+                                                <a class="btn btn-primary" href="/Ticketing/Admin/Portal">Open Portal</a>
                                             </div>
                                         </div>
                                     </div>
@@ -207,9 +207,11 @@
                                 <table class="table table-bordered" id="ticketTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>ID Invoice</th>
                                             <th>Tanggal</th>
                                             <th>Username</th>
+                                            <th>Nama</th>
                                             <th>Total</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -521,7 +523,7 @@
 
     <!-- Unpaid Invoice Modal-->
     <div class="modal fade" id="unpaidInvoiceModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Unpaid Invoice</h5>
@@ -557,7 +559,7 @@
 
     </script>
 
-    <script src="/myJs/adminTicketManagement.js?t=1"></script>
+    <script src="/myJs/adminTicketManagement.js?t=17"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

@@ -108,6 +108,10 @@
                                             </div>
                                             <div class="col ml-4">
                                                 <button class="btn btn-primary" onclick="buyTicket()">Buy Ticket</button>
+                                                <!--<button class="btn btn-primary" disabled>Buy Ticket</button>-->
+                                                <!--<div class="text-danger">Buka kembali pukul 08.00</div>-->
+                                                <!--<div class="text-danger" onclick="buyTicket()">Buka kembali pukul 08.00</div>-->
+                                                <!--<div class="text-danger" onclick="buyTicket()">Under Maintenance</div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -353,7 +357,7 @@
                     <div class="text-center">
                         Silahkan melakukan pembayaran dengan cara transfer ke Nomor Rekening :
                     </div>
-                    <div class="text-center font-weight-bold text-primary">081354968465</div>
+                    <div class="text-center font-weight-bold text-primary">0242516000</div>
                     <div class="text-center">BANK BCA</div>
                     <div class="text-center">Atas Nama <strong class="text-primary">Yayasan Jember Fashion Carnaval</strong> </div>
                     <hr>
@@ -422,7 +426,7 @@
                         <div class="col">
                             <h4 class="mb-4">Silahkan upload bukti pembayaran</h4>
                             <div class="form-group">
-                                <input class="form-control" type="file" name="payment" id="" accept="image/*" capture>
+                                <input class="form-control" type="file" name="payment" id="" accept="image/*">
                                 <input hidden type="text" id="invoiceId" name="invoiceId">
                             </div>
                         </div>
@@ -468,7 +472,7 @@
         </div>
     </div>
 
-    <script src="/myJs/penontonTicketManagement.js?t=12345"></script>
+    <script src="/myJs/penontonTicketManagement.js?t=16"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>

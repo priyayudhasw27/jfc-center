@@ -18,7 +18,7 @@ $(document).ready(function() {
         checkKuotaAll();
         getWaitingInvoice();
     }, 10000);
-    setInterval("window.location.reload()", 180000);
+    setInterval("window.location.reload()", 1800000);
 })
 
 let fullDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -299,9 +299,11 @@ function getWaitingInvoice() {
                 $('#invoiceTableData').append(
                     `
                 <tr>
+                <td>` + (index + 1) + `</td>
                     <td>` + value.id + `</td>
                     <td>` + date + `</td>
                     <td>` + value.username + `</td>
+                    <td>` + value.nama_lengkap + `</td>
                     <td>Rp ` + value.total + `</td>
                     <td><button class="btn btn-primary" onclick="openInvoiceDetail(` + value.id + `)">Detail</button></td>
                 </tr>
@@ -386,70 +388,7 @@ function countTicketBought(where) {
     })
 }
 
-$('#asyu').keyup(function() {
-    $.ajax({
-        type: 'get',
-        url: '/Ticketing/Admin/Ticket/GetBoughtTicketDetail',
-        data: {
-            id_ticket_bought: $('#asyu').val(),
-        },
-        dataType: 'json',
-        success: function(data) {
-            let inVenueText
-            let statusText
-            if (data.status == 'unpaid') {
-                statusText = `<div class="text-danger"><i class="fa fa-times"></i>Ticket Unpaid</div>`
-            } else if (data.status == 'waiting') {
-                statusText = `<div class="text-info"><i class="fa fa-history"></i> Waiting Payment</div>`
-            } else if (data.status == 'verified') {
-                statusText = `<div class="text-success"><i class="fa fa-check"></i> Ticket Verified!</div>`
-            }
 
-            data.in_venue == 'yes' ? inVenueText = `<div class="text-danger"><i class="fa fa-times"></i> Sudah Check In</div>` : inVenueText = '';
-
-            $('#ticketBoughtDetailPortal').html(
-                `
-                <div class="text-center"><img src="` + data.bar_code + `"></div>
-                <hr>
-                <div class="text-center">
-                    <strong>` + data.nama_category + ` - ` + data.nama_sub_category + `</strong>
-                    <h4>` + data.nama + `</h4>
-                    <p class="text-primary">` + data.location + `</p>
-                    ` + statusText + `
-                    ` + inVenueText + `
-                </div>
-                `
-            );
-        }
-    })
-})
-
-function checkIn() {
-    $.ajax({
-        type: 'post',
-        url: '/Ticketing/Admin/Ticket/CheckIn',
-        data: {
-            id_ticket_bought: $('#asyu').val(),
-        },
-        dataType: 'json',
-        success: function(data) {
-            $('#asyu').val('');
-            $('#asyu').focus();
-            countTicketInVenue('#totalTicketInVenue')
-        }
-    })
-}
-
-function countTicketInVenue(where) {
-    $.ajax({
-        type: 'get',
-        url: '/Ticketing/Admin/Ticket/CountTicketInVenue',
-        dataType: 'json',
-        success: function(data) {
-            $(where).text(data);
-        }
-    })
-}
 
 function deleteCategory(id) {
     $.ajax({

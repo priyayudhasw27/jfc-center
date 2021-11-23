@@ -1,28 +1,27 @@
 $(document).ready(function() {
-    countOnCart('#ticketOnCartDashboard');
-    countUnpaidInvoice('#totalUnpaidInvoice');
-    countWaitingInvoice('#totalWaitingInvoice');
-    countPaidInvoice('#totalPaidInvoice');
-    countBoughtTicket('#totalBoughtTicket');
+    updateStats();
     getBoughtTicket();
     checkExpired();
     checkKuotaAll();
 
     setInterval(function() {
-        countOnCart('#ticketOnCartDashboard');
-        countUnpaidInvoice('#totalUnpaidInvoice');
-        countWaitingInvoice('#totalWaitingInvoice');
-        countPaidInvoice('#totalPaidInvoice');
-        countBoughtTicket('#totalBoughtTicket');
         getBoughtTicket();
-        checkExpired();
-        checkKuotaAll();
+        // checkExpired();
+        // checkKuotaAll();
     }, 10000);
 })
 
 let fullDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 let onlyDateOpt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
+
+function updateStats() {
+    // countOnCart('#ticketOnCartDashboard');
+    countUnpaidInvoice('#totalUnpaidInvoice');
+    countWaitingInvoice('#totalWaitingInvoice');
+    countPaidInvoice('#totalPaidInvoice');
+    countBoughtTicket('#totalBoughtTicket');
+}
 
 function checkExpired() {
     $.ajax({
@@ -175,6 +174,7 @@ function checkOut(idCategory) {
                     openInvoiceDetail(data);
                 }
             })
+            updateStats();
             alert('Berhasil')
         } else {
             alert('Ticket tidak terpilih. Pilih tiket atau refresh browser')
@@ -262,6 +262,7 @@ function openInvoice() {
             })
         }
     })
+    updateStats();
     $('#invoiceModal').modal('show');
 }
 
@@ -367,11 +368,11 @@ function detailTicket(id_ticket_bought) {
                                         <div class="mt-2 mb-2 text-success">Blok ` + data.blok + `</div>
                                     </div>
                                     <div class ="col">
-                                        <div><strong>` + data.nama + `</strong></div>
+                                        <div><strong>` + data.nama_pemilik + `</strong></div>
                                         <div>` + data.email + `</div>
                                         <div>` + data.no_hp + `</div>
                                         <div class="mt-2"><img src="` + data.bar_code + `"></div>
-                                        <div class="mt-2"><img src="` + data.id_ticket + `"></div>
+                                        <div class="mt-2">` + data.id_ticket + `</div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary" type="button" data-dismiss="modal" aria-label="Close">Tutup</button>
